@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\Receipt;
 use App\Models\UserReceiptIngredient;
 use App\Models\UserReceiptStep
+
 class UserReceipt extends Model
 {
-    //
+    
     protected $fillable = [
         'assign_id',
         'receipt_id'

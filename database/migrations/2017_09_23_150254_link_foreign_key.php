@@ -13,7 +13,6 @@ class LinkForeignKey extends Migration
      */
     public function up()
     {
-        //
         Schema::table('follows', function ($table) {
             $table->foreign('follower_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('following_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
@@ -86,6 +85,9 @@ class LinkForeignKey extends Migration
      */
     public function down()
     {
-        //
-    }
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->dropForeign('category_id');
+            $table->dropColumn('category_id');
+        });
+    } 
 }

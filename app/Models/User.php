@@ -11,8 +11,11 @@ use App\Models\SocialAccount;
 use App\Models\Order;
 use App\Models\Receipt;
 use App\Models\UserReceipt;
+use App\Models\Level;
+
 class User extends Authenticatable
 {
+    
     use Notifiable;
 
     /**
@@ -25,6 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
+        'level_id',
         'avatar',
         'status',
         'address'
@@ -73,6 +77,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserReceipt::class);
     }
-    
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
+    }
     
 }

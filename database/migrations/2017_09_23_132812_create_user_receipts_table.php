@@ -29,5 +29,5 @@ class CreateUserReceiptsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('user_receipts');
-    }
+    } 
 }

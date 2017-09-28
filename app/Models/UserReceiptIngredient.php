@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserReceipt;
 use App\Models\Ingredient;
+
 class UserReceiptIngredient extends Model
 {
-    //
+    
     protected $fillable = [
         'id',
         'user_id',

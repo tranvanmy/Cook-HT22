@@ -12,9 +12,11 @@ use App\Models\ReceiptStep;
 use App\Models\ReceiptIngredient;
 use App\Models\Foody;
 use App\Models\ReceiptFoody;
+use App\Models\Level;
+
 class Receipt extends Model
 {
-    //
+    
     protected $fillable = [
         'name',
         'description',
@@ -68,6 +70,11 @@ class Receipt extends Model
     public function foodies()
     {
         return $this->hasMany(Foody::class);
+    }
+    
+    public function level()
+    {
+        return $this->belongsTo(Level::class);
     }
     
 }

@@ -31,5 +31,5 @@ class CreateUserReceiptIngredientsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('user_receipt_ingredients');
-    }
+    }  
 }

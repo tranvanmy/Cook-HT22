@@ -34,5 +34,5 @@ class UpdateUsers extends Migration
             $table->dropColumn('status');
             $table->dropColumn('address');
         });
-    }
+    } 
 }

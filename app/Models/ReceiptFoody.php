@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Foody;
 use App\Models\Receipt;
+
 class ReceiptFoody extends Model
 {
-    //
+    
     protected $fillable = [
         'receipt_id',
         'foody_id'

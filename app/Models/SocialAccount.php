@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+
 class SocialAccount extends Model
 {
-    //
+    
     protected $fillable = [
         'social_id',
         'social_type',

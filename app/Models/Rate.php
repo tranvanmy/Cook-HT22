@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Receipt;
 use App\Models\User;
+
 class Rate extends Model
 {
-    //
+    
     protected $fillable = [
         'id',
         'user_id',
