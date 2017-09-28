@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\OrderDetail;
+
 class Order extends Model
 {
-    //
+    
     protected $fillable = [
         'name',
         'email',

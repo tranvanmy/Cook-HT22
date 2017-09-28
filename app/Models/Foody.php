@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Foody;
+
 class Foody extends Model
 {
-    //
+    
     protected $fillable = [
         'name',
         'description',
