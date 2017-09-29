@@ -24,9 +24,10 @@ class Category extends Model
     {
         return $query->find($id);
     }
-
+    
     public function scopeParentID($query, $parent_id)
     {
         return $query->where("parent_id", $parent_id);
     }
+    
 }

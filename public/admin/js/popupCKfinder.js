@@ -5,6 +5,11 @@ $(document).ready(function () {
         selectFileWithCKFinder('ckfinder-input');
     };
 
+    var button2 = document.getElementById('ckfinder-popup2');
+
+    button2.onclick = function () {
+        selectFileWithCKFinder('ckfinder-input2');
+    };
     function selectFileWithCKFinder(elementId) {
         CKFinder.modal({
             chooseFiles: true,

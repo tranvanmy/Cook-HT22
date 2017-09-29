@@ -103,7 +103,7 @@
 		'youHaveAccount' => 'Bạn đã có tài khoản?',
 		'confirmPassword' => 'Xác nhận mật khẩu',
 		'password' => 'Mật khẩu',
-		'category' => 'Thể loại',
+		'category' => 'danh mục',
 		'notify'=>"Thông báo",
 		'fanpage' =>'Fanpage của Framgia Culinary',
 		'instagram' =>'Instagram của Framgia Culinary',
@@ -113,6 +113,6 @@
 		'email' => 'Email',
 		'cate_ingre' => 'Danh mục nguyên liệu',
 		'cate_foody'=>'Danh mục món ăn',
-		'close' => 'Đóng'
+		'close' => 'Đóng',
+		'chooseParent' => 'Chọn danh mục cha'
 	];
-	

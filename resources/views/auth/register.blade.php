@@ -25,9 +25,11 @@
                         <div class="login-social">
                             <div class="social-icon">
                                 <ul class="list-unstyled">
-                                    <li class="fb wide"><a class="social-login"
-                                                           href="{{ url('social/redirect') }}"><span
-                                                    class="child"></span><span>{{ trans("sites.loginWithFramgia") }}</span></a>
+                                    <li class="fb wide">
+                                        <a class="social-login" href="{{ url('social/redirect') }}">
+                                            <span class="child"></span>
+                                            <span>{{ trans("sites.loginWithFramgia") }}</span>
+                                        </a>
                                     </li>
                                     <li class="clearfix separator"></li>
                                 </ul>

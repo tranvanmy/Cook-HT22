@@ -49,8 +49,8 @@ class RegisterController extends Controller
     {
         $message = array(
             'name.required' => 'Không được để trống',
-            'name.max' =>"Email tối đa 255 kí tự",
-            'name.min' =>"Email tối thiểu 20 kí tự",
+            'name.max' => "Email tối đa 255 kí tự",
+            'name.min' => "Email tối thiểu 10 kí tự",
             'confirmPassword.same' => "Mật khẩu nhập lại không đúng",
             'password.min' => 'Mật khẩu trên 6 kí tự',
             'email.required' => 'Không được để trống email',
@@ -81,7 +81,7 @@ class RegisterController extends Controller
             'remember_token' => $data['_token'],
             'role' => (isset($data['role']) ? $data['role'] : 2),
             'status' => (isset($data['status']) ? $data['status'] : 1),
-            'avatar' => '/image/user.png'
+            'avatar' => '/imageStatic/user.jpg'
         ]);
     }
 }

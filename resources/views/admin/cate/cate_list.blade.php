@@ -1,12 +1,13 @@
 @extends("admin.master")
 
-@section("controller", trans('sites.ingredient') )
+@section("controller", trans('sites.cate_ingre') )
 
 @section("action", trans('sites.list') )
 
 @section("content")
     <button type="button" class="btn btn-primary btn-ms" data-toggle="modal"
             data-target="#addCate">{{ trans("sites.add") }}
+        {{ trans("sites.category") }}
     </button><br><br>
     <div id="addCate" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -18,9 +19,9 @@
                 <div class="modal-body">
                     <form method="post" action="{{ route('postAddCate') }}" id="frm-cate-add">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                        <label>Tên thể loại</label>
+                        <label>{{ trans("sites.name") }} {{ trans("sites.category") }}</label>
                         <input type="text" class="form-control" id="name_cate" value=""/>
-                        <label>Chọn thể loại cha</label>
+                        <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltCategory" name="sltCategory" class="form-control">
                             <option value="0">None</option>
                             {{ cate_parent($cate) }}
@@ -40,8 +41,6 @@
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
     <!--  -->
     <div id="editCate" class="modal fade" role="dialog">
@@ -57,9 +56,9 @@
                     <form method="post" action="{{ route('postEditCate') }}" id="frm-cate-edit">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                         <input type="hidden" name="id" id="idCate" value=""/>
-                        <label>Tên thể loại</label>
+                        <label>{{ trans("sites.name") }} {{ trans("sites.category") }}</label>
                         <input type="text" class="form-control" name="name_cate" id="name_cate" value=""/>
-                        <label>Chọn thể loại cha</label>
+                        <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltCategory" name="sltCategory" class="form-control">
                             <option value="0">None</option>
                             {{ cate_parent($cate) }}
@@ -95,24 +94,15 @@
         </tr>
         </thead>
         <tbody>
-
         @foreach($cate as $key => $item)
             <tr class="odd gradeX rows{{ $item->id }}" align="center">
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
                 <td>
-                    @if($item->parent_id == 0)
-                        {!! "None" !!}
-                    @else
-                        {{ $parent_name }}
-                    @endif
+                    {{ $item->parent_id == 0 ? "None" : $parent_name }}
                 </td>
                 <td>
-                    @if($item->status == 1)
-                        {{ trans("sites.active") }}
-                    @else
-                        {{ trans("sites.unactive") }}
-                    @endif
+                    {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
                 </td>
                 <td class="center"><a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
                                       href="{{ route('getDeleteCate',$item->id) }}">
@@ -131,6 +121,5 @@
     </table>
 @endsection
 @section("script")
-    {{ Html::script("admin/js/foody.js") }}
     {{ Html::script("admin/js/cate.js") }}
 @endsection

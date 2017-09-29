@@ -12,15 +12,15 @@ class CateController extends Controller
 
     public function getList()
     {
-        $parent_name='';
+        $parent_name = '';
         $cate = Category::all();
         foreach ($cate as $value) {
-            if($value->parent_id != 0){
+            if ($value->parent_id != 0) {
                 $parent = Category::GetID($value->parent_id)->first();
                 $parent_name = $parent->name;
             }
         }
-        return view("admin.cate.cate_list", compact("cate","parent_name"));
+        return view("admin.cate.cate_list", compact("cate", "parent_name"));
     }
 
     public function postAdd(Request $request)
@@ -62,5 +62,5 @@ class CateController extends Controller
             notify("Bạn không thể xóa thể loại này", "getListCate");
         }
     }
-    
+
 }
