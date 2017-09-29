@@ -95,3 +95,4 @@ function notify($notify, $route)
     echo route($route);
     echo "'</script>";
 }
+

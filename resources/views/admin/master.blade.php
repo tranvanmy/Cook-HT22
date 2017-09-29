@@ -99,7 +99,7 @@
                         <a href="{{ route('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.category") }}<span
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}<span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -109,7 +109,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}<span
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.ingredient") }}<span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
@@ -122,14 +122,11 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-cube fa-fw"></i> {{ trans("sites.foody") }}<span
+                        <a href="#"><i class="fa fa-cube fa-fw"></i> {{ trans("sites.cate_foody") }}<span
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">{{ trans("sites.list") }}</a>
-                            </li>
-                            <li>
-                                <a href="#">{{ trans("sites.add") }}</a>
+                                <a href="{{ route('getListFoody') }}">{{ trans("sites.list") }}</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -208,9 +205,9 @@
 <!-- DataTables JavaScript -->
 <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
-
 <script src="{{ asset('admin/js/main.js') }}"></script>
 @yield("script")
+
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 </body>
 </html>

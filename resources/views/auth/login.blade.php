@@ -63,7 +63,8 @@
                                 </div>
                                 <div class="login-row">
                                     <div>
-                                        <input class="form-control" id="password" name="password" placeholder="{{ trans('sites.password') }}"
+                                        <input class="form-control" id="password" name="password"
+                                               placeholder="{{ trans('sites.password') }}"
                                                type="password"/>
                                     </div>
                                 </div>

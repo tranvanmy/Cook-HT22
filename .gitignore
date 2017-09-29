@@ -9,6 +9,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
-/resources/views/vendor
 /storage
 /public/bower_components
+composer.lock
