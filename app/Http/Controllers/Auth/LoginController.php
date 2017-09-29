@@ -44,9 +44,9 @@ class LoginController extends Controller
         if (!Auth::check())
             return view("auth.login");
         else {
-            if (Auth::user()->level_id == 1)
+            if (Auth::user()->role == 1)
                 return redirect("admin/dashboard");
-            else if (Auth::user()->level_id == 2)
+            else if (Auth::user()->role == 2)
                 return redirect("/");
         }
     }
@@ -58,9 +58,9 @@ class LoginController extends Controller
             'password' => $request->password
         ];
         if (Auth::attempt($auth)) {
-            if (Auth::user()->level_id == 1)
+            if (Auth::user()->role == 1)
                 return redirect("admin/dashboard");
-            else if (Auth::user()->level_id == 2)
+            else if (Auth::user()->role == 2)
                 return redirect("/");
         } else {
             return redirect()->back()->withErrors([
@@ -72,7 +72,6 @@ class LoginController extends Controller
     public function getLogout()
     {
         Auth::logout();
-        
-        return redirect()->route("login");
+        return redirect("/");
     }
 }

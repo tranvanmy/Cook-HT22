@@ -49,13 +49,14 @@ class RegisterController extends Controller
     {
         $message = array(
             'name.required' => 'Không được để trống',
+            'name.max' =>"Email tối đa 255 kí tự",
+            'name.min' =>"Email tối thiểu 20 kí tự",
             'confirmPassword.same' => "Mật khẩu nhập lại không đúng",
             'password.min' => 'Mật khẩu trên 6 kí tự',
             'email.required' => 'Không được để trống email',
             'email.email' => "Không nhập đúng định dạng email",
             'password.required' => 'Không được để trống Mật khẩu',
-            'confirmPassword.required' => "Không được để trống Xác nhấn mật khẩu",
-            'email.min' => 'Email đăng ký tối thiểu 10 kí tự'
+            'confirmPassword.required' => "Không được để trống Xác nhấn mật khẩu"
         );
         return Validator::make($data, [
             'name' => 'required|string|max:255|min:10',
@@ -78,7 +79,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'remember_token' => $data['_token'],
-            'level_id' => (isset($data['level_id']) ? $data['level_id'] : 2),
+            'role' => (isset($data['role']) ? $data['role'] : 2),
             'status' => (isset($data['status']) ? $data['status'] : 1),
             'avatar' => '/image/user.png'
         ]);

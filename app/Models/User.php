@@ -28,7 +28,7 @@ class User extends Authenticatable
         'email',
         'password',
         'phone',
-        'level_id',
+        'role',
         'avatar',
         'status',
         'address'
@@ -77,9 +77,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserReceipt::class);
     }
+
     public function level()
     {
         return $this->belongsTo(Level::class);
     }
     
+    public function scopeEmail($query,$email)
+    {
+        return $query->where("email",$email);
+    }
 }

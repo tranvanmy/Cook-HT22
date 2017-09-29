@@ -2,7 +2,12 @@
 
 @section("title","Đăng nhập")
 
+@section("style")
+    {{ Html::style("users/css/register.css") }}
+@endsection
+
 @section('content')
+
     <section class="register-maincontent login-maincontent">
         <div class="bg-page-cover"></div>
         <div class="container body-content">
@@ -36,7 +41,8 @@
                         </div>
                     </div>
                     <div>
-                        {{ trans("sites.notActive") }} <a class="highlight" href="gop-y.html">{{ trans("sites.here") }}</a>
+                        {{ trans("sites.notActive") }}
+                        <a class="highlight" href="gop-y.html">{{ trans("sites.here") }}</a>
                     </div>
                 </div>
                 <div class="col-md-6 register-form">
@@ -47,7 +53,6 @@
                     <div class="login-form-container">
                         <form action="#" method="POST">
                             <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                            <div></div>
 
                             <div class="login-inputs">
                                 <div class="login-row">

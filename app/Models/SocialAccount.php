@@ -7,7 +7,7 @@ use App\Models\User;
 
 class SocialAccount extends Model
 {
-    
+
     protected $fillable = [
         'social_id',
         'social_type',
@@ -16,21 +16,16 @@ class SocialAccount extends Model
 
     public function user()
     {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
-    
+
     public function scopeSocialID($query, $id)
     {
-    	return $query->where("social_id", $id);
+        return $query->where("social_id", $id);
     }
 
-    public function scopeSocialType($query, $id)
+    public function scopeSocialType($query, $type)
     {
-    	return $query->where("social_type", $id);
-    }
-
-    public function scopeEmail($query, $id)
-    {
-    	return $query->where("email", $id);
+        return $query->where("social_type", $type);
     }
 }

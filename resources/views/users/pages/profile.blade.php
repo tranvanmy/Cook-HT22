@@ -458,4 +458,7 @@
         </div>
     </div>
 @endsection
+@section("script")
+    <script src="{{ asset('users/js/profile.js') }}"></script>
+@endsection
             

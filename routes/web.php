@@ -29,10 +29,12 @@ Route::get("abc", function () {
 //Admin
 Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
     Route::get("dashboard", [
-        'as' => 'dashboard',
         'uses' => 'Admin\DashboardController@getList'
-    ]);
+    ])->name("dashboard");
     Route::group(["prefix" => "cate"], function () {
-
+        Route::get("list", ["uses" => 'Admin\CateController@getList'])->name("getListCate");
+        Route::post("add", ["uses" => "Admin\CateController@postAdd"])->name("postAddCate");
+        Route::post("edit", ["uses" => "Admin\CateController@postEdit"])->name("postEditCate");
+        Route::get("delete/{id}", ["uses" => "Admin\CateController@getDelete"])->name("getDeleteCate");
     });
 });

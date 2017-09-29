@@ -1,7 +1,7 @@
 @extends("welcome")
 
 @section("content")
-
+    
     <div class="cooky-featured-search">
         @include("users.includes.slider")
     </div>

@@ -28,87 +28,86 @@
                                 <li class="fb wide"><a class="social-login"
                                                        href="{{ url('social/redirect') }}"><span
                                                 class="child"></span><span>{{ trans("sites.loginWithFramgia") }}</span></a></li>
-
-                                <li class="clearfix separator"></li>
-                            </ul>
+                                    <li class="clearfix separator"></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
+                    <div>
+                        {{ trans("sites.notActive") }}
+                        <a class="highlight" href="gop-y.html">{{ trans("sites.here") }}</a>
+                    </div>
                 </div>
-                <div>
-                    {{ trans("sites.notActive") }} <a class="highlight" href="gop-y.html">{{ trans("sites.here") }}</a>
-                </div>
-            </div>
-            <div class="col-md-6 register-form">
-                @include("blocks.errors")
-                <div class="register-inputs" id="user-register-div">
-                    <form action="#" method="post">
-                        <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                        <table>
-                            <tr class="register-row">
-                                <td>
-                                    {{ trans("sites.name") }}:
-                                </td>
-                                <td>
-                                    <div class="register_bg">
-                                        <input class="form-control"
-                                               id="name" name="name" placeholder="Họ tên" type="text" value=""/>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="register-row" data-bind="with: email">
-                                <td width="150">
-                                    Email:
-                                </td>
-                                <td>
-                                    <div class="register_bg">
-                                        <input class="form-control"
-                                               id="register_email" name="email"
-                                               placeholder="Email" type="text" value=""/>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="register-row">
-                                <td>
-                                    {{ trans("sites.password") }}:
-                                </td>
-                                <td>
-                                    <div class="register_bg">
-                                        <input class="form-control no-space" id="register_pass" name="password" placeholder="Password" type="password"/>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="register-row">
-                                <td>
-                                    {{ trans("sites.confirmPassword") }}:
-                                </td>
-                                <td>
-                                    <div class="register_bg">
-                                        <input class="form-control no-space"
-                                               id="register_pass" name="confirmPassword" placeholder="Password"
-                                               type="password"/>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                <span class="field-validation-valid" data-valmsg-for="InvalidErr"
-                                      data-valmsg-replace="true"></span>
-                                </td>
-                            </tr>
-                            <tr class="register-row">
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-danger registerbutton" type="submit">
-                                        {{ trans("sites.register") }}
-                                    </button>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </form>
+                <div class="col-md-6 register-form">
+                    @include("blocks.errors")
+                    <div class="register-inputs" id="user-register-div">
+                        <form action="#" method="post">
+                            <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
+                            <table border="0">
+                                <tr class="register-row">
+                                    <td>
+                                        {{ trans("sites.name") }}:
+                                    </td>
+                                    <td>
+                                        <div class="register_bg">
+                                            <input class="form-control"
+                                                   id="name" name="name" placeholder="Họ tên" type="text" value=""/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="register-row" data-bind="with: email">
+                                    <td>
+                                        trans("sites.email"):
+                                    </td>
+                                    <td>
+                                        <div class="register_bg">
+                                            <input class="form-control" id="register_email" name="email"
+                                                   placeholder="Email" type="text" value=""/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="register-row" data-bind="with: password">
+                                    <td>
+                                        {{ trans("sites.password") }}:
+                                    </td>
+                                    <td>
+                                        <div class="register_bg">
+                                            <input class="form-control no-space" id="register_pass" name="password"
+                                                   placeholder="Password" type="password"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="register-row">
+                                    <td>
+                                        {{ trans("sites.confirmPassword") }}:
+                                    </td>
+                                    <td>
+                                        <div class="register_bg">
+                                            <input class="form-control no-space" id="register_pass"
+                                                   name="confirmPassword" placeholder="Password" type="password"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                    <span class="field-validation-valid" data-valmsg-for="InvalidErr"
+                                          data-valmsg-replace="true"></span>
+                                    </td>
+                                </tr>
+                                <tr class="register-row">
+                                    <td></td>
+                                    <td>
+                                        <button class="btn btn-danger registerbutton" type="submit">
+                                            {{ trans("sites.register") }}
+                                        </button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection
