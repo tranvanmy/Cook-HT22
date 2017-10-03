@@ -9,13 +9,14 @@
     <title>Admin - Framgia Culinary</title>
 
     <!-- Bootstrap Core CSS -->
+
     <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="{{ asset('bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ asset('admin/dist/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('bower_components/sb-admin-2/css/sb-admin-2.css') }}" rel="stylesheet">
 
     <link href="{{ asset('bower_components/morrisjs/morris.css') }}" rel="stylesheet">
 
@@ -28,6 +29,16 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
+
+    <script src="{{ url('/bower_components/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{ url('/bower_components/ckfinder/ckfinder.js')}}"></script>
+
+    <script type="text/javascript">
+        var baseURL = "{!! url('/') !!}";
+    </script>
+
+    <script src="{{ url('/bower_components/ckeditor/config.js')}}"></script>
     @yield("style")
 </head>
 
@@ -85,7 +96,17 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="{{ route('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.category") }}<span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{route('getListCate')}}">{{ trans("sites.list") }}</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}<span
@@ -149,6 +170,13 @@
                         <small>@yield("action")</small>
                     </h1>
                 </div>
+                <div class="col-lg-12">
+                @if(Session::has('flash_message'))
+                    <div class="alert alert-{!! Session::get('flash_level') !!}">
+                        {!! Session::get('flash_message') !!}
+                    </div>
+                @endif
+                </div>  
                 <!-- /.col-lg-12 -->
 
             </div>
@@ -163,6 +191,7 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
+
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 
 <!-- Bootstrap Core JavaScript -->
@@ -172,15 +201,14 @@
 <script src="{{ asset('bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="{{ asset('admin/dist/js/sb-admin-2.js') }}"></script>
+<script src="{{ asset('bower_components/sb-admin-2/js/sb-admin-2.js') }}"></script>
 
 <!-- Chart -->
 <script src="{{ asset('bower_components/raphael/raphael.min.js') }}"></script>
-<script src="{{ asset('bower_components/morrisjs/morris.min.js') }}"></script>
-<script src="{{ asset('admin/data/morris-data.js') }}"></script>
 <!-- DataTables JavaScript -->
 <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
+
 <script src="{{ asset('admin/js/main.js') }}"></script>
 @yield("script")
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->

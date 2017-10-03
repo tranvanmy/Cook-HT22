@@ -24,23 +24,24 @@ class SocialController extends Controller
     public function handleProviderCallback()
     {
         $user = Socialite::driver('facebook')->stateless()->user();
-        $social = SocialAccount::SocialID($id)->SocialType->first();
+        $social = SocialAccount::SocialID($user->id)->SocialType('facebook')->first();
         if ($social) {
             $u = User::Email($user->email)->first();
             Auth::login($u);
+
             return redirect('/');
+
         } else {
             $temp = new SocialAccount();
             $temp->social_id = $user->id;
             $temp->social_type = "facebook";
-
             $u = User::Email($user->email)->first();
             if (!$u) {
                 $u = User::create([
                     'name' => $user->name,
                     'password' => bcrypt("123456"),
                     "status" => "1",
-                    'level_id' => 2,
+                    'role' => 2,
                     'avatar' => $user->avatar,
                     'email' => $user->email
                 ]);
@@ -50,6 +51,7 @@ class SocialController extends Controller
             Auth::login($u);
 
             return redirect("/");
+            
         }
     }
 }

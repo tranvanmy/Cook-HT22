@@ -10,12 +10,12 @@
     <link href="{{ url('users/Content/main697b.css') }}" rel="stylesheet"/>
     <link href="{{ url('users/Content/loginCss07bb.css') }}" rel="stylesheet"/>
     <link href="{{ url('users/css/app.css') }}" rel="stylesheet"/>
-</head>
+    @yield("style")
 </head>
 <body>
 
 <header class="clearfix header-cont newyear">
-    <div class="container" style="position:relative">
+    <div class="container">
         <div class="row">
             <div class="header-top clearfix">
                 <div class="logo header-top-1">
@@ -36,19 +36,17 @@
 <!--End of Main section -->
 <script src="{{ url('users/bundles/corea56c.js') }}"></script>
 <script src="{{ url('users/bundles/base98f1.js') }}"></script>
-<script src="{{ url('js/myscript.js') }}"></script>
 <footer>
-    <div class="clearfix" style="background-color: #f4f4f4; padding: 20px;font-size:12px;">
+    <div class="clearf">
         <div class="container">
-            <div class="nopadding" style="text-align:center">
-                <div style="padding-right: 15px; color:#777"> &copy; 2017 Framgia Cook</div>
+            <div class="nopadding">
+                <div> &copy; 2017 Framgia Cook</div>
             </div>
         </div>
     </div>
-    </div>
-    <div class="footer-overlay">
-    </div>
+    <div class="footer-overlay"></div>
 </footer>
 </div>
 </body>
 </html>
+@yield("script")

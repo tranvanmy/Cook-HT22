@@ -222,7 +222,6 @@
         </div>
     </div>
 @endsection
-
 @section("script")
     {{ Html::script("users/js/createReceipt.js") }}
 @endsection

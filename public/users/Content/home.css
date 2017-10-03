@@ -37,3 +37,9 @@
 	margin-right:3em;
 	float:right;
 }
+.list-inline li:nth-child(3){
+	width: 30px;
+}
+.list-inline li:nth-child(3) img{
+	width:100%;border:none;
+}

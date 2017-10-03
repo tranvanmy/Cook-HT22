@@ -24,9 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->level_id == 1) {
+        if (Auth::user()->role == 1) {
+            
             return redirect("admin/dashboard");
-        } else if (Auth::user()->level_id == 2) {
+        } else if (Auth::user()->role == 2) {
+
             return redirect("/");
         }
     }

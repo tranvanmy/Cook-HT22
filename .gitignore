@@ -12,4 +12,3 @@ npm-debug.log
 /resources/views/vendor
 /storage
 /public/bower_components
-composer.lock

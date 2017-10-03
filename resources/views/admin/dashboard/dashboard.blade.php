@@ -275,5 +275,8 @@
         </div>
     </div>
     <!-- /.col-lg-4 -->
-    @endsection
-    
+@endsection
+@section("script")
+    <script src="{{ asset('bower_components/morrisjs/morris.min.js') }}"></script>
+    <script src="{{ asset('admin/data/morris-data.js') }}"></script>
+@endsection
