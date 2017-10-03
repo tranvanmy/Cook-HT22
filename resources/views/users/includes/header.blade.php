@@ -3,7 +3,14 @@
         <div class="container">
             <ul class="list-inline">
                 <li class="active"><a href="index.html">{{ trans("sites.receipt_cook") }}</a>
-                <li><a href="javascript:void(0)"><span class="fa-sign-in"></span> {{ trans("sites.login") }}</a>
+                @if(!Auth::check())
+                    <li><a href="{{ route('login') }}"><span class="fa fa-sign-in"></span> {{ trans("sites.login") }}
+                        </a>
+                @else
+                    <li><a href="{{ route('logout') }}"><span class="fa fa-sign-in"></span> {{ trans("sites.logout") }}
+                        </a>
+                @endif
+
                 <li><a href="javascript:void(0)"><span class="fa fa-shopping-basket"></span> {{ trans("sites.cart")
                     }}</a>
             </ul>
@@ -14,8 +21,7 @@
             <div class="header-top clearfix">
                 <div class="logo header-top-1">
                     <div class="navbar-brand">
-                        <a href="#"><img class="logo img-responsive"
-                                         src="{{ asset('users/imgs/framgia.png') }}"></a>
+                        <a href="{{ url('/') }}"><img class="logo img-responsive" src="{{ asset('users/imgs/framgia.png') }}"></a>
                     </div>
                 </div>
                 <div class="header-top-2">
@@ -38,17 +44,17 @@
                         <li>
                             <a href="#">
                                 <span class="fa fa-mobile-phone"></span> <span
-                                    class="sr-only">Ứng dụng nấu ăn ngon</span>
+                                        class="sr-only">{{ trans("sites.appMobile") }}</span>
                             </a>
                         <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-facebook-square"></span>
-                            <span class="sr-only">Framgia Culinary Facebook Fage</span>
-                        </a>
+                                <span class="sr-only">{{ trans("sites.fanpage") }}</span>
+                            </a>
                         <li><a href="#" target="_blank" rel="nofollow"> <span
-                                class="fa fa-instagram"></span> <span
-                                class="sr-only">Framgia Culinary Instagram Fage</span> </a>
+                                        class="fa fa-instagram"></span> <span
+                                        class="sr-only">{{ trans("sites.instagram") }}</span> </a>
                         <li><a href="#" target="_blank" rel="nofollow"> <span
-                                class="fa fa-youtube-square"></span> <span class="sr-only">Framgia Culinary TV Youtube Channel - Framgia Culinary</span>
-                        </a>
+                                        class="fa fa-youtube-square"></span> <span class="sr-only">{{ trans("sites.youtube") }}</span>
+                            </a>
                     </ul>
                 </div>
             </div>
@@ -63,9 +69,14 @@
                     <li><a href="#">{{ trans("sites.top_chef") }}</a>
                 </ul>
                 <ul class="nomargin list-inline right-wrap navbar-right">
+
                     <li>
-                        <a class="btn btn-quickmenu" title="Submit Recipe" href="dang-nhapccbf.html">
-                            <span class="fa fa-plus text-highlight"></span> <span class="sr-only">{{ trans("sites.add") }} {{ trans("sites.receipt") }}</span>
+                        <a class="btn btn-quickmenu" title="{{ trans('sites.add') }} {{ trans('sites.receipt') }}"
+                           @if(!Auth::check()) href="{{ route('login') }}" @else href="{{ url('abc') }}" @endif>
+
+
+                            <span class="fa fa-plus text-highlight"></span> <span
+                                    class="sr-only">{{ trans("sites.add") }} {{ trans("sites.receipt") }}</span>
                         </a>
                     </li>
 
@@ -79,7 +90,8 @@
                                     <div class="social-icon">
                                         <ul class="list-unstyled">
                                             <li class="fb wide"><a class="social-login" provider="1"
-                                                                   href="javascript:void(0)"><span class="child"></span><span>{{ trans("sites.login") }} Facebook</span></a>
+                                                                   href="javascript:void(0)"><span class="child"></span><span>{{ trans("sites.login") }}
+                                                        Facebook</span></a>
                                             </li>
                                             <li class="clearfix separator"></li>
                                         </ul>
@@ -133,4 +145,7 @@
         </div>
     </div>
 </header>
+@section("script")
+    {{ Html::script("users/js/slide.js") }}
+@endsection
 

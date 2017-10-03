@@ -23,6 +23,7 @@ class Receipt extends Model
         'rate_point',
         'image',
         'status',
+        'level_id',
         'price',
         'user_id'
     ];

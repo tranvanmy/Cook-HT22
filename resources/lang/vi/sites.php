@@ -92,6 +92,19 @@
 		'back'=>"Quay lại",
 		'chooseCateCorres' => 'Chọn danh mục tương ứng',
 		'chefLove'=>'đầu bếp được ưa thích nhất',
+		'loginWithFramgia'=>'Đăng nhập Framgia Culinary',
+		'registerAccount' => "Đăng ký tài khoản",
+		'loginFacebook' =>'Đăng nhập với Facebook',
+		'or' => 'Hoặc',
+		'here' =>'Tại đây',
+		'notActive' => 'Không kích hoạt được tài khoản? gửi phản hồi',
+		'save' => 'Lưu',
+		'registerFramgia' => 'Đăng ký với Framgia Culinary',
+		'youHaveAccount' => 'Bạn đã có tài khoản?',
+		'confirmPassword' => 'Xác nhận mật khẩu',
+		'password' => 'Mật khẩu',
+		'appMobile' => 'Ứng dụng nấu ăn ngon',
+		'fanpage' => 'Fanpage của Framgia Culinary',
+		'instagram' => 'Instagram của Framgia Culinary',
+		'youtube' => 'Kênh youtube video của Framgia Culinary'
 	];
-
-?>

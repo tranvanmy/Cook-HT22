@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Requests\LoginRequest;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -34,6 +36,43 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest', ['except' => ['logout', 'getLogout']]);
+    }
+
+    public function showFormLogin()
+    {
+        if (!Auth::check())
+            return view("auth.login");
+        else {
+            if (Auth::user()->level_id == 1)
+                return redirect("admin/dashboard");
+            else if (Auth::user()->level_id == 2)
+                return redirect("/");
+        }
+    }
+
+    public function login(LoginRequest $request)
+    {
+        $auth = [
+            'email' => $request->email,
+            'password' => $request->password
+        ];
+        if (Auth::attempt($auth)) {
+            if (Auth::user()->level_id == 1)
+                return redirect("admin/dashboard");
+            else if (Auth::user()->level_id == 2)
+                return redirect("/");
+        } else {
+            return redirect()->back()->withErrors([
+                'flash_message' => 'Email hoặc mật khẩu không đúng'
+            ]);;
+        }
+    }
+
+    public function getLogout()
+    {
+        Auth::logout();
+        
+        return redirect()->route("login");
     }
 }

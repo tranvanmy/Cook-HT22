@@ -1,0 +1,32 @@
+.register-form-head div {
+    float: right;
+    margin-top: 20px;
+    font-size: 11px;
+    color: #333;
+}
+
+.register_bg {
+    float: left;
+    width: 280px;
+}
+
+.register-row button {
+    max-width: 280px;
+    width: 100%;
+    height: 50px;
+}
+
+footer .nopadding {
+    text-align: center;
+}
+
+footer .nopadding div {
+    padding-right: 15px;
+    color: #777;
+}
+
+.clearf {
+    background-color: #f4f4f4;
+    padding: 20px;
+    font-size: 12px;
+}
