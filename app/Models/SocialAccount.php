@@ -19,4 +19,18 @@ class SocialAccount extends Model
     	return $this->belongsTo(User::class);
     }
     
+    public function scopeSocialID($query, $id)
+    {
+    	return $query->where("social_id", $id);
+    }
+
+    public function scopeSocialType($query, $id)
+    {
+    	return $query->where("social_type", $id);
+    }
+
+    public function scopeEmail($query, $id)
+    {
+    	return $query->where("email", $id);
+    }
 }

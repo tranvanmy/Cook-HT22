@@ -10,11 +10,11 @@
         <div class="col-md-10 col-md-offset-1 register-form-box">
             <div class="register-form-head">
                 <h3 class="register-title">
-                    Đăng ký với Framgia Culinary
+                    {{ trans("sites.registerFramgia") }}
                 </h3>
-                <div style="float: right; margin-top: 20px; font-size: 11px; color:#333">
+                <div>
                     <ul class="list-inline">
-                        <li><a href="{{ route('login') }}">Bạn đã có tài khoàn?</a></li>
+                        <li><a href="{{ route('login') }}">{{ trans("sites.youHaveAccount") }}</a></li>
                         <li><span>|</span></li>
                         <li><a href="#"></a></li>
                     </ul>
@@ -25,8 +25,9 @@
                     <div class="login-social">
                         <div class="social-icon">
                             <ul class="list-unstyled">
-                                <li class="fb wide"><a class="social-login" provider="1" href="javascript:void(0)"><span
-                                        class="child"></span><span>Đăng nhập với Facebook</span></a></li>
+                                <li class="fb wide"><a class="social-login"
+                                                       href="{{ url('social/redirect') }}"><span
+                                                class="child"></span><span>{{ trans("sites.loginWithFramgia") }}</span></a></li>
 
                                 <li class="clearfix separator"></li>
                             </ul>
@@ -34,21 +35,22 @@
                     </div>
                 </div>
                 <div>
-                    Không thể kích hoạt tài khoản? <a class="highlight" href="gop-y.html">Hãy liên hệ với chúng tôi</a>
+                    {{ trans("sites.notActive") }} <a class="highlight" href="gop-y.html">{{ trans("sites.here") }}</a>
                 </div>
             </div>
             <div class="col-md-6 register-form">
+                @include("blocks.errors")
                 <div class="register-inputs" id="user-register-div">
                     <form action="#" method="post">
-                        <input name="" type="hidden" value=""/>
-                        <table border="0" style="width:100%">
+                        <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
+                        <table>
                             <tr class="register-row">
-                                <td style="width:100px">
-                                    Họ tên:
+                                <td>
+                                    {{ trans("sites.name") }}:
                                 </td>
                                 <td>
                                     <div class="register_bg">
-                                        <input class="form-control" data-val="true" data-val-required="Nhập tên"
+                                        <input class="form-control"
                                                id="name" name="name" placeholder="Họ tên" type="text" value=""/>
                                     </div>
                                 </td>
@@ -58,50 +60,46 @@
                                     Email:
                                 </td>
                                 <td>
-                                    <div class="register_bg" style="float:left; width:280px">
+                                    <div class="register_bg">
                                         <input class="form-control"
-                                               data-val="true" data-val-email="Email sai định dạng"
-                                               data-val-required="Nhập email" id="register_email" name="Email"
+                                               id="register_email" name="email"
                                                placeholder="Email" type="text" value=""/>
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="register-row" data-bind="with: password">
+                            <tr class="register-row">
                                 <td>
-                                    Mật khẩu:
+                                    {{ trans("sites.password") }}:
                                 </td>
                                 <td>
-                                    <div class="register_bg"><input class="form-control no-space"
-                                                                    id="register_pass"
-                                                                    name="Password" placeholder="Password"
-                                                                    type="password"/></div>
+                                    <div class="register_bg">
+                                        <input class="form-control no-space" id="register_pass" name="password" placeholder="Password" type="password"/>
+                                    </div>
                                 </td>
                             </tr>
-                            <tr class="register-row" data-bind="with: confirmPassword">
+                            <tr class="register-row">
                                 <td>
-                                    Xác nhận mật khẩu:
+                                    {{ trans("sites.confirmPassword") }}:
                                 </td>
                                 <td>
                                     <div class="register_bg">
                                         <input class="form-control no-space"
-                                               id="register_pass"
-                                               name="ConfirmPassword" placeholder="Password" type="password"/>
+                                               id="register_pass" name="confirmPassword" placeholder="Password"
+                                               type="password"/>
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <span class="field-validation-valid" data-valmsg-for="InvalidErr"
-                                          data-valmsg-replace="true"></span>
+                                <span class="field-validation-valid" data-valmsg-for="InvalidErr"
+                                      data-valmsg-replace="true"></span>
                                 </td>
                             </tr>
                             <tr class="register-row">
                                 <td></td>
                                 <td>
-                                    <button style="max-width: 280px; width: 100%; height: 50px"
-                                            class="btn btn-danger registerbutton" type="submit"
-                                    >
-                                        Đăng ký
+                                    <button class="btn btn-danger registerbutton" type="submit">
+                                        {{ trans("sites.register") }}
                                     </button>
                                 </td>
                                 <td></td>

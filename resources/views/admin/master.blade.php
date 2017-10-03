@@ -28,6 +28,7 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
+    @yield("style")
 </head>
 
 <body>
@@ -54,12 +55,13 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="#"><i class="fa fa-user fa-fw"></i> {{ trans("sites.user_profile") }}</a>
                     </li>
-                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ trans("sites.setting") }}</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="{!! url('logout') !!}"><i class="fa fa-sign-out fa-fw"></i> {{ trans("sites.logout") }}
+                        </a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -87,7 +89,7 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}<span
-                                class="fa arrow"></span></a>
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">{{ trans("sites.list") }}</a>
@@ -100,7 +102,7 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-cube fa-fw"></i> {{ trans("sites.foody") }}<span
-                                class="fa arrow"></span></a>
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">{{ trans("sites.list") }}</a>
@@ -113,7 +115,7 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.user") }}<span
-                                class="fa arrow"></span></a>
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">{{ trans("sites.list") }}</a>
@@ -123,7 +125,7 @@
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.receipt") }}<span
-                                class="fa arrow"></span></a>
+                                    class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="#">{{ trans("sites.list") }}</a>
@@ -179,14 +181,8 @@
 <!-- DataTables JavaScript -->
 <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
-
+<script src="{{ asset('admin/js/main.js') }}"></script>
+@yield("script")
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-<script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true
-        });
-    });
-</script>
 </body>
 </html>
