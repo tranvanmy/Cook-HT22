@@ -95,9 +95,9 @@
                                 <div class="receipt-form">
 
                                     <div class="col-md-4">
-                                        <h3>2. {{ trans("sites.submit") }} {{ trans("sites.cate_ingre") }}</h3>
+                                        <h3>2. {{ trans("sites.submit") }} {{ trans("sites.ingredient") }}</h3>
                                         <hr>
-                                        <label>{{ trans("sites.name") }} {{ trans("sites.cate_ingre") }} </label>
+                                        <label>{{ trans("sites.name") }} {{ trans("sites.ingredient") }} </label>
                                         <input type="text" class="form-control" name="nameIngredient" value=""/>
                                         <br>
 
@@ -119,7 +119,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <h3>
-                                            <i class="fa fa-list"></i> {{ trans("sites.list") }} {{ trans("sites.cate_ingre") }}
+                                            <i class="fa fa-list"></i> {{ trans("sites.list") }} {{ trans("sites.ingredient") }}
                                         </h3>
                                         <hr>
                                         <div class="resultIngredient"></div>

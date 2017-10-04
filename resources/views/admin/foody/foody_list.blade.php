@@ -1,14 +1,15 @@
 @extends("admin.master")
 
-@section("controller", trans('sites.ingredient') )
+@section("controller", trans('sites.cate_foody') )
 
 @section("action", trans('sites.list') )
 
 @section("content")
+
     <button type="button" class="btn btn-primary btn-ms" data-toggle="modal"
-            data-target="#addCate">{{ trans("sites.add") }}
+            data-target="#addFoody">{{ trans("sites.add") }}
     </button><br><br>
-    <div id="addCate" class="modal fade" role="dialog">
+    <div id="addFoody" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -16,14 +17,14 @@
                     <h4 class="modal-title">{{ trans("sites.add") }}</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route('postAddCate') }}" id="frm-cate-add">
+                    <form method="post" action="{{ route('postAddFoody') }}" id="frm-foody-add">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                         <label>Tên thể loại</label>
-                        <input type="text" class="form-control" id="name_cate" value=""/>
+                        <input type="text" class="form-control" id="name_foody" value=""/>
                         <label>Chọn thể loại cha</label>
-                        <select id="sltCategory" name="sltCategory" class="form-control">
+                        <select id="sltFoody" name="sltFoody" class="form-control">
                             <option value="0">None</option>
-                            {{ cate_parent($cate) }}
+                            {{ cate_parent($foody) }}
                         </select>
                         <br>
                         <label>{{ trans("sites.status") }}</label>
@@ -31,7 +32,7 @@
                             <option value="1">{{ trans("sites.active") }}</option>
                             <option value="0">{{ trans("sites.unactive") }}</option>
                         </select><br>
-                        <button type="submit" name="addCategory" id="addCategory"
+                        <button type="submit" name="addFoody" id="addFoody"
                                 class="btn btn-default">{{ trans("sites.add") }}</button>
                     </form>
                 </div>
@@ -39,12 +40,11 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     </div>
     <!--  -->
-    <div id="editCate" class="modal fade" role="dialog">
+    <div id="editFoody" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
             <div class="modal-content">
@@ -54,15 +54,15 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" action="{{ route('postEditCate') }}" id="frm-cate-edit">
+                    <form method="post" action="{{ route('postEditFoody') }}" id="frm-foody-edit">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                        <input type="hidden" name="id" id="idCate" value=""/>
+                        <input type="hidden" name="id" id="idFoody" value=""/>
                         <label>Tên thể loại</label>
-                        <input type="text" class="form-control" name="name_cate" id="name_cate" value=""/>
+                        <input type="text" class="form-control" name="name_foody" id="name_foody" value=""/>
                         <label>Chọn thể loại cha</label>
-                        <select id="sltCategory" name="sltCategory" class="form-control">
+                        <select id="sltFoody" name="sltFoody" class="form-control">
                             <option value="0">None</option>
-                            {{ cate_parent($cate) }}
+                            {{ cate_parent($foody) }}
                         </select>
                         <br>
                         <label>{{ trans("sites.status") }}</label>
@@ -70,13 +70,14 @@
                             <option value="1">{{ trans("sites.active") }}</option>
                             <option value="0">{{ trans("sites.unactive") }}</option>
                         </select><br>
-                        <button type="submit" name="editCategory" id="editCategory"
+                        <button type="submit" name="editFoody" id="editFoody"
                                 class="btn btn-default">{{ trans("sites.edit") }}</button>
                     </form>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ trans("sites.close") }}</button>
                 </div>
             </div>
 
@@ -95,8 +96,7 @@
         </tr>
         </thead>
         <tbody>
-
-        @foreach($cate as $key => $item)
+        @foreach($foody as $key => $item)
             <tr class="odd gradeX rows{{ $item->id }}" align="center">
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
@@ -115,14 +115,14 @@
                     @endif
                 </td>
                 <td class="center"><a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
-                                      href="{{ route('getDeleteCate',$item->id) }}">
+                                      href="{{ route('getDeleteFoody',$item->id) }}">
                         <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-trash-o  fa-fw"></i>
                         </button>
                     </a></td>
                 <td class="center">
                     <button data-id="{{ $item->id }}" data-name="{{ $item->name }}"
                             data-parentID="{{ $item->parent_id }}" data-status="{{ $item->status }}" type="button"
-                            class="btn btn-danger btn-xs btnEditCate" data-toggle="modal" data-target="#editCate"><i
+                            class="btn btn-danger btn-xs btnEditFoody" data-toggle="modal" data-target="#editFoody"><i
                                 class="fa fa-pencil fa-fw"></i> </i></button>
                 </td>
             </tr>
@@ -132,5 +132,4 @@
 @endsection
 @section("script")
     {{ Html::script("admin/js/foody.js") }}
-    {{ Html::script("admin/js/cate.js") }}
 @endsection

@@ -1,5 +1,5 @@
 @section("style")
-	{{ Html::style("admin/css/blocks") }}
+    {{ Html::style("admin/css/blocks") }}
 @endsection
 
 @if ($errors->any())
