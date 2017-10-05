@@ -13,7 +13,7 @@ $(function () {
         }
         if ($("#name_ingre").val() == "" || $("#ckfinder-input").val() == "") {
             e.preventDefault();
-            alert("Phải nhập đầy đủ các trường");
+            swal("Không được để trống", "", "warning");
         }
         else {
             var name = $("#name_ingre").val();
@@ -52,29 +52,35 @@ $(function () {
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        newImage = $("#editIngre #ckfinder-input2").val();
-        newDesc = $("#editIngre #descIngre2").val();
-        id = $("#editIngre #idIngre").val();
-        newCategoryID = $("#editIngre #sltCateIngre").val();
-        newName = $("#editIngre #name_ingre").val();
-        newStatus = $("#editIngre #sltStatus").val();
-        url = $(this).attr("action");
-        var _token = $("#frm-ingre-add").find("input[name='_token']").val();
-        $.post(url, {
-            '_token': _token,
-            'id': id,
-            'description': newDesc,
-            'category_id': newCategoryID,
-            'name': newName,
-            'status': newStatus,
-            'image': newImage
-        }, function (data) {
-            $("#dataTables-example tbody .rows" + data.id + " td:eq(1)").html(data.image);
-            $("#dataTables-example tbody .rows" + data.id + " td:eq(2)").html(data.name);
-            $("#dataTables-example tbody .rows" + data.id + " td:eq(3)").html(data.description);
-            $("#dataTables-example tbody .rows" + data.id + " td:eq(4)").html(data.category_id);
-            $("#dataTables-example tbody .rows" + data.id + " td:eq(5)").html(data.status);
-        });
-        $("#editIngre").modal("hide");
+        if ($("#name_ingre").val() == "" || $("#ckfinder-input").val() == "") {
+            e.preventDefault();
+            swal("Không được để trống", "", "warning");
+        }
+        else {
+            newImage = $("#editIngre #ckfinder-input2").val();
+            newDesc = $("#editIngre #descIngre2").val();
+            id = $("#editIngre #idIngre").val();
+            newCategoryID = $("#editIngre #sltCateIngre").val();
+            newName = $("#editIngre #name_ingre").val();
+            newStatus = $("#editIngre #sltStatus").val();
+            url = $(this).attr("action");
+            var _token = $("#frm-ingre-add").find("input[name='_token']").val();
+            $.post(url, {
+                '_token': _token,
+                'id': id,
+                'description': newDesc,
+                'category_id': newCategoryID,
+                'name': newName,
+                'status': newStatus,
+                'image': newImage
+            }, function (data) {
+                $("#dataTables-example tbody .rows" + data.id + " td:eq(1)").html(data.image);
+                $("#dataTables-example tbody .rows" + data.id + " td:eq(2)").html(data.name);
+                $("#dataTables-example tbody .rows" + data.id + " td:eq(3)").html(data.description);
+                $("#dataTables-example tbody .rows" + data.id + " td:eq(4)").html(data.category_id);
+                $("#dataTables-example tbody .rows" + data.id + " td:eq(5)").html(data.status);
+            });
+            $("#editIngre").modal("hide");
+        }
     });
 });

@@ -31,7 +31,7 @@
                 </a>
                 <section class="item-content">
                     <h3 class="title">
-                        <a href="#">Tổng hợp cách làm các loại thịt khô ngon ngất ngây, càng ăn</a>
+                            <a href="#">Tổng hợp cách làm các loại thịt khô ngon ngất ngây, càng ăn</a>
                     </h3>
                     <div class="item-stats-bar">
                         <ul class="list-inline">

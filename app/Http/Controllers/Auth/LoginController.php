@@ -44,10 +44,9 @@ class LoginController extends Controller
         if (!Auth::check())
             return view("auth.login");
         else {
-            if (Auth::user()->role == 1){
+            if (Auth::user()->role == config('const.roleAdmin')) {
                 return redirect("admin/dashboard");
-            }
-            else if (Auth::user()->role == 2){
+            } else if (Auth::user()->role == config('const.roleUser')) {
                 return redirect("/");
             }
         }
@@ -60,13 +59,13 @@ class LoginController extends Controller
             'password' => $request->password
         ];
         if (Auth::attempt($auth)) {
-            if (Auth::user()->role == 1)
+            if (Auth::user()->role == config('const.roleAdmin'))
                 return redirect("admin/dashboard");
-            else if (Auth::user()->role == 2)
+            else if (Auth::user()->role == config('const.roleUser'))
                 return redirect("/");
         } else {
             return redirect()->back()->withErrors([
-                'flash_message' => 'Email hoặc mật khẩu không đúng'
+                'flash_message' => trans("incorrectLogin")
             ]);;
         }
     }

@@ -37,7 +37,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("sites.close") }}</button>
                 </div>
             </div>
 
@@ -101,16 +101,18 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
                 <td>
-                    {{ $item->parent_id == 0 ? "None" : $parent_name }}
+                    {{ $item->parent_id == 0 ? trans("sites.none") : $parent_name }}
                 </td>
                 <td>
                     {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
                 </td>
-                <td class="center"><a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
-                                      href="{{ route('getDeleteFoody',$item->id) }}">
-                        <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-trash-o  fa-fw"></i>
+                <td class="center">
+                    <a href="{{ route('getDeleteFoody',$item->id) }}">
+                        <button id="delete" type="button" class="btn btn-warning btn-xs">
+                            <i class="fa fa-trash-o  fa-fw"></i>
                         </button>
-                    </a></td>
+                    </a>
+                </td>
                 <td class="center">
                     <button data-id="{{ $item->id }}" data-name="{{ $item->name }}"
                             data-parentID="{{ $item->parent_id }}" data-status="{{ $item->status }}" type="button"

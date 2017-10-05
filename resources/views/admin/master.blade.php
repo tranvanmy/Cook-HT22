@@ -33,6 +33,8 @@
     <link rel="stylesheet" type="text/css"
           href="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.css') }}"/>
 
+    <script src="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.js') }}"></script>
+
     <script src="{{ url('/bower_components/ckeditor/ckeditor.js')}}"></script>
     <script src="{{ url('/bower_components/ckfinder/ckfinder.js')}}"></script>
 
@@ -57,7 +59,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Admin - Framgia Culinary</a>
+            <a class="navbar-brand" href="index.html">Admin - {{ trans("sites.brand") }}</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -205,7 +207,6 @@
 <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('admin/js/main.js') }}"></script>
-<script src="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.min.js') }}"></script>
 @yield("script")
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 </body>

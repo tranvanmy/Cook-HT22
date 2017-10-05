@@ -45,7 +45,7 @@ class IngredientController extends Controller
         $ingredient->delete();
         return redirect()->route('getListIngredient')
             ->with([
-                'flash_message' => 'Xóa thành công!',
+                'flash_message' => trans("sites.deleteSuccess"),
                 'flash_level' => 'success'
             ]);
     }

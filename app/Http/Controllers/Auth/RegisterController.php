@@ -48,21 +48,22 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $message = array(
-            'name.required' => 'Không được để trống',
-            'name.max' => "Email tối đa 255 kí tự",
-            'name.min' => "Email tối thiểu 10 kí tự",
-            'confirmPassword.same' => "Mật khẩu nhập lại không đúng",
-            'password.min' => 'Mật khẩu trên 6 kí tự',
-            'email.required' => 'Không được để trống email',
-            'email.email' => "Không nhập đúng định dạng email",
-            'password.required' => 'Không được để trống Mật khẩu',
-            'confirmPassword.required' => "Không được để trống Xác nhấn mật khẩu"
+            'name.required' => trans("sites.required"),
+            'name.max' => trans("sites.name"),
+            'email.min' => trans("sites.email") . trans("sites.minEmail"),
+            'confirmPassword.same' => trans("sites.incorrectConfirmPass"),
+            'password.min' => trans("sites.minPass"),
+            'password.max' => trans("sites.maxPass"),
+            'email.required' => trans("sites.email") . trans("sites.required"),
+            'email.email' => trans("sites.incorrectEmail"),
+            'password.required' => trans("sites.password") . trans("sites.required"),
+            'confirmPassword.required' => trans("sites.confirmPassword") . trans("sites.required")
         );
         return Validator::make($data, [
-            'name' => 'required|string|max:255|min:10',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-            'confirmPassword' => 'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users|min:10',
+            'password' => 'required|string|min:6|max:50',
+            'confirmPassword' => 'required|same:password'
         ], $message);
     }
 
@@ -79,8 +80,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'remember_token' => $data['_token'],
-            'role' => (isset($data['role']) ? $data['role'] : 2),
-            'status' => (isset($data['status']) ? $data['status'] : 1),
+            'role' => (isset($data['role']) ? $data['role'] : config('const.roleUser')),
             'avatar' => '/imageStatic/user.jpg'
         ]);
     }

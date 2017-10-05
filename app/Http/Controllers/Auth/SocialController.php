@@ -38,11 +38,10 @@ class SocialController extends Controller
             if (!$u) {
                 $u = User::create([
                     'name' => $user->name,
-                    'password' => bcrypt("123456"),
-                    "status" => "1",
-                    'role' => 2,
+                    'role' => config('const.roleUser'),
+                    'facebook_id' => $user->id,
                     'avatar' => $user->avatar,
-                    'email' => $user->email
+                    'email' => $user->email,
                 ]);
             }
             $temp->user_id = $u->id;
