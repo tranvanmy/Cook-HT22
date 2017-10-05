@@ -4,10 +4,14 @@
             <ul class="list-inline">
                 <li class="active"><a href="{{ url("/") }}">{{ trans("sites.receipt_cook") }}</a>
                 @if(!Auth::check())
-                    <li><a href="{{ route('login') }}"><span class="fa fa-sign-in"></span> {{ trans("sites.login") }}
+                    <li><a href="{{ route('login') }}">
+                            <span class="fa fa-sign-in"></span>
+                            {{ trans("sites.login") }}
                         </a>
                 @else
-                    <li><a href="{{ route('logout') }}"><span class="fa fa-sign-in"></span> {{ trans("sites.logout") }}
+                    <li><a href="{{ route('logout') }}">
+                            <span class="fa fa-sign-in"></span>
+                            {{ trans("sites.logout") }}
                         </a>
                 @endif
 
@@ -21,8 +25,9 @@
             <div class="header-top clearfix">
                 <div class="logo header-top-1">
                     <div class="navbar-brand">
-                        <a href="{{ url('/') }}"><img class="logo img-responsive"
-                                                      src="{{ asset('users/imgs/framgia.png') }}"></a>
+                        <a href="{{ url('/') }}">
+                            <img class="logo img-responsive" src="{{ asset('users/imgs/framgia.png') }}">
+                        </a>
                     </div>
                 </div>
                 <div class="header-top-2">
@@ -41,7 +46,8 @@
                     <ul class="top-list">
                         <li>
                             <a href="#" target="_blank">
-                                <img src="{{ asset('users/imgs/background.jpg') }}" class="img-responsive"/></a>
+                                <img src="{{ asset('users/imgs/background.jpg') }}" class="img-responsive"/>
+                            </a>
                         </li>
                         <li>
                             <a href="#">
@@ -49,12 +55,18 @@
                                 <span class="sr-only">{{ trans("sites.appMobile") }}</span>
                             </a>
                         </li>
-                        <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-facebook-square"></span>
+                        <li>
+                            <a href="#" target="_blank" rel="nofollow">
+                                <span class="fa fa-facebook-square"></span>
                                 <span class="sr-only">{{ trans("sites.fanpage") }}</span>
                             </a>
                         </li>
-                        <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-instagram"></span>
-                                <span class="sr-only">{{ trans("sites.instagram") }}</span> </a></li>
+                        <li>
+                            <a href="#" target="_blank" rel="nofollow">
+                                <span class="fa fa-instagram"></span>
+                                <span class="sr-only">{{ trans("sites.instagram") }}</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -69,14 +81,11 @@
                     <li><a href="#">{{ trans("sites.top_chef") }}</a>
                 </ul>
                 <ul class="nomargin list-inline right-wrap navbar-right">
-
                     <li>
                         <a class="btn btn-quickmenu" title="{{ trans('sites.add') }} {{ trans('sites.receipt') }}"
                            @if(!Auth::check()) href="{{ route('login') }}" @else href="{{ url('abc') }}" @endif>
-
-
-                            <span class="fa fa-plus text-highlight"></span> <span
-                                    class="sr-only">{{ trans("sites.add") }} {{ trans("sites.receipt") }}</span>
+                            <span class="fa fa-plus text-highlight"></span>
+                            <span class="sr-only">{{ trans("sites.add") }} {{ trans("sites.receipt") }}</span>
                         </a>
                     </li>
                     @if(!Auth::check())
@@ -90,10 +99,12 @@
                                     <div class="login-social">
                                         <div class="social-icon">
                                             <ul class="list-unstyled">
-                                                <li class="fb wide"><a class="social-login"
-                                                                       href="{{ url('social/redirect') }}"><span
-                                                                class="child"></span><span>{{ trans("sites.login") }}
-                                                            Facebook</span></a>
+                                                <li class="fb wide">
+                                                    <a class="social-login"
+                                                       href="{{ url('social/redirect') }}">
+                                                        <span class="child"></span>
+                                                        <span>{{ trans("sites.login") }} Facebook</span>
+                                                    </a>
                                                 </li>
                                                 <li class="clearfix separator"></li>
                                             </ul>
@@ -148,8 +159,8 @@
                         <li class="dropdown">
                             <a href="#" id="myTabDrop1" title="{{ trans('sites.notify') }}"
                                class="dropdown-toggle btn btn-quickmenu" data-toggle="dropdown">
-                                <span class="fa fa-bell text-highlight"></span> <span
-                                        class="sr-only">{{ trans('sites.notify') }}</span>
+                                <span class="fa fa-bell text-highlight"></span>
+                                <span class="sr-only">{{ trans('sites.notify') }}</span>
                             </a>
                             <div class="dropdown-menu login-widget" role="menu">
                                 {{ trans('sites.notify') }} {{ trans('sites.here') }}

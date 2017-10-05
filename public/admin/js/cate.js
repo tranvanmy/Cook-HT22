@@ -1,9 +1,9 @@
 $(function () {
     $("#frm-cate-add").on("submit", function (e) {
         e.preventDefault();
-        if ($("#name_addCate").val() == "") {
+        if ($("#name_cate").val() == "") {
             e.preventDefault();
-            alert("Phải nhập đầy đủ các trường");
+            swal("Không được để trống", "", "warning");
         }
         else {
             var name = $("#name_cate").val();

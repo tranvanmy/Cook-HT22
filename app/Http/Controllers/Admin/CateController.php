@@ -51,15 +51,20 @@ class CateController extends Controller
         $parent = Category::ParentID($id)->count();
         if ($parent == 0) {
             $cate = Category::GetID($id);
+            $ingredient = $cate->ingredients();
+            $ingredient->delete();
             $cate->delete();
-
             return redirect()->route('getListCate')
                 ->with([
-                    'flash_message' => 'Xóa thành công!',
+                    'flash_message' => trans("sites.deleteSuccess"),
                     'flash_level' => 'success'
                 ]);
         } else {
-            notify("Bạn không thể xóa thể loại này", "getListCate");
+            return redirect()->route('getListCate')
+                ->with([
+                    'flash_message' => trans("sites.youCantDelete"),
+                    'flash_level' => 'warning'
+                ]);
         }
     }
 

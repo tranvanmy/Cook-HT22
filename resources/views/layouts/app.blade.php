@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield("title") | Framgia Culinary</title>
+    <title>@yield("title") | {{ trans("sites.brand") }}</title>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,300,600,400&amp;subset=latin'
           async rel='stylesheet' type='text/css'>
     <link href="{{ url('users/fonts/font-awesome-4.7.0/css/font-awesome.css')}}" rel="stylesheet" type="text/css"/>
@@ -40,7 +40,7 @@
     <div class="clearf">
         <div class="container">
             <div class="nopadding">
-                <div> &copy; 2017 Framgia Cook</div>
+                <div> &copy; 2017 {{ trans("sites.brand") }}</div>
             </div>
         </div>
     </div>

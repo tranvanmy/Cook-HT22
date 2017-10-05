@@ -75,7 +75,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("sites.close") }}</button>
                 </div>
             </div>
 
@@ -104,9 +104,10 @@
                 <td>
                     {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
                 </td>
-                <td class="center"><a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
-                                      href="{{ route('getDeleteCate',$item->id) }}">
-                        <button type="button" class="btn btn-warning btn-xs"><i class="fa fa-trash-o  fa-fw"></i>
+                <td class="center">
+                    <a href="{{ route('getDeleteCate',$item->id) }}">
+                        <button id="delete" type="button" class="btn btn-warning btn-xs">
+                            <i class="fa fa-trash-o  fa-fw"></i>
                         </button>
                     </a></td>
                 <td class="center">

@@ -54,11 +54,15 @@ class FoodyController extends Controller
 
             return redirect()->route('getListFoody')
                 ->with([
-                    'flash_message' => 'Xóa thành công!',
+                    'flash_message' => trans("sites.deleteSuccess"),
                     'flash_level' => 'success'
                 ]);
         } else {
-            notify("Bạn không thể xóa danh mục này", "getListFoody");
+            return redirect()->route('getListFoody')
+                ->with([
+                    'flash_message' => trans("sites.youCantDelete"),
+                    'flash_level' => 'warning'
+                ]);
         }
     }
 

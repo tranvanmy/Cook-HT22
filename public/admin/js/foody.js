@@ -1,9 +1,9 @@
 $(function () {
     $("#frm-foody-add").on("submit", function (e) {
         e.preventDefault();
-        if ($("#name_addFoody").val() == "") {
+        if ($("#name_foody").val() == "") {
             e.preventDefault();
-            alert("Phải nhập đầy đủ các trường");
+            swal("Không được để trống", "", "warning");
         }
         else {
             var name = $("#name_foody").val();

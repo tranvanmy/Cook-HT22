@@ -86,12 +86,3 @@ function cate_parent($data, $parent = 0, $str = "--", $select = 0)
         }
     }
 }
-
-function notify($notify, $route)
-{
-    echo "<script>
-        alert('.$notify.');
-        window.location = '";
-    echo route($route);
-    echo "'</script>";
-}

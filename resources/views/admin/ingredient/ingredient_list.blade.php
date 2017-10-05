@@ -138,19 +138,13 @@
             <td><img src="{{ asset('upload/images/'.$item->image) }}"/></td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->description }}</td>
-            <td>
-                <?php
-                $category = DB::table("categories")->where("id", $item->category_id)->first();
-                echo $category->name;
-                ?>
-            </td>
+            <td>{{ $item->category->name }}</td>
             <td>
                 {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
             </td>
             <td class="center">
-                <a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
-                   href="{{ route('getDeleteIngredient',$item->id) }}">
-                    <button type="button" class="btn btn-warning btn-xs">
+                <a href="{{ route('getDeleteIngredient',$item->id) }}">
+                    <button id="delete" type="button" class="btn btn-warning btn-xs">
                         <i class="fa fa-trash-o  fa-fw"></i>
                     </button>
                 </a>

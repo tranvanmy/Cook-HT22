@@ -11,7 +11,7 @@
                             <li><a href="#" target="#"> {{ trans("sites.regulation") }}</a>
                         </ul>
                     </div>
-                    <div id="footer-framgia">&copy; 2017 Framgia Culinary.</div>
+                    <div id="footer-framgia">&copy; 2017 {{ trans("sites.brand") }}.</div>
                 </div>
             </div>
         </div>
