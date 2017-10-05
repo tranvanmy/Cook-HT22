@@ -7,25 +7,26 @@ use App\Models\Category;
 use App\Models\Receipt;
 use App\Models\ReceiptIngredient;
 use App\Models\UserReceiptIngredient;
+
 class Ingredient extends Model
 {
-    //
     protected $fillable = [
         'name',
         'description',
         'image',
         'unit',
-        'category_id'
+        'category_id',
+        'status'
     ];
 
     public function category()
     {
-    	return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function receipts()
     {
-    	return $this->hasMany(Receipt::class);
+        return $this->hasMany(Receipt::class);
     }
 
     public function receiptIngredients()
@@ -37,5 +38,9 @@ class Ingredient extends Model
     {
         return $this->hasOne(UserReceiptIngredient::class);
     }
-    
+
+    public function scopeGetID($query, $id)
+    {
+        return $query->find($id);
+    }
 }

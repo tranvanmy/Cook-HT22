@@ -21,7 +21,8 @@
             <div class="header-top clearfix">
                 <div class="logo header-top-1">
                     <div class="navbar-brand">
-                        <a href="{{ url('/') }}"><img class="logo img-responsive" src="{{ asset('users/imgs/framgia.png') }}"></a>
+                        <a href="{{ url('/') }}"><img class="logo img-responsive"
+                                                      src="{{ asset('users/imgs/framgia.png') }}"></a>
                     </div>
                 </div>
                 <div class="header-top-2">
@@ -44,16 +45,16 @@
                         </li>
                         <li>
                             <a href="#">
-                                <span class="fa fa-mobile-phone"></span> <span
-                                        class="sr-only">{{ trans("sites.appMobile") }}</span>
+                                <span class="fa fa-mobile-phone"></span>
+                                <span class="sr-only">{{ trans("sites.appMobile") }}</span>
                             </a>
                         </li>
                         <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-facebook-square"></span>
                                 <span class="sr-only">{{ trans("sites.fanpage") }}</span>
                             </a>
                         </li>
-                        <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-instagram"></span> 
-                            <span class="sr-only">{{ trans("sites.instagram") }}</span> </a> </li>
+                        <li><a href="#" target="_blank" rel="nofollow"> <span class="fa fa-instagram"></span>
+                                <span class="sr-only">{{ trans("sites.instagram") }}</span> </a></li>
                     </ul>
                 </div>
             </div>
@@ -80,89 +81,94 @@
                     </li>
                     @if(!Auth::check())
 
-                    <li class="dropdown">
-                        <a href="#" id="myTabDrop1" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                            {{ trans("sites.login") }} <b class="caret"></b>
-                        </a>
-                        <div class="dropdown-menu login-widget" role="menu">
-                            <form class="form-horizontal">
-                                <div class="login-social">
-                                    <div class="social-icon">
-                                        <ul class="list-unstyled">
-                                            <li class="fb wide"><a class="social-login" href="{{ url('social/redirect') }}"><span class="child"></span><span>{{ trans("sites.login") }}
-                                                        Facebook</span></a>
-                                            </li>
-                                            <li class="clearfix separator"></li>
-                                        </ul>
+                        <li class="dropdown">
+                            <a href="#" id="myTabDrop1" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                                {{ trans("sites.login") }} <b class="caret"></b>
+                            </a>
+                            <div class="dropdown-menu login-widget" role="menu">
+                                <form class="form-horizontal">
+                                    <div class="login-social">
+                                        <div class="social-icon">
+                                            <ul class="list-unstyled">
+                                                <li class="fb wide"><a class="social-login"
+                                                                       href="{{ url('social/redirect') }}"><span
+                                                                class="child"></span><span>{{ trans("sites.login") }}
+                                                            Facebook</span></a>
+                                                </li>
+                                                <li class="clearfix separator"></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <fieldset>
-                                    <form method="post" action="#">
-                                    <legend>{{ trans("sites.or") }} {{ trans("sites.loginWithFramgia") }}</legend>
-                                    <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                                    <div id="header-login-form">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text"
-                                                   name="email" placeholder="Email"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="password"
-                                                   name="password" placeholder="Password"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="pull-left">
-                                                <button type="submit"
-                                                        class="btn btn-sm btn-danger">
-                                                    <span>{{ trans("sites.login") }}</span></button>
+                                    <fieldset>
+                                        <form method="post" action="#">
+                                            <legend>{{ trans("sites.or") }} {{ trans("sites.loginWithFramgia") }}</legend>
+                                            <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
+                                            <div id="header-login-form">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="text"
+                                                           name="email" placeholder="Email"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" type="password"
+                                                           name="password" placeholder="Password"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="pull-left">
+                                                        <button type="submit"
+                                                                class="btn btn-sm btn-danger">
+                                                            <span>{{ trans("sites.login") }}</span></button>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <label>
+                                                            <input type="checkbox" name="RememberMe" checked/>
+                                                            <span>{{ trans("sites.remember") }}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="pull-right">
-                                                <label>
-                                                    <input type="checkbox" name="RememberMe" checked/>
-                                                    <span>{{ trans("sites.remember") }}</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                    <div class="form-group">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <a href="{{ url('register') }}" class="text-underline">{{ trans("sites.register")
+                                        </form>
+                                        <div class="form-group">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <a href="{{ url('register') }}" class="text-underline">{{ trans("sites.register")
                                                     }}</a>
-                                            </li>
-                                            <li>
-                                                <a href="quen-mat-khau.html" class="text-underline">{{
+                                                </li>
+                                                <li>
+                                                    <a href="quen-mat-khau.html" class="text-underline">{{
                                                     trans("sites.forget_pass") }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </li>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </li>
                     @else
-                    <li class="dropdown">
-                        <a href="#" id="myTabDrop1" title="{{ trans('sites.notify') }}" class="dropdown-toggle btn btn-quickmenu" data-toggle="dropdown">
-                            <span class="fa fa-bell text-highlight"></span> <span
-                                    class="sr-only">{{ trans('sites.notify') }}</span>
-                        </a>
-                        <div class="dropdown-menu login-widget" role="menu">
-                            {{ trans('sites.notify') }} {{ trans('sites.here') }}
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">
-                            <img id="avatarUser" src="{{ Auth::user()->avatar }}"/> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
-                          <li role="presentation" class="divider"></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ url('logout') }}">{{ trans("sites.logout") }}</a></li>
-                        </ul>
-                    </li>
+                        <li class="dropdown">
+                            <a href="#" id="myTabDrop1" title="{{ trans('sites.notify') }}"
+                               class="dropdown-toggle btn btn-quickmenu" data-toggle="dropdown">
+                                <span class="fa fa-bell text-highlight"></span> <span
+                                        class="sr-only">{{ trans('sites.notify') }}</span>
+                            </a>
+                            <div class="dropdown-menu login-widget" role="menu">
+                                {{ trans('sites.notify') }} {{ trans('sites.here') }}
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">
+                                <img id="avatarUser" src="{{ Auth::user()->avatar }}"/> <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1"
+                                                           href="{{ url('logout') }}">{{ trans("sites.logout") }}</a>
+                                </li>
+                            </ul>
+                        </li>
                     @endif
 
                 </ul>

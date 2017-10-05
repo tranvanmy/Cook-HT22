@@ -36,10 +36,11 @@
 .list-unstyled li:nth-child(2){
 	margin-right:3em;
 	float:right;
+<<<<<<< HEAD
 }
 .list-inline li:nth-child(3){
 	width: 30px;
 }
 .list-inline li:nth-child(3) img{
 	width:100%;border:none;
-}
+	

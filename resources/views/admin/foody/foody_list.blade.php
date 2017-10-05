@@ -14,14 +14,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">{{ trans("sites.add") }}</h4>
+                    <h4 class="modal-title">{{ trans("sites.add") }} {{ trans("sites.category") }}</h4>
                 </div>
                 <div class="modal-body">
                     <form method="post" action="{{ route('postAddFoody') }}" id="frm-foody-add">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                        <label>Tên thể loại</label>
+                        <label>{{ trans("sites.name") }} {{ trans("sites.category") }}</label>
                         <input type="text" class="form-control" id="name_foody" value=""/>
-                        <label>Chọn thể loại cha</label>
+                        <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltFoody" name="sltFoody" class="form-control">
                             <option value="0">None</option>
                             {{ cate_parent($foody) }}
@@ -57,9 +57,9 @@
                     <form method="post" action="{{ route('postEditFoody') }}" id="frm-foody-edit">
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                         <input type="hidden" name="id" id="idFoody" value=""/>
-                        <label>Tên thể loại</label>
+                        <label>{{ trans("sites.name") }} {{ trans("sites.category") }}</label>
                         <input type="text" class="form-control" name="name_foody" id="name_foody" value=""/>
-                        <label>Chọn thể loại cha</label>
+                        <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltFoody" name="sltFoody" class="form-control">
                             <option value="0">None</option>
                             {{ cate_parent($foody) }}
@@ -101,18 +101,10 @@
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
                 <td>
-                    @if($item->parent_id == 0)
-                        {!! "None" !!}
-                    @else
-                        {{ $parent_name }}
-                    @endif
+                    {{ $item->parent_id == 0 ? "None" : $parent_name }}
                 </td>
                 <td>
-                    @if($item->status == 1)
-                        {{ trans("sites.active") }}
-                    @else
-                        {{ trans("sites.unactive") }}
-                    @endif
+                    {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
                 </td>
                 <td class="center"><a onclick="return xacNhanXoa('Bạn có chắc chắn muốn xóa?')"
                                       href="{{ route('getDeleteFoody',$item->id) }}">

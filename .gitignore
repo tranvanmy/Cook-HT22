@@ -12,3 +12,4 @@ npm-debug.log
 /storage
 /public/bower_components
 composer.lock
+/public/upload

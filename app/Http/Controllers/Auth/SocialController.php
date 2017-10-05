@@ -30,7 +30,6 @@ class SocialController extends Controller
             Auth::login($u);
 
             return redirect('/');
-
         } else {
             $temp = new SocialAccount();
             $temp->social_id = $user->id;
@@ -51,7 +50,6 @@ class SocialController extends Controller
             Auth::login($u);
 
             return redirect("/");
-            
         }
     }
 }

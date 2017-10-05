@@ -43,4 +43,10 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
         Route::post("edit", ["uses" => "Admin\FoodyController@postEdit"])->name("postEditFoody");
         Route::get("delete/{id}", ["uses" => "Admin\FoodyController@getDelete"])->name("getDeleteFoody");
     });
+    Route::group(["prefix" => "ingredient"], function () {
+        Route::get("list", ["uses" => 'Admin\IngredientController@getList'])->name("getListIngredient");
+        Route::post("add", ["uses" => "Admin\IngredientController@postAdd"])->name("postAddIngredient");
+        Route::post("edit", ["uses" => "Admin\IngredientController@postEdit"])->name("postEditIngredient");
+        Route::get("delete/{id}", ["uses" => "Admin\IngredientController@getDelete"])->name("getDeleteIngredient");
+    });
 });

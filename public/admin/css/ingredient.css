@@ -1,0 +1,40 @@
+.gradeX td:nth-child(2) img {
+    width: 50%;
+}
+
+.gradeX td:nth-child(2) {
+    width: 20%;
+}
+
+.gradeX td:nth-child(1) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(2) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(3) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(4) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(5) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(6) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(7) {
+    line-height: 4em;
+}
+
+.gradeX td:nth-child(8) {
+    line-height: 4em;
+}
+

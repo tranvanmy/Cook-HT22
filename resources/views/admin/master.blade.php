@@ -30,6 +30,8 @@
     <!-- DataTables Responsive CSS -->
     <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.css') }}"/>
 
     <script src="{{ url('/bower_components/ckeditor/ckeditor.js')}}"></script>
     <script src="{{ url('/bower_components/ckfinder/ckfinder.js')}}"></script>
@@ -113,10 +115,7 @@
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">{{ trans("sites.list") }}</a>
-                            </li>
-                            <li>
-                                <a href="#">{{ trans("sites.add") }}</a>
+                                <a href="{{ route('getListIngredient') }}">{{ trans("sites.list") }}</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -168,12 +167,12 @@
                     </h1>
                 </div>
                 <div class="col-lg-12">
-                @if(Session::has('flash_message'))
-                    <div class="alert alert-{!! Session::get('flash_level') !!}">
-                        {!! Session::get('flash_message') !!}
-                    </div>
-                @endif
-                </div>  
+                    @if(Session::has('flash_message'))
+                        <div class="alert alert-{!! Session::get('flash_level') !!}">
+                            {!! Session::get('flash_message') !!}
+                        </div>
+                    @endif
+                </div>
                 <!-- /.col-lg-12 -->
 
             </div>
@@ -206,8 +205,8 @@
 <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('admin/js/main.js') }}"></script>
+<script src="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.min.js') }}"></script>
 @yield("script")
-
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 </body>
 </html>
