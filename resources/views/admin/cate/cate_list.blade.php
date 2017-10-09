@@ -23,7 +23,7 @@
                         <input type="text" class="form-control" id="name_cate" value=""/>
                         <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltCategory" name="sltCategory" class="form-control">
-                            <option value="0">None</option>
+                            <option value="0">{{ trans("sites.none") }}</option>
                             {{ cate_parent($cate) }}
                         </select>
                         <br>
@@ -37,7 +37,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("sites.close") }}</button>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                         <input type="text" class="form-control" name="name_cate" id="name_cate" value=""/>
                         <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltCategory" name="sltCategory" class="form-control">
-                            <option value="0">None</option>
+                            <option value="0">{{ trans("sites.none") }}</option>
                             {{ cate_parent($cate) }}
                         </select>
                         <br>
@@ -75,7 +75,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("sites.close") }}</button>
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">{{ trans("sites.close") }}</button>
                 </div>
             </div>
 

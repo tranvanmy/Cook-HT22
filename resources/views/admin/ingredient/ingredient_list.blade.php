@@ -24,7 +24,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ route('postAddIngredient') }}" id="frm-ingre-add">
                     <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
-                    <label>Tên nguyên liệu</label>
+                    <label>{{ trans("sites.nameIngre") }}</label>
                     <input type="text" class="form-control" id="name_ingre" value=""/>
                     <br>
 
@@ -77,7 +77,7 @@
                 <form method="post" action="{{ route('postEditIngredient') }}" id="frm-ingre-edit">
                     <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                     <input type="hidden" name="id" id="idIngre"/>
-                    <label>Tên nguyên liệu</label>
+                    <label>{{ trans("sites.nameIngre") }}</label>
                     <input type="text" class="form-control" id="name_ingre" name="name_ingre" value=""/>
                     <br>
 

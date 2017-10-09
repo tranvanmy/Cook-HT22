@@ -147,7 +147,7 @@
                                     class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">{{ trans("sites.list") }}</a>
+                                <a href="{{ route('getListReceipt') }}">{{ trans("sites.list") }}</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
