@@ -25,5 +25,10 @@ class ReceiptIngredient extends Model
     {
     	return $this->belongsTo(Receipt::class);
     }
+
+    public function scopeReceiptId($query, $id)
+    {
+        return $query->where("receipt_id", $id);
+    }
     
 }

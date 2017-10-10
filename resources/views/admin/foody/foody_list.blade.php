@@ -23,7 +23,7 @@
                         <input type="text" class="form-control" id="name_foody" value=""/>
                         <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltFoody" name="sltFoody" class="form-control">
-                            <option value="0">None</option>
+                            <option value="0">{{ trans("sites.none") }}</option>
                             {{ cate_parent($foody) }}
                         </select>
                         <br>
@@ -61,7 +61,7 @@
                         <input type="text" class="form-control" name="name_foody" id="name_foody" value=""/>
                         <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltFoody" name="sltFoody" class="form-control">
-                            <option value="0">None</option>
+                            <option value="0">{{ trans("sites.none") }}</option>
                             {{ cate_parent($foody) }}
                         </select>
                         <br>

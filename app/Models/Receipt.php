@@ -16,7 +16,7 @@ use App\Models\Level;
 
 class Receipt extends Model
 {
-    
+
     protected $fillable = [
         'name',
         'description',
@@ -25,7 +25,10 @@ class Receipt extends Model
         'status',
         'role',
         'price',
-        'user_id'
+        'user_id',
+        'time',
+        'ration',
+        'complex'
     ];
 
     public function ingredients()
@@ -72,10 +75,20 @@ class Receipt extends Model
     {
         return $this->hasMany(Foody::class);
     }
-    
+
     public function level()
     {
         return $this->belongsTo(Level::class);
     }
-    
+
+    public function scopeUserId($query, $id)
+    {
+        return $query->where("user_id", $id);
+    }
+
+    public function scopeStatus($query, $status)
+    {
+        return $query->where("status", $status);
+    }
+
 }

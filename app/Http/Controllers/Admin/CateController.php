@@ -55,16 +55,16 @@ class CateController extends Controller
             $ingredient->delete();
             $cate->delete();
             return redirect()->route('getListCate')
-                ->with([
-                    'flash_message' => trans("sites.deleteSuccess"),
-                    'flash_level' => 'success'
-                ]);
+            ->with([
+                'flash_message' => trans("sites.deleteSuccess"),
+                'flash_level' => 'success'
+            ]);
         } else {
             return redirect()->route('getListCate')
-                ->with([
-                    'flash_message' => trans("sites.youCantDelete"),
-                    'flash_level' => 'warning'
-                ]);
+            ->with([
+                'flash_message' => trans("sites.youCantDelete"),
+                'flash_level' => 'warning'
+            ]);
         }
     }
 

@@ -12,10 +12,16 @@ class ReceiptStep extends Model
         'receipt_id',
         'detail'
         ];
+    public $timestamps = false;
 
     public function receipt()
     {
     	return $this->belongsTo(Receipt::class);
+    }
+
+    public function scopeReceiptId($query, $id)
+    {
+    	return $query->where("receipt_id", $id);
     }
     
 }
