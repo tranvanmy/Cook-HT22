@@ -1,46 +1,70 @@
-.top-list li:nth-child(1) a{
-    border:2px solid #fff; height:32px; overflow:hidden; border-radius:4px
+.top-list li:nth-child(1) a {
+    border: 2px solid #fff;
+    height: 32px;
+    overflow: hidden;
+    border-radius: 4px
 }
-.top-list li:nth-child(1) a img{
-	height:100%;
+
+.top-list li:nth-child(1) a img {
+    height: 100%;
 }
-.dropdown-menu{
-	padding: 20px; right: 0px; top: 42px; border: 0;min-width:240px
+
+.dropdown-menu {
+    padding: 20px;
+    right: 0px;
+    top: 42px;
+    border: 0;
+    min-width: 240px
 }
-.dropdown-menu form{
-	width:260px;
+
+.dropdown-menu form {
+    width: 260px;
 }
-#footer-framgia{
-	padding-right:15px;color:#777;
+
+#footer-framgia {
+    padding-right: 15px;
+    color: #777;
 }
-.avt img{
-	width:100%;height:100%;
+
+.avt img {
+    width: 100%;
+    height: 100%;
 }
-.recipe-photo img{
-	width:100%;
+
+.recipe-photo img {
+    width: 100%;
 }
-.nopadding{
-	text-align:center;
+
+.nopadding {
+    text-align: center;
 }
-#header-login-form span{
-	margin-top: 3px; display: block; float: left; margin-left: 4px;
+
+#header-login-form span {
+    margin-top: 3px;
+    display: block;
+    float: left;
+    margin-left: 4px;
 }
-#header-login-form input[type=checkbox]
-{
-	float:left;
+
+#header-login-form input[type=checkbox] {
+    float: left;
 }
-.list-unstyled li:nth-child(1){
-	margin-left:4em;
-	float:left;
+
+.list-unstyled li:nth-child(1) {
+    margin-left: 4em;
+    float: left;
 }
-.list-unstyled li:nth-child(2){
-	margin-right:3em;
-	float:right;
-<<<<<<< HEAD
+
+.list-unstyled li:nth-child(2) {
+    margin-right: 3em;
+    float: right;
 }
-.list-inline li:nth-child(3){
-	width: 30px;
+
+.list-inline li:nth-child(3) {
+    width: 30px;
 }
-.list-inline li:nth-child(3) img{
-	width:100%;border:none;
-	
+
+.list-inline li:nth-child(3) img {
+    width: 100%;
+    border: none;
+}

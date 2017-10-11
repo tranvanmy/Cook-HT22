@@ -50,6 +50,11 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
         Route::post("edit", ["uses" => "Admin\ReceiptController@postEdit"])->name("postEditReceipt");
         Route::get("delete/{id}", ["uses" => "Admin\ReceiptController@getDelete"])->name("getDeleteReceipt");
     });
+    Route::group(["prefix" => "unit"], function () {
+        Route::get("list", ["uses" => 'Admin\UnitController@getList'])->name("getListUnit");
+        Route::post("add", ["uses" => "Admin\UnitController@postAdd"])->name("postAddUnit");
+        Route::get("delete/{id}", ["uses" => "Admin\UnitController@getDelete"])->name("getDeleteUnit");
+    });
 });
 
 //Users
@@ -64,3 +69,5 @@ Route::post("delStep", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
 Route::post("addReceiptCate", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
 Route::post("createReceipt", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
+Route::get("detail/{id}", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
+Route::post("/detail/{id}/{ration}", ["uses" => 'Users\DetailReceiptController@calRation'])->name("refresh");

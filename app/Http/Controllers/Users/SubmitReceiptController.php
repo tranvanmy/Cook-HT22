@@ -10,11 +10,18 @@ use App\Models\Foody;
 use App\Models\Receipt;
 use App\Models\Ingredient;
 use App\Models\ReceiptFoody;
+use App\Models\Unit;
 use Auth;
 
 class SubmitReceiptController extends Controller
 {
-    protected $foody, $receipt, $ingredient, $recIngre, $recStep, $recFoody;
+    protected $foody;
+    protected $receipt;
+    protected $ingredient;
+    protected $recIngre;
+    protected $recStep;
+    protected $recFoody;
+    protected $unit;
 
     public function __construct(
         Foody $foody,
@@ -22,7 +29,8 @@ class SubmitReceiptController extends Controller
         Ingredient $ingredient,
         ReceiptIngredient $recIngre,
         ReceiptStep $recStep,
-        ReceiptFoody $recFoody
+        ReceiptFoody $recFoody,
+        Unit $unit
     )
     {
         $this->foody = $foody;
@@ -31,11 +39,13 @@ class SubmitReceiptController extends Controller
         $this->recIngre = $recIngre;
         $this->recStep = $recStep;
         $this->recFoody = $recFoody;
+        $this->unit = $unit;
     }
 
     public function index()
     {
         $foodies = $this->foody->parentID(0)->get();
+        $units = $this->unit->all();
         $receipt = $this->receipt->userId(Auth::user()->id)->status(2)->first();
         if (isset($receipt)) {
             $rec_ingre = $this->recIngre->receiptId($receipt->id)->get();
@@ -43,8 +53,8 @@ class SubmitReceiptController extends Controller
             $recFoody = $this->recFoody->receiptId($receipt->id)->get();
 
             return view("users/pages/createReceipt",
-                compact("foodies", "receipt", "rec_ingre", "step", "recFoody"));
-        } else return view("users/pages/createReceipt", compact("foodies"));
+                compact("foodies", "receipt", "rec_ingre", "step", "recFoody", "units"));
+        } else return view("users/pages/createReceipt", compact("foodies", "units"));
     }
 
     public function postReceipt(Request $request)
@@ -94,7 +104,7 @@ class SubmitReceiptController extends Controller
     {
         if ($request->ajax()) {
             $this->ingredient->name = $request->name;
-            $this->ingredient->unit = $request->unit;
+            $this->ingredient->unit_id = $request->unit;
             $this->ingredient->status = 0;
             $this->ingredient->save();
 
@@ -121,7 +131,7 @@ class SubmitReceiptController extends Controller
         if ($request->ajax()) {
             $ingredient = $this->ingredient->find($request->idIngre);
             $ingredient->name = $request->name;
-            $ingredient->unit = $request->unit;
+            $ingredient->unit_id = $request->unit;
             $ingredient->status = 0;
             $ingredient->save();
 
@@ -239,14 +249,17 @@ class SubmitReceiptController extends Controller
 
     public function cancelReceipt(Request $request)
     {
-        if ($request->ajax()) {
-            $id = $request->id;
-            if ($id) {
-                $rec = $this->receipt->find($id);
-                $rec->delete();
-                $message = trans("sites.deleteSuccess");
-            } else $message = trans("sites.deleteFail");
+        $message = trans("sites.deleteFail");
+
+        if (!$request->ajax() || !$request->id) {
             return $message;
         }
+
+        $rec = $this->receipt->find($request->id);
+        $rec->delete();
+        $message = trans("sites.deleteSuccess");
+
+        return $message;
+
     }
 }

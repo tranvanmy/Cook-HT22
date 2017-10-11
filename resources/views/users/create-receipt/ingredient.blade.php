@@ -13,10 +13,9 @@
             <br>
             <label>{{ trans("sites.unit") }}</label>
             <select class="form-control" id="unitIngredient" name="unitIngredient">
-                <option value="0">{{ trans("sites.choose") }} {{ trans("sites.unit") }}</option>
-                <option value="1">Gam</option>
-                <option value="2">Con</option>
-                <option value="3">Miếng</option>
+                @foreach($units as $unit)
+                    <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                @endforeach
             </select>
             <br>
             <label>{{ trans("sites.note") }}</label>
@@ -39,9 +38,11 @@
                                 data-idIngre="{{ $item->ingredient->id }}"
                                 data-idRecIngre="{{ $item->id }}">{{ trans("sites.delete") }}</button>
                         <br>
-                        <label>{{ trans("sites.name") }}:</label><label id="name">{{ $item->ingredient->name }}</label><br>
+                        <label>{{ trans("sites.name") }}:</label><label
+                                id="name">{{ $item->ingredient->name }}</label><br>
                         <label>{{ trans("sites.qty") }}:</label><label id="qty">{{ $item->quantity }}</label><br>
-                        <label>{{ trans("sites.unit") }}:</label><label id="unit">{{ $item->ingredient->unit }}</label><br>
+                        <label>{{ trans("sites.unit") }}:</label><label
+                                id="unit">{{ $item->ingredient->unit }}</label><br>
                         <label>{{ trans("sites.note") }}:</label><label id="note">{{ $item->note }}</label>
                     </div>
                     @if(++$key % 3 == 0)
