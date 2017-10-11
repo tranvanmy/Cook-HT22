@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Receipt;
 use App\Models\ReceiptIngredient;
 use App\Models\UserReceiptIngredient;
+use App\Models\Unit;
 
 class Ingredient extends Model
 {
@@ -16,7 +17,8 @@ class Ingredient extends Model
         'image',
         'unit',
         'category_id',
-        'status'
+        'status',
+        'unit_id'
     ];
 
     public function category()
@@ -32,6 +34,11 @@ class Ingredient extends Model
     public function receiptIngredients()
     {
         return $this->hasMany(ReceiptIngredient::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
     }
 
     public function userReceiptIngredient()

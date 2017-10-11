@@ -253,7 +253,7 @@ $(document).ready(function () {
 
             if (data == "Tạo công thức thành công") {
                 swal(data);
-                window.location.href = "http://localhost:8000";
+                window.location.href = "http://localhost:8000/detail/" + id;
             }
             else if (data == "Tạo công thức thất bại")
                 swal(data);

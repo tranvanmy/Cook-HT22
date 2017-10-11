@@ -10,6 +10,7 @@
     <link href="{{ asset('users/bundles/frameworkse6d1.css') }}" rel="stylesheet">
     <link href="{{ asset('users/bundles/core8273.css') }}" rel="stylesheet">
     <link href="{{ asset('users/bundles/home12f7.css') }}" rel="stylesheet">
+    <link href="{{ asset('users/bundles/recipe8d28.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/font-awesome/css/font-awesome.css') }}" rel="stylesheet"/>
     <link href="{{ asset('users/Content/home.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css"

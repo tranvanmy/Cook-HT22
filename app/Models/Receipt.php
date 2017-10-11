@@ -91,4 +91,9 @@ class Receipt extends Model
         return $query->where("status", $status);
     }
 
+    public function scopeGetId($query, $id)
+    {
+        return $query->where("id", $id);
+    }
+
 }
