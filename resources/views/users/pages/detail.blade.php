@@ -25,16 +25,15 @@
                                         <span class="item">
                                             <span class="text cuisine-label">{{ trans("sites.ingredient") }}  </span>
                                             <span class="type">
-                                                <a href="/cach-lam/mon-an-tu-qua-ngon-i144" target="_blank"
-                                                   title="m&#243;n ăn ngon từ quả"
+                                                <a href="#" target="_blank"
                                                    class="tag dishes">{{ $recIngre[0]->ingredient->name }} </a>
                                             </span>
                                         </span>
                                 <span class="item">
                                         <span class="text cuisine-label">{{ trans("sites.purpose") }} </span>
                                         <span class="type">
-                                            <a href="/cach-lam/mon-an-an-vat-p7" target="_blank" class="tag dishes"
-                                               title="m&#243;n ăn vặt ngon">{{ $recFoody->foody->name }} </a>
+                                            <a href="#" target="_blank" class="tag dishes">
+                                                {{ $recFoody->foody->name }} </a>
                                         </span>
                                     </span>
                             </div>
@@ -43,10 +42,14 @@
                                 <div class="rating-count">
                                     <span href="javascript:void(0)" target="_self">
                                         <span class="count-num">{{ trans("sites.have") }}
-                                            <span class="innings">1</span>
+                                            <span class="innings">{{ count($rates) }}</span>
                                             {{ trans("sites.innings") }}
                                         </span>
                                         {{ trans("sites.evaluate") }}
+                                        (<a href="javascript:void(0);">
+                                            <span id="resultRate">{{ $receipt->rate_point }}</span> <span
+                                                    class="fa fa-star text-highlight"></span>
+                                        </a>)
                                     </span>
                                 </div>
                             </div>
@@ -63,9 +66,9 @@
                                                  src="{{ asset('upload/images/'.$receipt->user->avatar) }}"
                                                  alt="{{ $receipt->user->name }}">
                                         </a>
-                                        <a href="/thanh-vien/nguyendiep29071990" target="_self"
+                                        <a href="#" target="_self"
                                            class="author text-highlight url cooky-user-link p-name u-url"
-                                           data-userid="77957" title="NGA MAI"> {{ $receipt->user->name }}</a>
+                                           title="{{ $receipt->user->name }}"> {{ $receipt->user->name }}</a><br>
                                         <div class="user-stats">
                                             <span class="stats-item">
                                                 <b class="text-black">4</b> 
@@ -73,12 +76,15 @@
                                             </span>
                                             <span><span class="fa fa-dot">&bull;</span></span>
                                             <span class="stats-item">
-                                                    <a href="/thanh-vien/nguyendiep29071990/quan-tam">
+                                                    <a href="#">
                                                         <b class="text-black">1</b> 
                                                         <span class="text-gray">{{ trans("sites.care") }}</span>
                                                     </a>
                                             </span>
                                         </div>
+                                        <button title="{{ trans('sites.care') }}" class="btn-follow">
+                                            <span>{{ trans("sites.care") }}</span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +122,9 @@
                             <li>
                                 <div class="duration">
                                     <span class="stats-text p-yield " value="4">{{ trans("sites.serving") }}</span>
-                                    <span><b class="stats-count">{{ $receipt->ration }}</b> {{ trans("sites.people") }}</span>
+                                    <span>
+                                        <b class="stats-count">{{ $receipt->ration }}</b> {{ trans("sites.people") }}
+                                    </span>
                                 </div>
                             </li>
                             <li>
@@ -164,16 +172,6 @@
                     <a id="nav-detail-panel" href="#" target="_self">
                         <span class="fa fa-align-right"></span> {{ trans("sites.receipt") }}</a>
                 </li>
-                <li class="">
-                    <a id="nav-review-panel" href="#" target="_self">
-                        <span class="fa fa-star-o"></span>
-                        {{ trans("sites.evaluate") }}
-                        (<span class="recipe-reviews-count">1</span>)
-                    </a>
-                </li>
-                <li class="">
-                    <a id="nav-galary-panel" href="#" target="_self">
-                        <span class="fa fa-photo"></span> {{ trans("sites.image") }} (3)</a></li>
             </ul>
         </div>
     </div>
@@ -323,153 +321,92 @@
                             </div>
                         </div>
                     </div>
-                    <!--inline review form-->
-                    <div class="inline-recipe-review-form simple-review-form micro-box">
-                        <h3 class="title">{{ trans("sites.evaluateThisReceipt") }}</h3>
-                        <div class="input-group simple-input fake-form">
-                            <span class="fa fa-pencil fa-ico"></span>
-                            <input type="text" placeholder="{{ trans('sites.content') }}" name="temp-review-content"
-                                   id="temp-review-content" class="form-control simple-form-control">
-                            <span class="input-group-btn">
-                                    <button class="btn btn-danger"
-                                            id="submitComment">{{ trans("sites.submitComment") }}</button>
-                                </span>
-                        </div>
-                        <div class="inline-recipe-review-form-ctrl"></div>
+                    @include("users.detail.review")
+                </div>
+                <div class="rcbox recipe-box recipe-review-container clearfix">
+                    <div class="headline">
+                        <h3 class="title">{{ count($rates) }} {{ trans("sites.evaluateFromUser") }}</h3>
+                        <span class="desc">{{ trans("sites.shareTips") }}</span>
                     </div>
-                    <!--end inline review form-->
-                    <div class="rcbox recipe-box recipe-review-container clearfix">
-                        <div class="headline">
-                            <h3 class="title">1 {{ trans("sites.evaluateFromUser") }}</h3>
-                            <span class="desc">{{ trans("sites.shareTips") }}</span>
-                        </div>
-
-                        <div class="recipe-reviews" id="reviewlist">
-                            <div>
-                                <div class="review-item recipe-review-item">
-                                    <div class="body">
-                                        <div class="user-info">
-                                            <div class="avt">
-                                                <a href="#" target="_self">
-                                                    <img class="photo"
-                                                         src="https://media.cooky.vn/usr/g8/77957/avt/c70x70/cooky-avatar-636377765296093550.jpg"
-                                                         alt="NGA MAI">
-                                                </a>
-                                            </div>
-                                            <div class="profile">
-                                                <a href="/thanh-vien/nguyendiep29071990" target="_self"
-                                                   class="name cooky-user-link">
-                                                    <span> NGA MAI</span></a>
-                                                <span class="user-stats">
-                                                        <span class="stats-item">
-                                                            <span class="stats-count">4</span>
-                                                            <span class="stats-text"> {{ trans("sites.receipt") }}</span>
-                                                        </span>
-                                                        <span class="stats-item">
-                                                            <span class="stats-count">1</span>
-                                                            <span class="stats-text"> {{ trans("sites.care") }}</span>
-                                                        </span>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                        <div class="title text-ellipsis">
-                                            <a href="/cong-thuc/chan-ga-ngam-sa-tac-ngon-20904/danh-gia/45506"
-                                               target="_self"><span class="text-bold">Ch&#226;n g&#224; ng&#226;m sả tắc ngon</span></a>
-                                        </div>
-                                        <div class="content">
-                                            <div class="review-content trusted-html-with-emotion">NGON V&#192; DỄ
-                                                THỰC
-                                                HI&#202;N
-                                            </div>
-                                        </div>
-
-                                        <div class="photos-container">
-                                        </div>
-                                        <div class="rating">
-                                            <span class="rating-value">9.0</span>
-                                            <span class="date-time rated-date" title="16/08/2016 12:52:14">
-                                                    16/08/2016 12:52
-                                                </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="rating-all">
+                        @foreach($rates as $rate)
+                            @include("users.detail.listComment")
+                        @endforeach
                     </div>
                 </div>
             </div>
-            <div class="recipe-detail-right sm-wide" id="recipe-detail-right">
-                <div class="right-content scrollable-container inner" data-padding="40">
-                    <div class='widget HTML' id='floatDiv'>
-                        <div class="tool-box">
-                            <a href="/cong-thuc/tao-cong-thuc" target="_self" title="Tạo công thức"
-                               class="btn-submit-recipe text-center">
-                                <span class="fa fa-plus-circle"></span>{{ trans("sites.createReceipt") }}
+        </div>
+        <div class="recipe-detail-right sm-wide" id="recipe-detail-right">
+            <div class="right-content scrollable-container inner" data-padding="40">
+                <div class='widget HTML' id='floatDiv'>
+                    <div class="tool-box">
+                        <a href="{{ route('receipt') }}" target="_self" title="Tạo công thức"
+                           class="btn-submit-recipe text-center">
+                            <span class="fa fa-plus-circle"></span>{{ trans("sites.createReceipt") }}
+                        </a>
+                        <div class="tool-item">
+                            <a href="javascript:void(0)" class="btn-quick-review">
+                                <span class="fa fa-shopping-cart"> </span>
+                                {{ trans("sites.putReceiptIntoCart") }}
                             </a>
-                            <div class="tool-item">
-                                <a href="javascript:void(0)" class="btn-quick-review">
-                                    <span class="fa fa-star"> </span>
-                                    {{ trans("sites.yourEvaluete") }}
-                                </a>
-                            </div>
-                            <div class="tool-item print">
-                                <a class="stat-text" onclick="window.print();" href="javascript:void(0)" rel="nofollow">
-                                    <span class="fa fa-print text-highlight"></span>
-                                    <span>{{ trans("sites.scan") }}</span>
-                                </a>
-                            </div>
                         </div>
-                        <div class="shopping-list-box box-content">
+                        <div class="tool-item print">
+                            <a class="stat-text" onclick="window.print();" href="javascript:void(0)" rel="nofollow">
+                                <span class="fa fa-print text-highlight"></span>
+                                <span>{{ trans("sites.scan") }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="shopping-list-box box-content">
 
-                            <div class="tab">
-                                <button class="tablinks"
-                                        onclick="openCity(event, 'togetherIngre')">{{ trans("sites.togetherIngre") }}
-                                </button>
-                                <button class="tablinks"
-                                        onclick="openCity(event, 'togetherMenu')">{{ trans("sites.togetherMenu") }}</button>
-                            </div>
+                        <div class="tab">
+                            <button class="tablinks"
+                                    onclick="openCity(event, 'togetherIngre')">{{ trans("sites.togetherIngre") }}
+                            </button>
+                            <button class="tablinks"
+                                    onclick="openCity(event, 'togetherMenu')">{{ trans("sites.togetherMenu") }}</button>
+                        </div>
 
-                            <div id="togetherIngre" class="tabcontent">
-                                <a class="thumb" href="#">
-                                    <img src="{{ asset('users/imgs/background.jpg') }}"/>
-                                </a>
-                                <a class="title" href="#">
-                                    <span>Con gà béo</span>
-                                </a>
-                                <br>
-                                <span class="innings">0</span>
-                                <span class="like"> {{trans("sites.like")}}</span>
-                                <span class="innings">2</span>
-                                <span class="comment"> {{trans("sites.comment")}}</span>
-                                <br>
-                                <span class="btn btn-success btn-ms rating">8.0</span>
-                                <div class="clearfix"></div>
-                                <br>
-                            </div>
+                        <div id="togetherIngre" class="tabcontent">
+                            <a class="thumb" href="#">
+                                <img src="{{ asset('users/imgs/background.jpg') }}"/>
+                            </a>
+                            <a class="title" href="#">
+                                <span>Con gà béo</span>
+                            </a>
+                            <br>
+                            <span class="innings">0</span>
+                            <span class="like"> {{trans("sites.like")}}</span>
+                            <span class="innings">2</span>
+                            <span class="comment"> {{trans("sites.comment")}}</span>
+                            <br>
+                            <span class="btn btn-success btn-ms rating">8.0</span>
+                            <div class="clearfix"></div>
+                            <br>
+                        </div>
 
-                            <div id="togetherMenu" class="tabcontent">
-                                <a class="thumb" href="#">
-                                    <img src="{{ asset('users/imgs/background.jpg') }}"/>
-                                </a>
-                                <a class="title" href="#">
-                                    <span>Con gà béo</span>
-                                </a>
-                                <br>
-                                <span class="innings">0</span>
-                                <span class="like"> {{trans("sites.like")}}</span>
-                                <span class="innings">3</span>
-                                <span class="comment"> {{trans("sites.comment")}}</span>
-                                <br>
-                                <span class="btn btn-success btn-ms rating">8.0</span>
-                                <div class="clearfix"></div>
-                                <br>
-                            </div>
+                        <div id="togetherMenu" class="tabcontent">
+                            <a class="thumb" href="#">
+                                <img src="{{ asset('users/imgs/background.jpg') }}"/>
+                            </a>
+                            <a class="title" href="#">
+                                <span>Con gà béo</span>
+                            </a>
+                            <br>
+                            <span class="innings">0</span>
+                            <span class="like"> {{trans("sites.like")}}</span>
+                            <span class="innings">3</span>
+                            <span class="comment"> {{trans("sites.comment")}}</span>
+                            <br>
+                            <span class="btn btn-success btn-ms rating">8.0</span>
+                            <div class="clearfix"></div>
+                            <br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
 @endsection

@@ -165,8 +165,16 @@ return [
     'purpose' => 'Mục đích',
     'people' => 'Người',
     'submitComment' => 'Gửi bình luận',
-    'yourEvaluete' => 'Đánh giá của bạn',
+    'putReceiptIntoCart' => 'Thêm công thức',
     'scan' => 'In',
     'have' => 'Có',
-    'innings' => 'lượt'
+    'innings' => 'lượt',
+    'youMust' => 'Bạn phải',
+    'toEvaluate' => 'để được tham gia đánh giá',
+    'toComment' => 'để được tham gia bình luận',
+    'orHaventAcc' => 'hoặc Nếu bạn chưa có tài khoản thì hãy',
+    'toParticipation' => 'để tham gia cùng',
+    'reply' => 'Trả lời',
+    'evaluateReceipt' => 'Đánh giá công thức'
+
 ];

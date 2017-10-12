@@ -58,7 +58,8 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
 });
 
 //Users
-Route::get("create-receipt", ["uses" => 'Users\SubmitReceiptController@index'])->middleware("auth");
+//Create Receipt
+Route::get("create-receipt", ["uses" => 'Users\SubmitReceiptController@index'])->name("receipt")->middleware("auth");
 Route::post("addReceipt", ["uses" => 'Users\SubmitReceiptController@postReceipt']);
 Route::post("addIngredient", ["uses" => 'Users\SubmitReceiptController@postAddIngredient']);
 Route::post("editIngredient", ["uses" => 'Users\SubmitReceiptController@postEditIngredient']);
@@ -69,5 +70,11 @@ Route::post("delStep", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
 Route::post("addReceiptCate", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
 Route::post("createReceipt", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
-Route::get("detail/{id}", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
-Route::post("/detail/{id}/{ration}", ["uses" => 'Users\DetailReceiptController@calRation'])->name("refresh");
+//Detail
+Route::group(["prefix" => "detail"], function () {
+    Route::get("{id}", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
+    Route::post("{id}/ration", ["uses" => 'Users\DetailReceiptController@calRation'])->name("refresh");
+    Route::post("{id}", ["uses" => 'Users\DetailReceiptController@rating'])->name("rating");
+    Route::post("{id}/comment", ["uses" => 'Users\DetailReceiptController@comment'])->name("comment");
+});
+
