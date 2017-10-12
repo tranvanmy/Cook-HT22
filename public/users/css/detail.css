@@ -109,3 +109,137 @@ div.tab button.active {
     width: auto;
     height: auto;
 }
+
+.form-box {
+    display: block;
+}
+
+.rating-scores {
+    vertical-align: super;
+}
+
+.rating-value {
+    line-height: 14px;
+}
+
+.reply-review {
+    margin-left: 6em;
+    margin-bottom: 1em;
+}
+
+.replyForm {
+    text-decoration: none;
+    color: blue;
+    font-size: 12px;
+}
+
+.comment-profile-img .img-rounded {
+    width: 5%;
+    float: left;
+    border-radius: 50%;
+}
+
+#recipereviewcommentbox {
+    padding-right: 50px;
+    min-height: 50px;
+    overflow-y: hidden;
+    height: 56px;
+}
+
+.user-avt img {
+    float: left;
+    width: 5%;
+    border-radius: 50%;
+}
+
+.comment-head {
+    width: 100%;
+}
+
+.cooky-user-link {
+    color: #333;
+    float: left;
+}
+
+.date-time {
+    margin-left: 10px;
+    float: left;
+    font-size: 11px;
+}
+
+.comment-text {
+    word-wrap: inherit;
+}
+
+.comment-item {
+    margin-bottom: 2em;
+}
+
+.title span {
+    margin-left: 0;
+}
+
+#notifyLogin a {
+    text-decoration: none;
+    color: blue;
+    font-size: 14px;
+
+}
+
+#notifyLogin a:hover {
+    color: #B71C1C;
+}
+
+#reply-all {
+    margin-left: 5em;
+}
+
+.buttuonAction {
+    padding: 5px 8px 0 0;
+}
+
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: #FFD700;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+    color: #FFED85;
+}

@@ -11,6 +11,8 @@ use App\Models\ReceiptStep;
 use App\Models\Foody;
 use App\Models\Ingredient;
 use App\Models\Unit;
+use App\Models\Rate;
+use App\Models\Comment;
 
 class DetailReceiptController extends Controller
 {
@@ -21,6 +23,7 @@ class DetailReceiptController extends Controller
     protected $ingredient;
     protected $foody;
     protected $unit;
+    protected $comment;
 
     public function __construct(
         Foody $foody,
@@ -29,7 +32,9 @@ class DetailReceiptController extends Controller
         ReceiptStep $recStep,
         Ingredient $ingredient,
         ReceiptFoody $recFoody,
-        Unit $unit
+        Unit $unit,
+        Rate $rate,
+        Comment $comment
 
     )
     {
@@ -40,6 +45,8 @@ class DetailReceiptController extends Controller
         $this->ingrediet = $ingredient;
         $this->recFoody = $recFoody;
         $this->unit = $unit;
+        $this->rate = $rate;
+        $this->comment = $comment;
     }
 
     public function show($id)
@@ -48,20 +55,62 @@ class DetailReceiptController extends Controller
         $recIngre = $this->recIngre->receiptId($id)->get();
         $recStep = $this->recStep->receiptId($id)->get();
         $recFoody = $this->recFoody->receiptId($id)->first();
-        $units = $this->unit->all();
-        return view("users.pages.detail", compact("receipt", "recIngre", "recStep", "recFoody", "units"));
+        $units = $this->unit->select("*")->orderBy('id', 'desc');
+        $rates = $this->rate->receiptId($id)->select("*")->orderBy('id', 'desc')->get();
+
+        return view("users.pages.detail", compact("receipt", "recIngre", "recStep", "recFoody", "units", "rates"));
     }
 
     public function calRation(Request $request)
     {
-        if ($request->ajax()) {
-            $data = $request->arrData;
-            $number = $request->number;
-            $newData = array();
-            for ($i = 0; $i < count($data); $i++) {
-                array_push($newData, $number * $data[$i]);
-            }
-            return $newData;
+        if (!$request->ajax()) {
+            return false;
         }
+        $data = $request->arrData;
+        $number = $request->number;
+        $newData = array();
+        for ($i = 0; $i < count($data); $i++) {
+            array_push($newData, $number * $data[$i]);
+        }
+        return $newData;
+    }
+
+    public function rating(Request $request)
+    {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $response = $this->rate->create([
+            'point' => $request->point[0],
+            'user_id' => $request->user_id,
+            'receipt_id' => $request->receipt_id,
+            'content' => $request->content
+        ]);
+        $receipt = $this->receipt->find($request->receipt_id);
+        $rates = $this->rate->receiptId($receipt->id)->get();
+
+        $s = 0;
+        for ($i = 0; $i < count($rates); $i++) {
+            $s += $rates[$i]->point;
+        }
+        $receipt->rate_point = (float)$s / count($rates);
+        $receipt->save();
+
+        return response($response);
+    }
+
+    public function comment(Request $request)
+    {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $response = $this->comment->create([
+            'rate_id' => $request->idRate,
+            'content' => $request->replyContent,
+            'user_id' => $request->idUser
+        ]);
+        return response($response);
     }
 }

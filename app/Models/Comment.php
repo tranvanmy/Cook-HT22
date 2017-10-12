@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\Receipt;
+use App\Models\Rate;
 
 class Comment extends Model
 {
@@ -12,8 +12,7 @@ class Comment extends Model
     protected $fillable = [
         'user_id',
         'content',
-        'parent_id',
-        'receipt_id'
+        'rate_id'
     ];
     
     public function user()
@@ -21,9 +20,13 @@ class Comment extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function receipt()
+    public function rate()
     {
-    	return $this->belongsTo(Receipt::class);
+        return $this->belongsTo(Rate::class);
     }
     
+    public function scopeRateId($query, $id)
+    {
+        return $query->where("rate_id",$id);
+    }
 }
