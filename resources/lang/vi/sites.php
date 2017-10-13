@@ -175,6 +175,17 @@ return [
     'orHaventAcc' => 'hoặc Nếu bạn chưa có tài khoản thì hãy',
     'toParticipation' => 'để tham gia cùng',
     'reply' => 'Trả lời',
-    'evaluateReceipt' => 'Đánh giá công thức'
+    'evaluateReceipt' => 'Đánh giá công thức',
+    'invoice' => 'Hóa đơn',
+    'total' => 'Tổng tiền',
+    'phone' => 'Số điện thoại',
+    'address' => 'Địa chỉ',
+    'detail' => 'Chi tiết',
+    'noneReceipt' => 'Không có công thức nào trong giở hàng',
+    'checkout' => 'Thanh toán',
+    'continueShopping' => 'Tiếp tục mua hàng',
+    'subTotal' => 'Thành giá',
+    'price' => 'giá',
+    'allReceiptBuy'=>'Tất cả công thức được chọn mua'
 
 ];

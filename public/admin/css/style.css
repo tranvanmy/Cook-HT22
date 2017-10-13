@@ -27,3 +27,17 @@
 #dataTables-example th {
     text-align: center;
 }
+
+#cart thead {
+    background: #B17C1C;
+}
+
+#total tr {
+    width: 30%;
+    float: right;
+    background: #5cb85c;
+}
+
+#total table {
+    border: none;
+}

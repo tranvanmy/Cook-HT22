@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\OrderDetail;
+use App\Models\Receipt;
 
 class Order extends Model
 {
-    
+
     protected $fillable = [
         'name',
         'email',
@@ -16,9 +17,8 @@ class Order extends Model
         'phone',
         'note',
         'user_id',
-        'total',
-        'status',
-        'seller',
+        'totalPrice',
+        'status'
     ];
 
     public function user()
@@ -30,5 +30,20 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class);
     }
-    
+
+    public function receipts()
+    {
+        return $this->belongsToMany(Receipt::class, 'order_details')->withPivot('quantity');
+    }
+
+    public function scopeSelectItem($query, $array = '')
+    {
+        return $query->select($array);
+    }
+
+    public function scopeOrderById($query, $prop)
+    {
+        return $query->orderBy($prop, 'DESC');
+    }
+
 }

@@ -13,6 +13,8 @@ use App\Models\ReceiptIngredient;
 use App\Models\Foody;
 use App\Models\ReceiptFoody;
 use App\Models\Level;
+use App\Models\Order;
+use App\Models\OrderDetail;
 
 class Receipt extends Model
 {
@@ -49,6 +51,16 @@ class Receipt extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_details');
+    }
+
+    public function order_details()
+    {
+        return $this->hasMany(OrderDetail::class);
     }
 
     public function userReceipts()

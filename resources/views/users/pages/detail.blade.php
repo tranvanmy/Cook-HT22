@@ -345,7 +345,7 @@
                             <span class="fa fa-plus-circle"></span>{{ trans("sites.createReceipt") }}
                         </a>
                         <div class="tool-item">
-                            <a href="javascript:void(0)" class="btn-quick-review">
+                            <a @if(Auth::check()) href="{{ route('cartBuy',$receipt->id) }}" @else href="{{ route('login') }}" @endif  class="btn-quick-review">
                                 <span class="fa fa-shopping-cart"> </span>
                                 {{ trans("sites.putReceiptIntoCart") }}
                             </a>

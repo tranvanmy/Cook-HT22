@@ -15,7 +15,8 @@
                         </a>
                 @endif
 
-                <li><a href="javascript:void(0)"><span class="fa fa-shopping-basket"></span> {{ trans("sites.cart")
+                <li><a @if(Auth::check()) href="{{ route('cartDetail') }}"
+                       @else href="{{ route('login') }}" @endif ><span class="fa fa-shopping-basket"></span> {{ trans("sites.cart")
                     }}</a>
             </ul>
         </div>
@@ -83,7 +84,8 @@
                 <ul class="nomargin list-inline right-wrap navbar-right">
                     <li>
                         <a class="btn btn-quickmenu" title="{{ trans('sites.add') }} {{ trans('sites.receipt') }}"
-                           @if(!Auth::check()) href="{{ route('login') }}" @else href="{{ url('/create-receipt') }}" @endif>
+                           @if(!Auth::check()) href="{{ route('login') }}"
+                           @else href="{{ url('/create-receipt') }}" @endif>
                             <span class="fa fa-plus text-highlight"></span>
                             <span class="sr-only">{{ trans("sites.add") }} {{ trans("sites.receipt") }}</span>
                         </a>

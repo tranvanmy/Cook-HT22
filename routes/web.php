@@ -55,6 +55,11 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
         Route::post("add", ["uses" => "Admin\UnitController@postAdd"])->name("postAddUnit");
         Route::get("delete/{id}", ["uses" => "Admin\UnitController@getDelete"])->name("getDeleteUnit");
     });
+    Route::group(["prefix" => "invoice"], function () {
+        Route::get("list", ["uses" => 'Admin\InvoiceController@getList'])->name("getListInvoice");
+        Route::post("edit", ["uses" => "Admin\InvoiceController@postEdit"])->name("postEditInvoice");
+        Route::post("update", ["uses" => "Admin\InvoiceController@postUpdate"])->name("postUpdateInvoice");
+    });
 });
 
 //Users
@@ -77,4 +82,10 @@ Route::group(["prefix" => "detail"], function () {
     Route::post("{id}", ["uses" => 'Users\DetailReceiptController@rating'])->name("rating");
     Route::post("{id}/comment", ["uses" => 'Users\DetailReceiptController@comment'])->name("comment");
 });
-
+Route::group(["prefix" => "cart"], function () {
+    Route::get("buy/{id}", ['uses' => 'Users\CartController@buy'])->name("cartBuy");
+    Route::get("detail", ["uses" => 'Users\CartController@show'])->name("cartDetail");
+    Route::get("delete/{id}", ['uses' => 'Users\CartController@delete'])->name("cartDelete");
+    Route::post("update/{rowid}/{qty}", ['uses' => 'Users\CartController@update'])->name("cartUpdate");
+    Route::post("detail/checkout", ['uses' => 'Users\CartController@checkOut'])->name("postCheckOut");
+});
