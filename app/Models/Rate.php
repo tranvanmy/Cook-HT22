@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Comment;
 class Rate extends Model
 {
-    
+
     protected $fillable = [
         'id',
         'user_id',
@@ -35,5 +35,10 @@ class Rate extends Model
     public function scopeReceiptId($query, $id)
     {
         return $query->where("receipt_id",$id);
+    }
+
+    public function scopeFindRateByUser($query, $receipt_id, $user_id)
+    {
+        return $query->where("receipt_id", $receipt_id)->where("user_id", $user_id)->first();
     }
 }

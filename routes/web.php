@@ -76,11 +76,13 @@ Route::post("addReceiptCate", ["uses" => 'Users\SubmitReceiptController@postRece
 Route::post("createReceipt", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
 //Detail
-Route::group(["prefix" => "detail"], function () {
-    Route::get("{id}", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
-    Route::post("{id}/ration", ["uses" => 'Users\DetailReceiptController@calRation'])->name("refresh");
-    Route::post("{id}", ["uses" => 'Users\DetailReceiptController@rating'])->name("rating");
-    Route::post("{id}/comment", ["uses" => 'Users\DetailReceiptController@comment'])->name("comment");
+Route::group(["prefix" => "detail/{id}"], function () {
+    Route::get("/", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
+    Route::post("/ration", ["uses" => 'Users\DetailReceiptController@calRation'])->name("refresh");
+    Route::post("/", ["uses" => 'Users\DetailReceiptController@rating'])->name("rating");
+    Route::post("/comment", ["uses" => 'Users\DetailReceiptController@comment'])->name("comment");
+    Route::post("/follow", ['uses' => 'Users\FollowController@follow'])->name("follow");
+    Route::post("/like", ['uses' => 'Users\LikeController@like'])->name("like");
 });
 Route::group(["prefix" => "cart"], function () {
     Route::get("buy/{id}", ['uses' => 'Users\CartController@buy'])->name("cartBuy");
@@ -89,3 +91,4 @@ Route::group(["prefix" => "cart"], function () {
     Route::post("update/{rowid}/{qty}", ['uses' => 'Users\CartController@update'])->name("cartUpdate");
     Route::post("detail/checkout", ['uses' => 'Users\CartController@checkOut'])->name("postCheckOut");
 });
+

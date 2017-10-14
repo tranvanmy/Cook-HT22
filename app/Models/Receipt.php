@@ -15,6 +15,7 @@ use App\Models\ReceiptFoody;
 use App\Models\Level;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Like;
 
 class Receipt extends Model
 {
@@ -83,6 +84,11 @@ class Receipt extends Model
         return $this->hasMany(ReceiptFoody::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function foodies()
     {
         return $this->hasMany(Foody::class);
@@ -107,5 +113,4 @@ class Receipt extends Model
     {
         return $query->where("id", $id);
     }
-
 }
