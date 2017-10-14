@@ -71,20 +71,38 @@
                                            title="{{ $receipt->user->name }}"> {{ $receipt->user->name }}</a><br>
                                         <div class="user-stats">
                                             <span class="stats-item">
-                                                <b class="text-black">4</b> 
+                                                <b class="text-black">{{ $countReceipt }}</b> 
                                                 <span class="text-gray">{{ trans("sites.receipt") }}</span>
                                             </span>
                                             <span><span class="fa fa-dot">&bull;</span></span>
                                             <span class="stats-item">
                                                     <a href="#">
-                                                        <b class="text-black">1</b> 
+                                                        <b class="text-black">{{ $following }}</b> 
                                                         <span class="text-gray">{{ trans("sites.care") }}</span>
                                                     </a>
                                             </span>
                                         </div>
-                                        <button title="{{ trans('sites.care') }}" class="btn-follow">
-                                            <span>{{ trans("sites.care") }}</span>
+                                        @if($receipt->user_id != Auth::user()->id)
+                                            <div id="form-follow">
+                                                <button title="{{ trans('sites.care') }}" class="btn-follow follow" data-idReceipt="{{ $receipt->id }}" data-idFollowing="{{ $receipt->user->id }}" @if(Auth::check()) data-idFollower="{{ Auth::user()->id }}" @endif>
+                                                    <a href="javascript:void(0)">
+                                                        @if($follower)
+                                                            @if($follower->status == 1)
+                                                                <span id="nocare">{{ trans("sites.noCare") }}</span>
+                                                            @endif
+                                                        @else
+                                                            <span id="care">{{ trans("sites.care") }}</span>
+                                                        @endif
+                                                    </a>
+                                                </button>
+                                            </div>
+                                        @else
+                                        <button class="btn-follow">
+                                            <a href="javascript:void(0)">
+                                                <span>{{ trans("sites.profile") }}</span>
+                                            </a>
                                         </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -100,7 +118,7 @@
                                 <div>
                                     <span class="stats-text">{{ trans("sites.ingredient") }} </span>
                                     <span class="duration-block">
-                                        <b class="stats-count">{{ count($recIngre) }}</b>
+                                        <b class="stats-count">{{ count($countRecIngre) }}</b>
                                     </span>
                                 </div>
                             </li>
@@ -146,14 +164,16 @@
                     </div>
                     <div class="recipe-toolbox" id="recipe-basic-stats">
                         <ul class="recipe-toolbox-items">
-                            <li class="tool-item">
-                                <a href="javascript:void(0)" class="fa fa-heart-o" title="{{ trans('sites.like') }}">
-                                    <p>1</p>
-                                </a>
-                            </li>
-                            <li class="tool-item">
-                                <a href="javascript:void(0)" class="fa fa-code-fork" title="Fork">
-                                    <p>1</p>
+                            <li class="tool-item" >
+                                <a id="like" href="javascript:void(0)" data-idReceipt="{{ $receipt->id }}" @if(Auth::check()) data-idUser="{{ Auth::user()->id }}" @endif title="{{ trans('sites.like') }}">
+                                    @if($likeByUser)
+                                        @if($likeByUser->status == 1)
+                                            <i class="fa fa-heart"></i>
+                                        @endif
+                                    @else
+                                        <i class="fa fa-heart-o"></i>
+                                    @endif
+                                    <p id="totalLike">{{ $countLike }}</p>
                                 </a>
                             </li>
                         </ul>
@@ -411,5 +431,7 @@
     </div>
 @endsection
 @section("script")
+    {{ Html::script("users/js/like.js") }}
+    {{ Html::script("users/js/follow.js") }}
     {{ Html::script("users/js/detail.js") }}
 @endsection

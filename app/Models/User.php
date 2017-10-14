@@ -15,7 +15,7 @@ use App\Models\Level;
 
 class User extends Authenticatable
 {
-    
+
     use Notifiable;
 
     /**
@@ -53,9 +53,20 @@ class User extends Authenticatable
         return $this->hasMany(Rate::class);
     }
 
+    // ----------------------
     public function follows()
     {
-        return $this->hasMany(Follow::class);
+        return $this->hasMany(Follow::class, 'following_id');
+    }
+
+    public function followBys()
+    {
+        return $this->hasMany(Follow::class, 'follower_id');
+    }
+
+    public function like()
+    {
+        return $this->hasMany(Like::class, 'receipt_id');
     }
 
     public function socialAccounts()
@@ -72,7 +83,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Receipt::class);
     }
-    
+
     public function userReceipts()
     {
         return $this->hasMany(UserReceipt::class);
@@ -82,9 +93,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Level::class);
     }
-    
-    public function scopeEmail($query,$email)
+
+    public function scopeEmail($query, $email)
     {
-        return $query->where("email",$email);
+        return $query->where("email", $email);
     }
 }

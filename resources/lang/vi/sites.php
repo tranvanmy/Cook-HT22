@@ -186,6 +186,9 @@ return [
     'continueShopping' => 'Tiếp tục mua hàng',
     'subTotal' => 'Thành giá',
     'price' => 'giá',
-    'allReceiptBuy'=>'Tất cả công thức được chọn mua'
+    'allReceiptBuy' => 'Tất cả công thức được chọn mua',
+    'noCare' => 'Đã quan tâm',
+    'canCare' => 'Hủy quan tâm',
+    'profile' => 'Trang cá nhân'
 
 ];

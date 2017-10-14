@@ -13,6 +13,9 @@ use App\Models\Ingredient;
 use App\Models\Unit;
 use App\Models\Rate;
 use App\Models\Comment;
+use App\Models\Follow;
+use App\Models\Like;
+use Auth;
 
 class DetailReceiptController extends Controller
 {
@@ -24,6 +27,8 @@ class DetailReceiptController extends Controller
     protected $foody;
     protected $unit;
     protected $comment;
+    protected $follow;
+    protected $like;
 
     public function __construct(
         Foody $foody,
@@ -34,7 +39,9 @@ class DetailReceiptController extends Controller
         ReceiptFoody $recFoody,
         Unit $unit,
         Rate $rate,
-        Comment $comment
+        Comment $comment,
+        Follow $follow,
+        Like $like
 
     )
     {
@@ -47,18 +54,39 @@ class DetailReceiptController extends Controller
         $this->unit = $unit;
         $this->rate = $rate;
         $this->comment = $comment;
+        $this->follow = $follow;
+        $this->like = $like;
     }
 
     public function show($id)
     {
         $receipt = $this->receipt->getId($id)->first();
         $recIngre = $this->recIngre->receiptId($id)->get();
+        $countRecIngre = $this->recIngre->receiptId($id)->count();
         $recStep = $this->recStep->receiptId($id)->get();
         $recFoody = $this->recFoody->receiptId($id)->first();
         $units = $this->unit->select("*")->orderBy('id', 'desc');
         $rates = $this->rate->receiptId($id)->select("*")->orderBy('id', 'desc')->get();
+        $follower = $this->follow->getIdFollower(Auth::user()->id)->first();
+        $following = $this->follow->getAllFollowing($receipt->user_id)->get()->count();
+        $countReceipt = $this->receipt->userId($receipt->user_id)->get()->count();
+        $likeByUser = $this->like->getUser(Auth::user()->id, $id)->first();
+        $countLike = $receipt->likes->count();
 
-        return view("users.pages.detail", compact("receipt", "recIngre", "recStep", "recFoody", "units", "rates"));
+        return view("users.pages.detail", compact(
+            "receipt",
+            "recIngre",
+            "recStep",
+            "recFoody",
+            "units",
+            "rates",
+            "follower",
+            'following',
+            "countReceipt",
+            'likeByUser',
+            'countRecIngre',
+            'countLike'
+        ));
     }
 
     public function calRation(Request $request)
@@ -80,13 +108,25 @@ class DetailReceiptController extends Controller
         if (!$request->ajax()) {
             return false;
         }
+        else{
+            $rate = $this->rate->findRateByUser($request->receipt_id,$request->user_id);
+            if(!isset($rate->id)){
+                $response = $this->rate->create([
+                    'point' => $request->point[0],
+                    'user_id' => $request->user_id,
+                    'receipt_id' => $request->receipt_id,
+                    'content' => $request->content
+                ]);
+            }
+            else{
+                $rate->point = $request->point[0];
+                $rate->content = $request->content;
+                $rate->save();
+            }
+            
+        }
+        
 
-        $response = $this->rate->create([
-            'point' => $request->point[0],
-            'user_id' => $request->user_id,
-            'receipt_id' => $request->receipt_id,
-            'content' => $request->content
-        ]);
         $receipt = $this->receipt->find($request->receipt_id);
         $rates = $this->rate->receiptId($receipt->id)->get();
 
