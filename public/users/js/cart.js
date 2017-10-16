@@ -34,7 +34,7 @@ $(document).ready(function () {
             },
             function (data) {
                 window.location.href = "/";
-                swal(data);
+                if(data) swal("Mua hàng thành công");
             });
     });
 });

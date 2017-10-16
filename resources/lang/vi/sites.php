@@ -1,10 +1,11 @@
 <?php
 
 return [
-    "new_comment" => "Bình luận mới",
+    "all_rate" => "Đánh giá",
     'view_detail' => "Xem chi tiết",
-    'new_task' => "Công việc mới",
-    'new_order' => "Đơn hàng mới",
+    'all_receipt' => "Công thức",
+    'new_order' => "Đơn hàng",
+    'new_comment' => "Đánh giá mới",
     'support' => "Yêu cầu hỗ trợ",
     "area_chart" => "Biểu đồ vùng",
     "actions" => "Các hành động",
@@ -189,6 +190,21 @@ return [
     'allReceiptBuy' => 'Tất cả công thức được chọn mua',
     'noCare' => 'Đã quan tâm',
     'canCare' => 'Hủy quan tâm',
-    'profile' => 'Trang cá nhân'
+    'profile' => 'Trang cá nhân',
+    'notifyWait' => 'Công thức đăng thành công, chờ quản trị duyệt nhé',
+    'errorReceipt' => 'Công thức chưa được đăng tải',
+    'topEvaluateBigger' => "Top đánh giá",
+    'receiptAll' => 'Công thức nấu ăn, Cách làm món ngon',
+    'topChef' => 'đầu bếp nhiều công thức nhất',
+    'dateOfParticipation' => 'Ngày tham gia',
+    'dashboard' => 'Dashboard',
+    'keyword' => 'Từ khóa',
+    'topReceiptEvaluate' => 'Top công thức được đánh giá cao nhất',
+    'topCategory' => 'Top danh mục',
+    'evaluate' => 'Đánh giá',
+    'rank' => 'Cấp bậc',
+    'newbie' => 'Newbie',
+    'professinal' => 'Professinal',
+    'masterChef' => 'MasterChef'
 
 ];

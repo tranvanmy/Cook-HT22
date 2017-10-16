@@ -84,7 +84,7 @@
             </table>
             <tr>
                 <td>
-                    <a href="{{ url('/') }}" class="btn btn-warning">
+                    <a href="{{ route('home') }}" class="btn btn-warning">
                         <i class="fa fa-angle-left"></i> {{ trans("sites.continueShopping") }}
                     </a>
                 </td>

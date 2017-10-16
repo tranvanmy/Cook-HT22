@@ -31,6 +31,20 @@
 
     </div>
 </div>
+<!--  -->
+<!-- Trigger the modal with a button -->
+
+<!-- Trigger the modal with a button -->
+
+<!-- Modal -->
+<div id="iframe" class="modal fade" role="dialog" >
+        <iframe src="" style="width:100%;height: 600px;"></iframe>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+</div>
+
+<!-- Modal -->
 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
     <tr align="center">
@@ -48,7 +62,7 @@
         <tr class="odd gradeX rows{{ $item->id }}" align="center">
             <td>{{ ++$key }}</td>
             <td><img src="{{ asset('upload/images/'.$item->image) }}"/></td>
-            <td>{{ $item->name }}</td>
+            <td><a class="openpop" href="{{ route('detail',$item->id) }}" data-toggle="modal" data-target="#iframe">{{ $item->name }}</a></td>
             <td>
                 @foreach($item->receiptFoodies as $item2)
                     <div class="btn btn-primary btn-xs">{{ $item2->foody->name }}</div>

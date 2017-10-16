@@ -21,12 +21,6 @@
                         <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                         <label>{{ trans("sites.name") }} {{ trans("sites.category") }}</label>
                         <input type="text" class="form-control" id="name_cate" value=""/>
-                        <label>{{ trans("sites.chooseParent") }}</label>
-                        <select id="sltCategory" name="sltCategory" class="form-control">
-                            <option value="0">{{ trans("sites.none") }}</option>
-                            {{ cate_parent($cate) }}
-                        </select>
-                        <br>
                         <label>{{ trans("sites.status") }}</label>
                         <select id="sltStatus" name="sltStatus" class="form-control">
                             <option value="1">{{ trans("sites.active") }}</option>
@@ -61,7 +55,6 @@
                         <label>{{ trans("sites.chooseParent") }}</label>
                         <select id="sltCategory" name="sltCategory" class="form-control">
                             <option value="0">{{ trans("sites.none") }}</option>
-                            {{ cate_parent($cate) }}
                         </select>
                         <br>
                         <label>{{ trans("sites.status") }}</label>
@@ -88,7 +81,6 @@
         <tr>
             <th>STT</th>
             <th>{{ trans('sites.name') }}</th>
-            <th>{{ trans('sites.cate_ingre') }} {{ trans('sites.parent') }}</th>
             <th>{{ trans('sites.active') }}</th>
             <th>{{ trans('sites.delete') }}</th>
             <th>{{ trans('sites.edit') }}</th>
@@ -99,9 +91,6 @@
             <tr class="odd gradeX rows{{ $item->id }}" align="center">
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
-                <td>
-                    {{ $item->parent_id == 0 ? "None" : $parent_name }}
-                </td>
                 <td>
                     {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
                 </td>

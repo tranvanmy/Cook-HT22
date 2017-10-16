@@ -113,4 +113,24 @@ class Receipt extends Model
     {
         return $query->where("id", $id);
     }
+
+    public function scopeOrderByDESC($query, $prop)
+    {
+        return $query->orderBy($prop, 'DESC');
+    }
+
+    public function scopeOrderByASC($query, $prop)
+    {
+        return $query->orderBy($prop, 'ASC');
+    }
+
+    public function scopeGetBigger($query, $prop, $value)
+    {
+        return $query->where($prop, ">=", $value);
+    }
+
+    public function scopeGetStatus($query, $value)
+    {
+        return $query->where("status", $value);
+    }
 }

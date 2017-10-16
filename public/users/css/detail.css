@@ -37,8 +37,9 @@ div.tab button.active {
 
 #floatDiv.fixed {
     position: fixed;
-    top: 5px;
+    top: 60px;
     margin-right: 7.5em;
+    width: 25%;
 }
 
 .list-inline li:nth-child(3) {
@@ -196,6 +197,17 @@ div.tab button.active {
 
 .buttuonAction {
     padding: 5px 8px 0 0;
+}
+
+#notifyWait {
+    background: #7cb342;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    box-shadow: 5px 5px 5px #666;
+    text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    margin-top: 5px;
 }
 
 @import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);

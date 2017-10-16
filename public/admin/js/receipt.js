@@ -17,4 +17,11 @@ $(document).ready(function () {
         });
         $("#myModal").modal("hide");
     });
+
+
+    $(".popup").hide();
+    $(".openpop").click(function (e) {
+        e.preventDefault();
+        $("iframe").attr("src", $(this).attr('href'));
+    });
 });

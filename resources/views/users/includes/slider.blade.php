@@ -1,26 +1,12 @@
 <div class="container">
     <div class="top-today-recipes">
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
-        <div class="today-recipe"><a target="_blank" class="item" href="#">
-            <img src="{{ asset('users/imgs/coupon-contest.jpg') }}"></a>
-        </div>
+        @foreach($slider as $item)
+            <div class="today-recipe">
+                <a target="_blank" class="item" href="{{ route('detail',$item->id) }}">
+                    <img src="{{ asset('upload/images/'.$item->image) }}">
+                </a>
+            </div>
+        @endforeach
     </div>
     <div class="search_slider" style="width:100%;position:absolute;top:50px">
         <div class="search_slider2" style="max-width:800px;margin:0 15%">
@@ -28,8 +14,10 @@
                 <h1 class="mt2 mb1 center">{{ trans("sites.today") }}</h1>
             </div>
             <div class=search-container><span class="fa fa-search"></span>
-                <input id="home-search-input" name="url" type="text" class="form-control"
-                       placeholder="ví dụ: cupcake, soup, mojito, sinh tố...">
+                <form action="{{ route('search') }}" method="get" class="form">
+                    <input id="home-search-input" name="keyword" type="text" class="form-control"
+                           placeholder="ví dụ: cupcake, soup, mojito, sinh tố...">
+                </form>
             </div>
             <div class="trending-link">
                 <ul>

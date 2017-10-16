@@ -11,7 +11,7 @@ $(function () {
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        if ($("#name_ingre").val() == "" || $("#ckfinder-input").val() == "") {
+        if ($("#name_ingre").val() == "") {
             e.preventDefault();
             swal("Không được để trống", "", "warning");
         }
@@ -52,7 +52,8 @@ $(function () {
         for (instance in CKEDITOR.instances) {
             CKEDITOR.instances[instance].updateElement();
         }
-        if ($("#name_ingre").val() == "" || $("#ckfinder-input").val() == "") {
+        if (oldName == "" || oldDesc == "") {
+            alert($("#name_ingre").val() + $("#ckfinder-input").val())
             e.preventDefault();
             swal("Không được để trống", "", "warning");
         }

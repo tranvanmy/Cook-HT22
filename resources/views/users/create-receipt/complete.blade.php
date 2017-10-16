@@ -16,8 +16,9 @@
                                            @if($value->foody_id == $item2["id"])
                                                 checked="checked"
                                            @endif
-                                       @endforeach />
+                                       @endforeach 
                                    @endif
+                                   />
                             <span>{{ $item2['name'] }}</span>
                         </div>
                         @if(++$key % 4 == 0)

@@ -20,7 +20,9 @@ class UsersSeeder extends Seeder
                     'role'          => 1,
                     'phone'         => '01232085432',
                     'address'       => 'Ha Dong',
-                    'status' 		=> '1'
+                    'status' 		=> '1',
+                    'avatar'        => 'user.jpg',
+                    'rank'          => 1
                 ],
 
                 [
@@ -30,7 +32,9 @@ class UsersSeeder extends Seeder
                     'role'          => 2,
                     'phone'         => '113',
                     'address'       => 'Van Khe',
-                    'status' 		=> '1'
+                    'status' 		=> '1',
+                    'avatar'        => 'user.jpg',
+                    'rank'          => 1
                 ]
             ]
         );

@@ -81,7 +81,9 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'remember_token' => $data['_token'],
             'role' => (isset($data['role']) ? $data['role'] : config('const.roleUser')),
-            'avatar' => '/imageStatic/user.jpg'
+            'avatar' => 'user.jpg',
+            'status' => 1,
+            'rank' => 1
         ]);
     }
 }

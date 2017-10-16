@@ -1,7 +1,7 @@
 $(document).ready(function () {
     var documentHeight = $(document).height();
-    if (documentHeight > 600) {
-        var bottomHeight = 1000;
+    if (documentHeight > 1000) {
+        var bottomHeight = 200;
         var msie6 = $.browser == 'msie' && $.browser.version < 7;
         if (!msie6) {
             var top = $('#floatDiv').offset().top - parseFloat($('#floatDiv').css('margin-top').replace(/auto/, 0));
@@ -122,3 +122,20 @@ function openCity(evt, cityName) {
     document.getElementById(cityName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+    var tabsFn = (function() {
+  
+  function init() {
+    setHeight();
+  }
+  
+  function setHeight() {
+    var $tabPane = $('.tab-pane'),
+        tabsHeight = $('.nav-tabs').height();
+    
+    $tabPane.css({
+      height: tabsHeight
+    });
+  }
+    
+  $(init);
+})();

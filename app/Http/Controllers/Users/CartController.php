@@ -12,6 +12,9 @@ use Auth;
 class CartController extends Controller
 {
 	protected $receipt;
+    protected $order;
+    protected $orderDetail;
+    
 	public function __construct(
 		Receipt $receipt,
 		Order $order,

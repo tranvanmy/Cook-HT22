@@ -11,22 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('users.pages.home');
-});
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', 'HomeController@index')->name('homeAfterLogin');
 Auth::routes();
 //////////
 Route::get('/logout', 'Auth\LoginController@getLogout');
 Route::get('social/redirect', 'Auth\SocialController@redirectToProvider');
 Route::get('social/callback', 'Auth\SocialController@handleProviderCallback');
-
-
 //Admin
 Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
-    Route::get("dashboard", [
-        'uses' => 'Admin\DashboardController@getList'
-    ])->name("dashboard");
+    Route::group(["prefix" => "dashboard"], function () {
+        Route::get("/", ['uses' => 'Admin\DashboardController@getList'])->name("dashboard");
+    });
     Route::group(["prefix" => "cate_ingre"], function () {
         Route::get("list", ["uses" => 'Admin\CateController@getList'])->name("getListCate");
         Route::post("add", ["uses" => "Admin\CateController@postAdd"])->name("postAddCate");
@@ -60,9 +56,30 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
         Route::post("edit", ["uses" => "Admin\InvoiceController@postEdit"])->name("postEditInvoice");
         Route::post("update", ["uses" => "Admin\InvoiceController@postUpdate"])->name("postUpdateInvoice");
     });
+    Route::group(["prefix" => "user"], function () {
+        Route::get("list", ["uses" => 'Admin\UserController@getList'])->name("getListUser");
+        Route::post("edit", ["uses" => "Admin\UserController@postEdit"])->name("postEditUser");
+    });
+    Route::group(["prefix" => "rate"], function () {
+        Route::get("list", ["uses" => 'Admin\RateController@getList'])->name("getListRate");
+    });
 });
 
 //Users
+
+//Edit Receipt
+Route::get("create-receipt/{id}", ["uses" => 'Users\SubmitReceiptController@getEdit'])->name("EditReceipt");//sửa
+Route::post("addReceipt/{id}", ['uses' => 'Users\SubmitReceiptController@postReceipt']);
+Route::post("addIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postAddIngredient']);
+Route::post("editIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postAddIngredient']);
+Route::post("delIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postDelIngredient']);
+Route::post("addStep/{id}", ["uses" => 'Users\SubmitReceiptController@postAddStep']);
+Route::post("editStep/{id}", ["uses" => 'Users\SubmitReceiptController@postEditStep']);
+Route::post("delStep/{id}", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
+Route::post("addReceiptCate/{id}", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
+Route::post("createReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
+Route::post("cancelReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
+
 //Create Receipt
 Route::get("create-receipt", ["uses" => 'Users\SubmitReceiptController@index'])->name("receipt")->middleware("auth");
 Route::post("addReceipt", ["uses" => 'Users\SubmitReceiptController@postReceipt']);
@@ -75,6 +92,7 @@ Route::post("delStep", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
 Route::post("addReceiptCate", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
 Route::post("createReceipt", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
+
 //Detail
 Route::group(["prefix" => "detail/{id}"], function () {
     Route::get("/", ["uses" => 'Users\DetailReceiptController@show'])->name("detail");
@@ -84,11 +102,50 @@ Route::group(["prefix" => "detail/{id}"], function () {
     Route::post("/follow", ['uses' => 'Users\FollowController@follow'])->name("follow");
     Route::post("/like", ['uses' => 'Users\LikeController@like'])->name("like");
 });
+
 Route::group(["prefix" => "cart"], function () {
     Route::get("buy/{id}", ['uses' => 'Users\CartController@buy'])->name("cartBuy");
     Route::get("detail", ["uses" => 'Users\CartController@show'])->name("cartDetail");
     Route::get("delete/{id}", ['uses' => 'Users\CartController@delete'])->name("cartDelete");
     Route::post("update/{rowid}/{qty}", ['uses' => 'Users\CartController@update'])->name("cartUpdate");
     Route::post("detail/checkout", ['uses' => 'Users\CartController@checkOut'])->name("postCheckOut");
+});
+Route::group(["prefix" => '/'], function () {
+    Route::get("/", ['uses' => 'Users\IndexController@home'])->name("home");
+    Route::post("headerSearchAjax", ["uses" => 'Users\IndexController@headerSearch']);
+    Route::get("receipt", ["uses" => 'Users\IndexController@receipt'])->name("allReceipt");
+    Route::get("topChef", ["uses" => 'Users\IndexController@topChef'])->name("topChef");
+});
+
+Route::group(["prefix" => "receipt"], function () {
+    Route::get("/", ['uses' => 'Users\ReceiptController@index'])->name("receiptAll");
+    Route::get("/topEvaluate", ['uses' => 'Users\ReceiptController@topEvaluate'])->name("topEvaluate");
+    Route::get("/search", ['uses' => 'Users\ReceiptController@search'])->name("search");
+    Route::get("/foody/{idFoody}",['uses'=>'Users\ReceiptController@foody'])->name("foody");
+    Route::get("/ingredient/{idIngredient}",['uses'=>'Users\ReceiptController@ingredient'])->name("ingredient");
+});
+
+Route::group(["prefix" => "member"], function () {
+    Route::get("/topLove", ['uses' => 'Users\MemberController@topLove'])->name("topLove");
+    Route::get("/topChef", ['uses' => 'Users\MemberController@topChef'])->name("topChef");
+});
+
+Route::group(["prefix" => "myprofile/{id}"], function () {
+    Route::get("/", ['uses' => 'Users\ProfileController@index'])->name("myProfile");
+    Route::post("/updateProfile", ['uses' => 'Users\ProfileController@updateProfile']);
+    Route::post("/follow", ['uses' => 'Users\ProfileController@follow']);
+});
+// ----------------------------------
+
+Route::get('user/{value}', function($value) {
+    dd(App\Models\User::where('name', $value)->first());
+});
+
+Route::get('test', function() {
+    $userID = 1;
+    $receipts = App\Models\Receipt::whereHas('User', function ($query) use ($userID) {
+        $query->where('id', $userID);
+    })->get();
+    dd($receipts);
 });
 

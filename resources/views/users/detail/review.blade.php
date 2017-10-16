@@ -8,7 +8,8 @@
         <a class="exit" href="javascript:void(0)">{{ trans("sites.close") }}</a>
         <div class="user">
             @if(Auth::check())
-                <img class="avt" src="{{  asset('upload/images/'.Auth::user()->avatar) }}">
+                <img href="{{ route('myProfile',Auth::user()->id) }}" class="avt"
+                     src="{{  asset('upload/images/'.Auth::user()->avatar) }}">
             @endif
         </div>
         <div class="form">
@@ -42,8 +43,9 @@
             </div>
             <div class="acts">
                 <div class="form-row">
+
                     <button class="btn btn-submit-review" id="submit-review" data-idReceipt="{{ $receipt->id }}"
-                            data-idUser="{{ $receipt->user->id }}">
+                            @if(Auth::check()) data-idUser="{{ Auth::user()->id }}" @endif>
                         {{ trans("sites.submitComment") }}
                     </button>
                 </div>

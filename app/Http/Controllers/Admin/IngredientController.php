@@ -12,7 +12,7 @@ class IngredientController extends Controller
     public function getList()
     {
         $categories = Category::all()->toArray();
-        $ingredients = Ingredient::all();
+        $ingredients = Ingredient::orderByDESC('id')->get();
         return view("admin.ingredient.ingredient_list", compact("categories", "ingredients"));
     }
 

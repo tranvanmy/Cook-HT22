@@ -4,204 +4,44 @@
     </div>
     <div class="row recipes-list row10">
         <div class="top-recipes-user">
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
+            @foreach($_6newReceipt as $item)
+                <div class="today-recipe-user">
+                    <div class="item-block recipe-block">
+                        <div class="item-content">
+                            <div class="featured-recipe-item">
+                                <a href="{{ route('detail',$item->id) }}">
+                                    <div class="recipe-photo">
+                                        <div class="overlay-box"></div>
+                                        <img alt="{{ $item->name }}"
+                                             src="{{ asset('upload/images/'.$item->image) }}">
+                                    </div>
                                 </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
+                                <div class="item-info-box">
+                                    <h3 class="title"><a href="{{ route('detail',$item->id) }}">{{ $item->name }}</a>
+                                    </h3>
+                                    <div class="desc">
+                                        {{ $item->description }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
+                        <div class="item-header">
+                            <div class="hprofile">
+                                <div class="avt"><a href="{{ route('myProfile',$item->user->id) }}"><img
+                                                src="{{ asset('upload/images/'.$item->user->avatar) }}"
+                                                class="img-responsive"></a>
                                 </div>
-                                <a href="#"> Anh Nguyen </a>
+                                <div class="profile">
+                                    <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}
+                                        :
+                                    </div>
+                                    <a href="{{ route('myProfile',$item->user->id) }}"> {{ $item->user->name }} </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
-                                </div>
-                                <a href="#"> Anh Nguyen </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
-                                </div>
-                                <a href="#"> Anh Nguyen </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
-                                </div>
-                                <a href="#"> Anh Nguyen </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
-                                </div>
-                                <a href="#"> Anh Nguyen </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="today-recipe-user">
-                <div class="item-block recipe-block">
-                    <div class="item-content">
-                        <div class="featured-recipe-item">
-                            <div class="recipe-photo">
-                                <a href="#">
-                                    <div class="overlay-box"></div>
-                                    <img alt="Cà phê trứng ngon chuẩn"
-                                         src="{{ asset('users/imgs/coupon-contest.jpg') }}">
-                                </a>
-                            </div>
-                            <div class="item-info-box">
-                                <h3 class="title"><a href="#">Cà phê trứng ngon chuẩn</a></h3>
-                                <div class="desc">Cà phê trứng là một món đồ uống từ lâu đã rất nổi tiếng tại
-                                    Việt Nam, không những cuốn hút
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item-header">
-                        <div class="hprofile">
-                            <div class="avt"><a href="#"><img
-                                    src="{{ asset('users/imgs/coupon-contest.jpg') }}" class="img-responsive"></a>
-                            </div>
-                            <div class="profile">
-                                <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}:
-                                </div>
-                                <a href="#"> Anh Nguyen </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

@@ -8,6 +8,7 @@ use App\Models\Like;
 
 class LikeController extends Controller
 {
+    protected $like;
     public function __construct(
         Like $like
     )

@@ -38,6 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                     </tbody>
                 </table>
                 <div id="total">
@@ -53,7 +54,7 @@
                 <button type="button" class="btn btn-primary btn-ms" id="update">{{ trans("sites.update") }}</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans("sites.close") }}</button>
+                <button type="button" class="btn btn-default" onclick="location.reload()" data-dismiss="modal">{{ trans("sites.close") }}</button>
             </div>
         </div>
 

@@ -8,7 +8,8 @@ use App\Models\Receipt;
 
 class ReceiptFoody extends Model
 {
-    
+    protected $primaryKey = 'receipt_id';
+
     protected $fillable = [
         'receipt_id',
         'foody_id'
@@ -29,4 +30,8 @@ class ReceiptFoody extends Model
         return $query->where("receipt_id", $id);
     }
 
+    public function scopeOrderByDESC($query, $prop)
+    {
+        return $query->orderBy($prop, 'DESC');
+    }
 }
