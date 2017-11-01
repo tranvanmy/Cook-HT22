@@ -6,46 +6,55 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Ingredient;
 use App\Models\Category;
+use App\Repositories\Contracts\IngredientRepositoryInterface;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 
 class IngredientController extends Controller
 {
+    private $categoryRepository;
+    private $ingredientRepository;
+
+    public function __construct(
+        IngredientRepositoryInterface $ingredientRepository,
+        CategoryRepositoryInterface $categoryRepository
+    )
+    {
+        $this->ingredientRepository = $ingredientRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function getList()
     {
-        $categories = Category::all()->toArray();
-        $ingredients = Ingredient::orderByDESC('id')->get();
-        return view("admin.ingredient.ingredient_list", compact("categories", "ingredients"));
+        $categories = $this->categoryRepository->all()->toArray();
+        $ingredients = $this->ingredientRepository->all();
+        return view('admin.ingredient.ingredient_list', compact('categories', 'ingredients'));
     }
 
     public function postAdd(Request $request)
     {
-        if ($request->ajax()) {
-            return response(Ingredient::create($request->all()));
+        if (!$request->ajax()) {
+            return false;
         }
+
+        return response($this->ingredientRepository->create($request->all()));
     }
 
     public function postEdit(Request $request)
     {
-        if ($request->ajax()) {
-            $ingredient = Ingredient::GetID($request->input("id"));
-            if ($ingredient) {
-                $ingredient->name = $request->input("name");
-                $ingredient->category_id = $request->input("category_id");
-                $ingredient->status = $request->input("status");
-                $ingredient->description = $request->input("description");
-                $ingredient->image = $request->input("image");
-            }
-            $ingredient->save();
-            return response($ingredient);
+        if (!$request->ajax()) {
+           return false;
         }
+        $ingredient = $this->ingredientRepository->updateIngredient($request->all());
+
+        return response($request->all());
     }
 
     public function getDelete($id)
     {
-        $ingredient = Ingredient::GetID($id);
-        $ingredient->delete();
+        $this->ingredientRepository->delete($id);
         return redirect()->route('getListIngredient')
             ->with([
-                'flash_message' => trans("sites.deleteSuccess"),
+                'flash_message' => trans('sites.deleteSuccess'),
                 'flash_level' => 'success'
             ]);
     }

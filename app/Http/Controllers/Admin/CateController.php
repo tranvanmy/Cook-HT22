@@ -20,7 +20,7 @@ class CateController extends Controller
     public function getList()
     {      
         $cate = $this->categoryRepository->all();
-        return view("admin.cate.cate_list", compact("cate"));
+        return view('admin.cate.cate_list', compact('cate'));
     }
 
     public function postAdd(Request $request)
@@ -47,13 +47,13 @@ class CateController extends Controller
             $cate->delete();
             return redirect()->route('getListCate')
             ->with([
-                'flash_message' => trans("sites.deleteSuccess"),
+                'flash_message' => trans('sites.deleteSuccess'),
                 'flash_level' => 'success'
             ]);
         } else {
             return redirect()->route('getListCate')
             ->with([
-                'flash_message' => trans("sites.youCantDelete"),
+                'flash_message' => trans('sites.youCantDelete'),
                 'flash_level' => 'warning'
             ]);
         }

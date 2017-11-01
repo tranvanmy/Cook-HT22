@@ -96,7 +96,7 @@
                 </td>
                 <td class="center">
                     <a href="{{ route('getDeleteCate',$item->id) }}">
-                        <button id="delete" type="button" class="btn btn-warning btn-xs">
+                        <button type="button" class="btn btn-warning btn-xs delete">
                             <i class="fa fa-trash-o  fa-fw"></i>
                         </button>
                     </a></td>

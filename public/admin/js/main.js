@@ -1,5 +1,5 @@
 $("div.alert").delay(3000).slideUp();
-$('#delete').on('click', function () {
+$('.delete').on('click', function () {
     swal({
             title: "Bạn có chắc chắn xóa không?",
             type: "warning",

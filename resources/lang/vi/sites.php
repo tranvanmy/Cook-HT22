@@ -137,7 +137,6 @@ return [
     'update' => 'Cập nhật',
     'createSuccess' => "Tạo công thức thành công",
     "createFail" => 'Tạo công thức thất bại',
-    "deleteSuccess" => 'Xóa công thức thành công',
     'deleteFail' => 'Chưa có công thức nào khởi tạo',
     'content' => 'Nội dung',
     'createReceipt' => 'Tạo công thức',
