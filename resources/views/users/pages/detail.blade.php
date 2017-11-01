@@ -1,7 +1,15 @@
 @extends("welcome")
 
 @section("content")
+@section("style")
     {{ Html::style("users/css/detail.css") }}
+@endsection
+@if(Auth::check())
+    @if($receipt->status == 0 && $receipt->user_id == Auth::user()->id )
+        <p id="notifyWait">{{ trans("sites.notifyWait") }}</p>
+    @endif
+@endif
+@if($receipt->status == 1 || (Auth::check()) && $receipt->user_id == Auth::user()->id || Auth::user()->role == 1)
     <div class="recipe-container" id="recipe-body-container">
 
         <div class="recipe-breadcrumb container">
@@ -25,19 +33,28 @@
                                         <span class="item">
                                             <span class="text cuisine-label">{{ trans("sites.ingredient") }}  </span>
                                             <span class="type">
-                                                <a href="#" target="_blank"
+                                                <a href="{{ route('ingredient',$recIngre[0]->ingredient->id) }}" target="_blank"
                                                    class="tag dishes">{{ $recIngre[0]->ingredient->name }} </a>
                                             </span>
                                         </span>
                                 <span class="item">
-                                        <span class="text cuisine-label">{{ trans("sites.purpose") }} </span>
+                                        <span class="text cuisine-label">{{ trans("sites.category") }} </span>
                                         <span class="type">
-                                            <a href="#" target="_blank" class="tag dishes">
-                                                {{ $recFoody->foody->name }} </a>
+                                            <a href="{{ route('foody',$recFoody->foody->id) }}" target="_blank" class="tag dishes">
+                                                {{ $recFoody->foody->name }}
+                                            </a>
                                         </span>
                                     </span>
                             </div>
                             <h1 class="p-name fn recipe-title">{{ trans("sites.doing") }} {{ $receipt->name }}</h1>
+                            <!-- sửa -->
+                            @if(Auth::check() && $receipt->user_id == Auth::user()->id)
+                                <a href="{{ route('EditReceipt',$receipt->id) }}" data-idEditReceipt="{{$receipt->id}}"
+                                   class="btn btn-default btn-xs editReceipt">
+                                    {{ trans("sites.edit") }} {{ trans("sites.receipt") }}
+                                </a>
+                        @endif
+                        <!--  -->
                             <div class="recipe-rating">
                                 <div class="rating-count">
                                     <span href="javascript:void(0)" target="_self">
@@ -61,12 +78,12 @@
                             <div class="h-card recipe-author">
                                 <div class="user-profile">
                                     <div class="user-info">
-                                        <a class="avt">
+                                        <a href="{{ route('myProfile', $receipt->user->id) }}" class="avt">
                                             <img class="u-photo"
                                                  src="{{ asset('upload/images/'.$receipt->user->avatar) }}"
                                                  alt="{{ $receipt->user->name }}">
                                         </a>
-                                        <a href="#" target="_self"
+                                        <a href="{{ route('myProfile',$receipt->user->id) }}" target="_self"
                                            class="author text-highlight url cooky-user-link p-name u-url"
                                            title="{{ $receipt->user->name }}"> {{ $receipt->user->name }}</a><br>
                                         <div class="user-stats">
@@ -82,9 +99,12 @@
                                                     </a>
                                             </span>
                                         </div>
-                                        @if($receipt->user_id != Auth::user()->id)
+                                        @if(Auth::check() && $receipt->user_id != Auth::user()->id)
                                             <div id="form-follow">
-                                                <button title="{{ trans('sites.care') }}" class="btn-follow follow" data-idReceipt="{{ $receipt->id }}" data-idFollowing="{{ $receipt->user->id }}" @if(Auth::check()) data-idFollower="{{ Auth::user()->id }}" @endif>
+                                                <button title="{{ trans('sites.care') }}" class="btn-follow follow"
+                                                        data-idReceipt="{{ $receipt->id }}"
+                                                        data-idFollowing="{{ $receipt->user->id }}"
+                                                        data-idFollower="{{ Auth::user()->id }}">
                                                     <a href="javascript:void(0)">
                                                         @if($follower)
                                                             @if($follower->status == 1)
@@ -97,11 +117,11 @@
                                                 </button>
                                             </div>
                                         @else
-                                        <button class="btn-follow">
-                                            <a href="javascript:void(0)">
-                                                <span>{{ trans("sites.profile") }}</span>
+                                            <a href="{{ route('myProfile', $receipt->user->id) }}">
+                                                <button class="btn-follow">
+                                                        <span>{{ trans("sites.profile") }}</span>
+                                                </button>
                                             </a>
-                                        </button>
                                         @endif
                                     </div>
                                 </div>
@@ -118,7 +138,7 @@
                                 <div>
                                     <span class="stats-text">{{ trans("sites.ingredient") }} </span>
                                     <span class="duration-block">
-                                        <b class="stats-count">{{ count($countRecIngre) }}</b>
+                                        <b class="stats-count">{{ count($receipt->receiptIngredients) }}</b>
                                     </span>
                                 </div>
                             </li>
@@ -164,17 +184,25 @@
                     </div>
                     <div class="recipe-toolbox" id="recipe-basic-stats">
                         <ul class="recipe-toolbox-items">
-                            <li class="tool-item" >
-                                <a id="like" href="javascript:void(0)" data-idReceipt="{{ $receipt->id }}" @if(Auth::check()) data-idUser="{{ Auth::user()->id }}" @endif title="{{ trans('sites.like') }}">
-                                    @if($likeByUser)
-                                        @if($likeByUser->status == 1)
-                                            <i class="fa fa-heart"></i>
+                            <li class="tool-item">
+                                @if(Auth::check())
+                                    <a id="like" href="javascript:void(0)" data-idReceipt="{{ $receipt->id }}"
+                                       data-idUser="{{ Auth::user()->id }}" title="{{ trans('sites.like') }}">
+                                        @if(isset($likeByUser))
+                                            @if($likeByUser->status == 1)
+                                                <i class="fa fa-heart"></i>
+                                            @endif
+                                        @else
+                                            <i class="fa fa-heart-o"></i>
                                         @endif
-                                    @else
+                                        <p id="totalLike1">{{ $countLike }}</p>
+                                    </a>
+                                @else
+                                    <a href="{{ route('login') }}">
                                         <i class="fa fa-heart-o"></i>
-                                    @endif
-                                    <p id="totalLike">{{ $countLike }}</p>
-                                </a>
+                                        <p id="totalLike">{{ $countLike }}</p>
+                                    </a>
+                                @endif
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -364,71 +392,62 @@
                            class="btn-submit-recipe text-center">
                             <span class="fa fa-plus-circle"></span>{{ trans("sites.createReceipt") }}
                         </a>
-                        <div class="tool-item">
-                            <a @if(Auth::check()) href="{{ route('cartBuy',$receipt->id) }}" @else href="{{ route('login') }}" @endif  class="btn-quick-review">
-                                <span class="fa fa-shopping-cart"> </span>
-                                {{ trans("sites.putReceiptIntoCart") }}
-                            </a>
-                        </div>
-                        <div class="tool-item print">
-                            <a class="stat-text" onclick="window.print();" href="javascript:void(0)" rel="nofollow">
-                                <span class="fa fa-print text-highlight"></span>
-                                <span>{{ trans("sites.scan") }}</span>
-                            </a>
-                        </div>
                     </div>
                     <div class="shopping-list-box box-content">
 
                         <div class="tab">
                             <button class="tablinks"
-                                    onclick="openCity(event, 'togetherIngre')">{{ trans("sites.togetherIngre") }}
+                                    onclick="openCity(event, 'togetherIngre')">{{ trans("sites.topEvaluateBigger") }}
                             </button>
                             <button class="tablinks"
-                                    onclick="openCity(event, 'togetherMenu')">{{ trans("sites.togetherMenu") }}</button>
+                                    onclick="openCity(event, 'togetherMenu')">{{ trans("sites.top_member") }}</button>
                         </div>
 
                         <div id="togetherIngre" class="tabcontent">
-                            <a class="thumb" href="#">
-                                <img src="{{ asset('users/imgs/background.jpg') }}"/>
-                            </a>
-                            <a class="title" href="#">
-                                <span>Con gà béo</span>
-                            </a>
-                            <br>
-                            <span class="innings">0</span>
-                            <span class="like"> {{trans("sites.like")}}</span>
-                            <span class="innings">2</span>
-                            <span class="comment"> {{trans("sites.comment")}}</span>
-                            <br>
-                            <span class="btn btn-success btn-ms rating">8.0</span>
-                            <div class="clearfix"></div>
-                            <br>
+                            @foreach($_top5Receipt as $item)
+                                <a class="thumb" href="#">
+                                    <img src="{{ asset('upload/images/'.$item->image) }}"/>
+                                </a>
+                                <a class="title" href="#">
+                                    <span>{{ $item->name }}</span>
+                                </a>
+                                <br>
+                                <span class="innings">{{ count($item->likes) }}</span>
+                                <span class="like"> {{trans("sites.like")}}</span>
+                                <span class="innings">{{ count($item->rates) }}</span>
+                                <span class="comment"> {{trans("sites.comment")}}</span>
+                                <br>
+                                <span class="btn btn-success btn-ms rating">{{ $item->rate_point }}</span>
+                                <div class="clearfix"></div>
+                                <br>
+                            @endforeach
+
                         </div>
 
                         <div id="togetherMenu" class="tabcontent">
-                            <a class="thumb" href="#">
-                                <img src="{{ asset('users/imgs/background.jpg') }}"/>
-                            </a>
-                            <a class="title" href="#">
-                                <span>Con gà béo</span>
-                            </a>
-                            <br>
-                            <span class="innings">0</span>
-                            <span class="like"> {{trans("sites.like")}}</span>
-                            <span class="innings">3</span>
-                            <span class="comment"> {{trans("sites.comment")}}</span>
-                            <br>
-                            <span class="btn btn-success btn-ms rating">8.0</span>
-                            <div class="clearfix"></div>
-                            <br>
+                            @foreach($_top5Member as $item)
+                                <a class="thumb" href="#">
+                                    <img src="@if($item->user->password != '') {{ asset('upload/images/'.$item->user->avatar) }} @else {{ asset($item->user->avatar) }} @endif "/>
+                                </a>
+                                <a class="title" href="#">
+                                    <span>{{ $item->user->name }}</span>
+                                </a>
+                                <br>
+                                <span class="innings">{{ count($item->user->follows) }}</span>
+                                <span class="comment"> {{trans("sites.care")}}</span>
+                                <br>
+                                <div class="clearfix"></div>
+                                <br>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    </div>
+@else
+    <p id="notifyWait">{{ trans("sites.errorReceipt") }}</p>
+@endif
 @endsection
 @section("script")
     {{ Html::script("users/js/like.js") }}

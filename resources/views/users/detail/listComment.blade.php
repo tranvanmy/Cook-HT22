@@ -3,14 +3,14 @@
         <div class="body">
             <div class="user-info">
                 <div class="avt">
-                    <a href="#" target="_self">
+                    <a href="{{ route('myProfile', $rate->user->id) }}" target="_self">
                         <img class="photo"
                              src="{{ asset('upload/images/'.$rate->user->avatar) }}"
                              alt="{{ $rate->user->name }}">
                     </a>
                 </div>
                 <div class="profile">
-                    <a href="/thanh-vien/nguyendiep29071990" target="_self"
+                    <a href="{{ route('myProfile',$rate->user->id) }}" target="_self"
                        class="name cooky-user-link">
                         <span> {{ $rate->user->name }}</span></a>
                     <div class="clearfix"></div>
@@ -67,12 +67,12 @@
                         <div class="cooky-comment-item-new">
                             <div class="comment-item">
                                 <div class="comment-profile-img">
-                                    <a class="user-avt" href="#" target="_self">
+                                    <a class="user-avt" href="{{ route('myProfile', $item2->user->id) }}" target="_self">
                                         <img alt="Sơn Híp" src="{{ asset('upload/images/'.$item2->user->avatar) }}"></a>
                                 </div>
                                 <div class="comment-content">
                                     <div class="comment-head">
-                                        <a class="cooky-user-link" href="#">
+                                        <a class="cooky-user-link" href="{{ route('myProfile', $item2->user->id) }}">
                                             {{ $item2->user->name }}
                                         </a>
                                         <div class="date-time">
@@ -110,7 +110,9 @@
                                 <button class="btn btn-default btn-sm reset" data-rateid="{{ $rate->id }}">Huỷ
                                 </button>
                                 <button class="btn btn-primary btn-sm reply"
-                                        data-userID="{{ $receipt->user->id }}"
+                                        @if(Auth::check())
+                                        data-userID="{{ Auth::user()->id }}"
+                                        @endif
                                         data-rateid="{{ $rate->id }}"
                                 " data-receiptID="{{ $rate->receipt_id }}">Trả lời</button>
                             </div>

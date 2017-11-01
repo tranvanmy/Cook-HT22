@@ -39,4 +39,14 @@ class Follow extends Model
     {
         return $query->where("following_id", $id_following);
     }
+
+    public function scopeGetBigger($query, $prop, $value)
+    {
+        return $query->where($prop, ">=", $value);
+    }
+
+    public function scopeOrderByDESC($query, $prop)
+    {
+        return $query->orderBy($prop, "DESC");
+    }
 }

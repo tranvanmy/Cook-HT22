@@ -8,6 +8,7 @@ use App\Models\Follow;
 
 class FollowController extends Controller
 {
+    protected $follow;
     public function __construct(
         Follow $follow
     )

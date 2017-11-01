@@ -78,7 +78,7 @@
                     <input type="hidden" name="_token" value="{!! csrf_token() !!} "/>
                     <input type="hidden" name="id" id="idIngre"/>
                     <label>{{ trans("sites.nameIngre") }}</label>
-                    <input type="text" class="form-control" id="name_ingre" name="name_ingre" value=""/>
+                    <input type="text" class="form-control" id="name_ingre" name="name_ingre"/>
                     <br>
 
                     <label>{{ trans("sites.choose") }} {{ trans("sites.category") }}</label>
@@ -138,7 +138,13 @@
             <td><img src="{{ asset('upload/images/'.$item->image) }}"/></td>
             <td>{{ $item->name }}</td>
             <td>{{ $item->description }}</td>
-            <td>{{ $item->category->name }}</td>
+            <td>
+                @if($item->category)
+                    {{ $item->category->name }}
+                @else
+                    {{ trans("sites.none") }}
+                @endif
+            </td>
             <td>
                 {{ $item->status == 1 ? trans("sites.active") : trans("sites.unactive") }}
             </td>

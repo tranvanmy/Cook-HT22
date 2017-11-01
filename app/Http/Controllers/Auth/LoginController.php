@@ -56,7 +56,8 @@ class LoginController extends Controller
     {
         $auth = [
             'email' => $request->email,
-            'password' => $request->password
+            'password' => $request->password,
+            'status' => 1
         ];
         if (Auth::attempt($auth)) {
             if (Auth::user()->role == config('const.roleAdmin'))

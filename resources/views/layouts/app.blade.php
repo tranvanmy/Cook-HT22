@@ -20,7 +20,7 @@
             <div class="header-top clearfix">
                 <div class="logo header-top-1">
                     <div class="navbar-brand">
-                        <a href="{{ url('/') }}">
+                        <a href="{{ route('home') }}">
                             <img class="logo img-responsive" src="{{ url('users/imgs/framgia.png') }}">
                         </a>
                     </div>

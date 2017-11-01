@@ -50,4 +50,9 @@ class Ingredient extends Model
     {
         return $query->find($id);
     }
+
+    public function scopeOrderByASC($query, $prop)
+    {
+        return $query->orderBy($prop, "ASC");
+    }
 }

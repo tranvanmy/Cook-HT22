@@ -1,15 +1,17 @@
 $(document).ready(function () {
+    var url = window.location.pathname;
+    var idEditReceipt = url.substring(url.lastIndexOf('/') + 1);
+    //get id edit
     $('.nav-tabs > li a[title]').tooltip();
 
     //Wizard
     $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
-
         var $target = $(e.target);
-
         if ($target.parent().hasClass('disabled')) {
             return false;
         }
     });
+
     //AddReceipt
     $(".next-step1").on("click", function () {
         if ($("#nameReceipt").val() != '' && $("#timeReceipt").val() != '' && $("#rationReceipt").val() != '' && $("#sltComplexReceipt").val() != '' && $("#descReceipt").val() != '' && ($("#imageReceipt").val() != '' || $(".right img").attr("src") != '')) {
@@ -21,8 +23,12 @@ $(document).ready(function () {
             form_data.append("description", $("#descReceipt").val());
             form_data.append("image", $('#imageReceipt')[0].files[0]);
             form_data.append("id", $(this).attr("data-id"));
+            if (idEditReceipt != '') {
+                url = "/addReceipt/" + idEditReceipt;
+            }
+            else url = "/addReceipt";
             $.ajax({
-                url: "addReceipt",
+                url: url,
                 type: "post",
                 processData: false,
                 contentType: false,
@@ -43,7 +49,6 @@ $(document).ready(function () {
         else {
             swal("Không tốt rồi!", "Bạn hãy nhập đầy đủ thông tin nha", "warning")
         }
-
     });
     //--------------endAddReceipt
 
@@ -58,13 +63,18 @@ $(document).ready(function () {
             swal("Không tốt rồi!", "Bạn hãy nhập đầy đủ thông tin nha", "warning")
         }
     });
+
     $("#addIngredient").on("click", function () {
         name = $("#nameIngredient").val();
         qty = $("#qtyIngredient").val();
         unit = $("#unitIngredient").val();
         note = $("#noteIngredient").val();
-        idReceipt = $(this).attr("data-id");
-        $.post("addIngredient", {
+        idReceipt = $(this).attr("data-id")
+        if (idEditReceipt != '') {
+            url = "/addIngredient/" + idEditReceipt;
+        }
+        else url = "/addIngredient";
+        $.post(url, {
             'idReceipt': idReceipt,
             'name': name,
             'qty': qty,
@@ -93,6 +103,7 @@ $(document).ready(function () {
         $("#addIngredient").hide();
         $("#informIngre").append("<button type='button' class='btn btn-default btn-ms' data-idIngre=" + idIngre + " data-idRecIngre=" + idRecIngre + " data-idReceipt=" + idReceipt + " id='updateIngre'><i class='fa fa-refresh'></i></button>");
     });
+
     $("#informIngre").on("click", "#updateIngre", function () {
         idIngre = $(this).attr("data-idIngre");
         idRecIngre = $(this).attr("data-idRecIngre");
@@ -101,7 +112,11 @@ $(document).ready(function () {
         qty = $("#qtyIngredient").val();
         unit = $("#unitIngredient").val();
         note = $("#noteIngredient").val();
-        $.post("editIngredient", {
+        if (idEditReceipt != '') {
+            url = "/editIngredient/" + idEditReceipt;
+        }
+        else url = "/editIngredient";
+        $.post(url, {
             'idReceipt': idReceipt,
             'name': name,
             'qty': qty,
@@ -118,27 +133,27 @@ $(document).ready(function () {
         $("#noteIngredient").val("");
     });
 
-
     $(".resultIngre").on("click", '.delIngre', function () {
         idIngre = $(this).parent().find(".delIngre").attr("data-idIngre");
         idRecIngre = $(this).parent().find(".delIngre").attr("data-idRecIngre");
-        $.post("delIngredient", {
+
+        if (idEditReceipt != '') {
+            url = "/delIngredient/" + idEditReceipt;
+        }
+        else url = "/delIngredient";
+        $.post(url, {
             'idIngre': idIngre,
             'idRecIngre': idRecIngre
         }, function (data) {
             $(".ingre" + data.idIngre + data.idRecIngre).hide();
             swal("Xóa thành công");
-
         });
     });
-
-
     //------------endIngredient
 
     // -------- Receipt Step
     $(".next-step3").on("click", function (e) {
         if (($("#contentStep").val() != '' && $("#imageStep").val() != '') || $(".resultStep .editStep").attr("data-idstep") != null) {
-
             var $active = $('.wizard .nav-tabs li.active');
             $active.next().removeClass('disabled');
             nextTab($active);
@@ -150,26 +165,29 @@ $(document).ready(function () {
 
     $("#addStep").on("click", function () {
         var form_data = new FormData();
-        form_data.append("idReceipt", $(this).attr("data-id"));
         form_data.append("content", $("#contentStep").val());
         form_data.append("image", $('#imageStep')[0].files[0]);
         var count = $(".resultStep div.col-md-6").length;
         form_data.append("step", ++count);
+        form_data.append("idReceipt", $(this).attr("data-id"));
+        if (idEditReceipt != '') {
+            url = "/addStep/" + idEditReceipt;
+        }
+        else url = "/addStep";
         $.ajax({
-            url: "addStep",
+            url: url,
             type: "post",
             processData: false,
             contentType: false,
             data: form_data,
             success: function (data) {
-                $(".resultStep").append('<div class="col-md-6 step' + data.id + '"><button type="button" class="btn btn-default editStep" data-idStep="' + data.id + '">Sửa</button><button type="button" class="btn btn-primary delStep" data-id="' + data.id + '">Xóa</button><br><label>' + data.step + '.</label><label>Nội dung:</label><label id="content">' + data.content + '</label><br><img style="width:100%;" src="upload/images/' + data.image + '"/></div>');
+                $(".resultStep").append('<div class="col-md-6 step' + data.id + '"><button type="button" class="btn btn-default editStep" data-idStep="' + data.id + '">Sửa</button><button type="button" class="btn btn-primary delStep" data-id="' + data.id + '">Xóa</button><br><label>' + data.step + '.</label><label>Nội dung:</label><label id="content">' + data.content + '</label><br><img style="width:100%;" src="/upload/images/' + data.image + '"/></div>');
                 console.log(data);
             }
         });
         $("#contentStep").val("");
         $("#imageStep").val("");
     });
-
 
     $(".resultStep").on("click", '.editStep', function () {
         idRecStep = $(this).parent().find(".editStep").attr("data-idStep");
@@ -179,6 +197,7 @@ $(document).ready(function () {
         $("#addStep").hide();
 
     });
+
     $("#informStep").on("click", "#updateStep", function () {
         form_data = new FormData();
         form_data.append("content", $("#contentStep").val())
@@ -186,8 +205,12 @@ $(document).ready(function () {
         var count = $(".resultStep div.col-md-6").length;
         form_data.append("step", ++count);
         form_data.append("idRecStep", $(this).attr("data-idStep"));
+        if (idEditReceipt != '') {
+            url = "/editStep/" + idEditReceipt;
+        }
+        else url = "/editStep";
         $.ajax({
-            url: "editStep",
+            url: url,
             type: "post",
             processData: false,
             contentType: false,
@@ -203,10 +226,14 @@ $(document).ready(function () {
         $("#addStep").show();
     });
 
-
     $(".resultStep").on("click", '.delStep', function () {
         idRecStep = $(this).parent().find(".editStep").attr("data-idStep");
-        $.post("delStep", {
+
+        if (idEditReceipt != '') {
+            url = "/delStep/" + idEditReceipt;
+        }
+        else url = "/delStep";
+        $.post(url, {
             'idRecStep': idRecStep
         }, function (data) {
             $(".step" + data.idRecStep).hide();
@@ -214,15 +241,15 @@ $(document).ready(function () {
         });
     });
 
-
-    //end Step
-
     $(".next-step").on("click", function (e) {
-
         if ($('input[type="checkbox"]:checked').length > 0) {
             var data = $('.nameBox:checked').serialize();
             idReceipt = $(this).attr("data-id");
-            $.post("addReceiptCate", {'data': data, 'idReceipt': idReceipt}, function (data) {
+            if (idEditReceipt != '') {
+                url = "/addReceiptCate/" + idEditReceipt;
+            }
+            else url = "/addReceiptCate";
+            $.post(url, {'data': data, 'idReceipt': idReceipt}, function (data) {
                 console.log(data);
             });
             swal("Thành công");
@@ -230,8 +257,6 @@ $(document).ready(function () {
         else {
             swal("Không tốt rồi!", "Bạn hãy nhập đầy đủ thông tin nha", "warning")
         }
-
-
     });
 
 
@@ -248,22 +273,32 @@ $(document).ready(function () {
     // });
 
     $("#create").on("click", function (e) {
-        id = $(this).attr("data-id");
-        $.post("createReceipt", {'id': id}, function (data) {
 
+        id = $(this).attr("data-id");
+        if (idEditReceipt != '') {
+            url = "/createReceipt/" + idEditReceipt;
+        }
+        else url = "/createReceipt";
+        $.post(url, {'id': id}, function (data) {
             if (data == "Tạo công thức thành công") {
                 swal(data);
-                window.location.href = "http://localhost:8000/detail/" + id;
+                window.location.href = document.location.origin + '/detail/' + id;
             }
             else if (data == "Tạo công thức thất bại")
                 swal(data);
         });
     });
+
     $("#cancel").on("click", function (e) {
         id = $(this).attr("data-id");
-        $.post("cancelReceipt", {'id': id}, function (data) {
+
+        if (idEditReceipt != '') {
+            url = "/cancelReceipt/" + idEditReceipt;
+        }
+        else url = "/cancelReceipt";
+        $.post(url, {'id': id}, function (data) {
             if (data == "Xóa công thức thành công") {
-                location.reload();
+                window.location.href="/create-receipt";
                 swal(data);
             }
             else if (data == "Chưa có công thức nào khởi tạo")
@@ -272,10 +307,8 @@ $(document).ready(function () {
     })
 
     $(".prev-step").on("click", function (e) {
-
         var $active = $('.wizard .nav-tabs li.active');
         prevTab($active);
-
     });
 });
 
@@ -288,11 +321,9 @@ function prevTab(elem) {
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
             $('#blah').attr('src', e.target.result);
         }
-
         reader.readAsDataURL(input.files[0]);
     }
 }

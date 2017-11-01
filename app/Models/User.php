@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\Receipt;
 use App\Models\UserReceipt;
 use App\Models\Level;
+use App\Models\Like;
 
 class User extends Authenticatable
 {
@@ -89,6 +90,11 @@ class User extends Authenticatable
         return $this->hasMany(UserReceipt::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
     public function level()
     {
         return $this->belongsTo(Level::class);
@@ -97,5 +103,10 @@ class User extends Authenticatable
     public function scopeEmail($query, $email)
     {
         return $query->where("email", $email);
+    }
+
+    public function scopeGetBigger($query, $prop, $value)
+    {
+        return $query->where($prop, ">=", $value);
     }
 }

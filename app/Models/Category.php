@@ -17,7 +17,7 @@ class Category extends Model
 
     public function ingredients()
     {
-        return $this->hasMany(Ingredient::class);
+        return $this->hasMany(Ingredient::class,'category_id','id');
     }
 
     public function scopeGetID($query, $id)

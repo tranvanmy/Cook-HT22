@@ -11,6 +11,7 @@ use App\Models\Receipt;
 use App\Models\Ingredient;
 use App\Models\ReceiptFoody;
 use App\Models\Unit;
+use App\Models\User;
 use Auth;
 
 class SubmitReceiptController extends Controller
@@ -22,6 +23,7 @@ class SubmitReceiptController extends Controller
     protected $recStep;
     protected $recFoody;
     protected $unit;
+    protected $user;
 
     public function __construct(
         Foody $foody,
@@ -30,7 +32,8 @@ class SubmitReceiptController extends Controller
         ReceiptIngredient $recIngre,
         ReceiptStep $recStep,
         ReceiptFoody $recFoody,
-        Unit $unit
+        Unit $unit,
+        User $user
     )
     {
         $this->foody = $foody;
@@ -40,6 +43,7 @@ class SubmitReceiptController extends Controller
         $this->recStep = $recStep;
         $this->recFoody = $recFoody;
         $this->unit = $unit;
+        $this->user = $user;
     }
 
     public function index()
@@ -201,6 +205,10 @@ class SubmitReceiptController extends Controller
         if ($request->ajax()) {
             parse_str($request->data, $body);
 
+            $getID = $this->recFoody->find($request->idReceipt);
+            if($getID)
+                $getID->delete();
+
             foreach ($body as $key => $value) {
                 for ($i = 0; $i <= count($value); $i++) {
                     $this->recFoody->create([
@@ -232,6 +240,9 @@ class SubmitReceiptController extends Controller
             if (!$id) {
                 $message = trans("sites.createFail");
             } else {
+                $recEdit = $this->receipt->find($id);
+                $recEdit->status = 2;
+                $recEdit->save();
                 $receipt = $this->receipt->userId(Auth::user()->id)->status(2)->first();
                 $rec_ingre = $this->recIngre->receiptId($receipt->id)->first();
                 $step = $this->recStep->receiptId($receipt->id)->first();
@@ -242,6 +253,18 @@ class SubmitReceiptController extends Controller
                     $rec->save();
                     $message = trans("sites.createSuccess");
                 } else $message = trans("sites.createFail");
+                
+                $currentUser = $this->user->find(Auth::user()->id);
+                $countUserReceipts = count($currentUser->receipts);
+                if($countUserReceipts > 10)
+                {
+                    $currentUser->rank = 3;
+                    $currentUser->save();
+                }
+                else if($countUserReceipts >= 5 && $countUserReceipts <= 10) {
+                    $currentUser->rank = 2;
+                    $currentUser->save();
+                }
             }
             return $message;
         }
@@ -261,5 +284,23 @@ class SubmitReceiptController extends Controller
 
         return $message;
 
+    }
+
+    public function getEdit($id)
+    {
+        $foodies = $this->foody->parentID(0)->get();
+        $units = $this->unit->all();
+        $receipt = $this->receipt->find($id);
+        $rec_ingre = $this->recIngre->receiptId($receipt->id)->get();
+        $step = $this->recStep->receiptId($receipt->id)->get();
+        $recFoody = $this->recFoody->receiptId($receipt->id)->get();
+        return view("users/pages/createReceipt", compact(
+            "receipt", 
+            'rec_ingre', 
+            'step', 
+            'recFoody', 
+            'foodies', 
+            'units'
+        ));
     }
 }

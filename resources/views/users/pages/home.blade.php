@@ -14,7 +14,7 @@
     <div class="wide-box">
         <div class="container">
             <div class="cross-banner-wide">
-                <a href="#" target="_blank"><img src="{{ asset('users/imgs/cooky-location.jpg') }}"></a>
+                <a href="#" target="_blank"><img src="{{ asset('upload/images/hokkaidodeliciouskitchen_bnr_2.jpg') }}"></a>
             </div>
         </div>
     </div>

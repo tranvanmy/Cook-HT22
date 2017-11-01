@@ -4,6 +4,10 @@
 
 @section("content")
 
+@section("style")
+    {!! Charts::styles() !!}
+@endsection
+
 </div>
 <!-- /.row -->
 <div class="row">
@@ -15,12 +19,12 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
-                        <div>{{ trans('sites.new_comment') }}</div>
+                        <div class="huge">{{ $countEvaluate }}</div>
+                        <div>{{ trans('sites.all_rate') }}</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="{{ route('getListRate') }}">
                 <div class="panel-footer">
                     <span class="pull-left">{{ trans('sites.view_detail') }}</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -37,12 +41,12 @@
                         <i class="fa fa-tasks fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
-                        <div>{{ trans('sites.new_task') }}</div>
+                        <div class="huge">{{ $countReceipt }}</div>
+                        <div>{{ trans('sites.all_receipt') }}</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="{{ route('getListReceipt') }}">
                 <div class="panel-footer">
                     <span class="pull-left">{{ trans('sites.view_detail') }}</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -59,12 +63,12 @@
                         <i class="fa fa-shopping-cart fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">124</div>
+                        <div class="huge">{{ $countInvoice }}</div>
                         <div>{{ trans('sites.new_order') }}</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="{{ route('getListInvoice') }}">
                 <div class="panel-footer">
                     <span class="pull-left">{{ trans('sites.view_detail') }}</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -81,12 +85,12 @@
                         <i class="fa fa-support fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">13</div>
-                        <div>{{ trans('sites.support') }}</div>
+                        <div class="huge">{{ $countUser }}</div>
+                        <div>{{ trans('sites.user') }}</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="{{ route('getListUser') }}">
                 <div class="panel-footer">
                     <span class="pull-left">{{ trans('sites.view_detail') }}</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -122,8 +126,11 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <div id="morris-area-chart"></div>
+                <div id="morris-area-chart">
+                    {!! $chart1->html() !!}
+                </div>
             </div>
+            
             <!-- /.panel-body -->
         </div>
         <!-- /.panel -->
@@ -151,75 +158,10 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{ trans('sites.date') }}</th>
-                                    <th>{{ trans('sites.time') }}</th>
-                                    <th>{{ trans('sites.amount') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>3326</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:29 {{ trans('sites.p.m') }}</td>
-                                    <td>$321.33</td>
-                                </tr>
-                                <tr>
-                                    <td>3325</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:20 {{ trans('sites.p.m') }}</td>
-                                    <td>$234.34</td>
-                                </tr>
-                                <tr>
-                                    <td>3324</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:03 {{ trans('sites.p.m') }}</td>
-                                    <td>$724.17</td>
-                                </tr>
-                                <tr>
-                                    <td>3323</td>
-                                    <td>10/21/2013</td>
-                                    <td>3:00 {{ trans('sites.p.m') }}</td>
-                                    <td>$23.71</td>
-                                </tr>
-                                <tr>
-                                    <td>3322</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:49 {{ trans('sites.p.m') }}</td>
-                                    <td>$8345.23</td>
-                                </tr>
-                                <tr>
-                                    <td>3321</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:23 {{ trans('sites.p.m') }}</td>
-                                    <td>$245.12</td>
-                                </tr>
-                                <tr>
-                                    <td>3320</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:15 {{ trans('sites.p.m') }}</td>
-                                    <td>$5663.54</td>
-                                </tr>
-                                <tr>
-                                    <td>3319</td>
-                                    <td>10/21/2013</td>
-                                    <td>2:13 {{ trans('sites.p.m') }}</td>
-                                    <td>$943.45</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                    
+                        <div id="morris-bar-chart">
+                            {!! $chart3->html() !!}
                         </div>
-                        <!-- /.table-responsive -->
-                    </div>
-                    <!-- /.col-lg-4 (nested) -->
-                    <div class="col-lg-8">
-                        <div id="morris-bar-chart"></div>
-                    </div>
                     <!-- /.col-lg-8 (nested) -->
                 </div>
                 <!-- /.row -->
@@ -238,27 +180,35 @@
                 <div class="list-group">
                     <a href="#" class="list-group-item">
                         <i class="fa fa-comment fa-fw"></i> {{ trans('sites.new_comment') }}
-                        <span class="pull-right text-muted small"><em>4 {{ trans('sites.minutes') }} {{ trans('sites.ago') }}</em>
+                        <span class="pull-right text-muted small">
+                            @if($newEvaluate)
+                            <em>{!!  \Carbon\Carbon::createFromTimestamp(strtotime($newEvaluate->created_at))->diffForHumans() !!}</em>
+                            @endif
                     </span>
                     </a>
                     <a href="#" class="list-group-item">
                         <i class="fa fa-envelope fa-fw"></i> {{ trans('sites.new_receipt') }}
-                        <span class="pull-right text-muted small"><em>27 {{ trans('sites.minutes') }} {{ trans('sites.ago') }}</em>
+                        <span class="pull-right text-muted small">
+                            @if($newReceipt)
+                            <em>{!!  \Carbon\Carbon::createFromTimestamp(strtotime($newReceipt->created_at))->diffForHumans() !!}</em>
+                            @endif
                     </span>
                     </a>
                     <a href="#" class="list-group-item">
                         <i class="fa fa-user fa-fw"></i> {{ trans('sites.new_user') }}
-                        <span class="pull-right text-muted small"><em>43 {{ trans('sites.minutes') }} {{ trans('sites.ago') }}</em>
+                        @if($newUser)
+                        <span class="pull-right text-muted small"><em>{!!  \Carbon\Carbon::createFromTimestamp(strtotime($newUser->created_at))->diffForHumans() !!}</em>
+                            @endif
                     </span>
                     </a>
                     <a href="#" class="list-group-item">
                         <i class="fa fa-shopping-cart fa-fw"></i> {{ trans('sites.new_order') }}
-                        <span class="pull-right text-muted small"><em>9:49 {{ trans('sites.minutes') }} </em>
+                        @if($newInvoice)
+                        <span class="pull-right text-muted small"><em>{!!  \Carbon\Carbon::createFromTimestamp(strtotime($newInvoice->created_at))->diffForHumans() !!} </em>
+                            @endif
                     </span>
                     </a>
                 </div>
-                <!-- /.list-group -->
-                <a href="#" class="btn btn-default btn-block">{{ trans('sites.view_all') }}</a>
             </div>
             <!-- /.panel-body -->
         </div>
@@ -268,15 +218,18 @@
                 <i class="fa fa-bar-chart-o fa-fw"></i> {{ trans('sites.donut_chart') }}
             </div>
             <div class="panel-body">
-                <div id="morris-donut-chart"></div>
+                <div id="morris-donut-chart">{!! $chart2->html() !!}</div>
                 <a href="#" class="btn btn-default btn-block">{{ trans('sites.view_detail') }}</a>
             </div>
             <!-- /.panel-body -->
         </div>
     </div>
+</div>
     <!-- /.col-lg-4 -->
     @endsection
     @section("script")
-        <script src="{{ asset('bower_components/morrisjs/morris.min.js') }}"></script>
-        <script src="{{ asset('admin/data/morris-data.js') }}"></script>
+        {!! Charts::scripts() !!}
+        {!! $chart1->script() !!}
+        {!! $chart2->script() !!}
+        {!! $chart3->script() !!}
 @endsection

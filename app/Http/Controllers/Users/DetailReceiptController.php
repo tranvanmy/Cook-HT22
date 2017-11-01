@@ -15,7 +15,7 @@ use App\Models\Rate;
 use App\Models\Comment;
 use App\Models\Follow;
 use App\Models\Like;
-use Auth;
+use Auth, DB;
 
 class DetailReceiptController extends Controller
 {
@@ -65,14 +65,21 @@ class DetailReceiptController extends Controller
         $countRecIngre = $this->recIngre->receiptId($id)->count();
         $recStep = $this->recStep->receiptId($id)->get();
         $recFoody = $this->recFoody->receiptId($id)->first();
-        $units = $this->unit->select("*")->orderBy('id', 'desc');
+        $units = $this->unit->all();
         $rates = $this->rate->receiptId($id)->select("*")->orderBy('id', 'desc')->get();
-        $follower = $this->follow->getIdFollower(Auth::user()->id)->first();
         $following = $this->follow->getAllFollowing($receipt->user_id)->get()->count();
         $countReceipt = $this->receipt->userId($receipt->user_id)->get()->count();
-        $likeByUser = $this->like->getUser(Auth::user()->id, $id)->first();
+        if (Auth::check()) {
+            $follower = $this->follow->getIdFollower(Auth::user()->id)->first();
+            $likeByUser = $this->like->getUser(Auth::user()->id, $id)->first();
+        }
+        $_top5Receipt = $this->receipt->getBigger("rate_point", 0)->OrderByDESC('rate_point')->take(5)->get();
+        $_top5Member = $this->follow->select('following_id', DB::raw('COUNT(following_id) as count'))
+            ->groupBy('following_id')
+            ->OrderByDESC('count')
+            ->take(5)
+            ->get();
         $countLike = $receipt->likes->count();
-
         return view("users.pages.detail", compact(
             "receipt",
             "recIngre",
@@ -85,7 +92,9 @@ class DetailReceiptController extends Controller
             "countReceipt",
             'likeByUser',
             'countRecIngre',
-            'countLike'
+            'countLike',
+            '_top5Receipt',
+            '_top5Member'
         ));
     }
 
@@ -108,24 +117,20 @@ class DetailReceiptController extends Controller
         if (!$request->ajax()) {
             return false;
         }
-        else{
-            $rate = $this->rate->findRateByUser($request->receipt_id,$request->user_id);
-            if(!isset($rate->id)){
-                $response = $this->rate->create([
-                    'point' => $request->point[0],
-                    'user_id' => $request->user_id,
-                    'receipt_id' => $request->receipt_id,
-                    'content' => $request->content
-                ]);
-            }
-            else{
-                $rate->point = $request->point[0];
-                $rate->content = $request->content;
-                $rate->save();
-            }
-            
+        $rate = $this->rate->findRateByUser($request->receipt_id, $request->user_id);
+        if (!isset($rate->id)) {
+            $this->rate->create([
+                'point' => $request->point[0],
+                'user_id' => $request->user_id,
+                'receipt_id' => $request->receipt_id,
+                'content' => $request->content
+            ]);
+        } else {
+            $rate->point = $request->point[0];
+            $rate->content = $request->content;
+            $rate->save();
         }
-        
+
 
         $receipt = $this->receipt->find($request->receipt_id);
         $rates = $this->rate->receiptId($receipt->id)->get();
@@ -137,7 +142,8 @@ class DetailReceiptController extends Controller
         $receipt->rate_point = (float)$s / count($rates);
         $receipt->save();
 
-        return response($response);
+        // return response($response);
+        return response($request->all());
     }
 
     public function comment(Request $request)

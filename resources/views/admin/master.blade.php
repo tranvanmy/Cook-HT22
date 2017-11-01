@@ -39,7 +39,7 @@
     <script src="{{ url('/bower_components/ckfinder/ckfinder.js')}}"></script>
 
     <script type="text/javascript">
-        var baseURL = "{!! url('/') !!}";
+        var baseURL = "{!! route('home') !!}";
     </script>
 
     <script src="{{ url('/bower_components/ckeditor/config.js')}}"></script>
@@ -59,7 +59,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">Admin - {{ trans("sites.brand") }}</a>
+            <a class="navbar-brand" href="{!! route('home') !!}">Admin - {{ trans("sites.brand") }}</a>
         </div>
         <!-- /.navbar-header -->
 
@@ -70,7 +70,8 @@
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> {{ trans("sites.user_profile") }}</a>
+                    <li><a href="{{ route('myProfile',Auth::user()->id) }}"><i
+                                    class="fa fa-user fa-fw"></i> {{ trans("sites.user_profile") }}</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> {{ trans("sites.setting") }}</a>
                     </li>
@@ -103,74 +104,46 @@
                         <a href="{{ route('dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{route('getListCate')}}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{route('getListCate')}}">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.cate_ingre") }}
+                        </a>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> {{ trans("sites.ingredient") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('getListIngredient') }}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('getListIngredient') }}">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> 
+                        {{ trans("sites.ingredient") }}
+                    </a>
+                        
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-cube fa-fw"></i> {{ trans("sites.cate_foody") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('getListFoody') }}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('getListFoody') }}"><i class="fa fa-tags fa-fw"></i> 
+                        {{ trans("sites.cate_foody") }}</a>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.user") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                         <a href="{{ route('getListRate') }}"><i class="fa fa-th-list fa-fw"></i> 
+                         {{ trans("sites.evaluate") }}</a>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.receipt") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('getListReceipt') }}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('getListUser') }}"><i class="fa fa-users fa-fw"></i> 
+                        {{ trans("sites.user") }}</a>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.unit") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('getListUnit') }}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('getListReceipt') }}"><i class="fa fa-users fa-fw"></i> 
+                        {{ trans("sites.receipt") }}</a>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-users fa-fw"></i> {{ trans("sites.invoice") }}<span
-                                    class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ route('getListInvoice') }}">{{ trans("sites.list") }}</a>
-                            </li>
-                        </ul>
+                        <a href="{{ route('getListUnit') }}"><i class="fa fa-users fa-fw"></i> 
+                        {{ trans("sites.unit") }}</a>
                         <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="{{ route('getListInvoice') }}"><i class="fa fa-users fa-fw"></i> {{ trans("sites.invoice") }}</a>
                     </li>
                 </ul>
             </div>
