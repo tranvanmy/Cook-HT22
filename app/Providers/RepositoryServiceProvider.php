@@ -7,6 +7,8 @@ use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Eloquent\CategoryRepository;
 use App\Repositories\Contracts\IngredientRepositoryInterface;
 use App\Repositories\Eloquent\IngredientRepository;
+use App\Repositories\Contracts\FoodyRepositoryInterface;
+use App\Repositories\Eloquent\FoodyRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -29,7 +31,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register() {
         $models = [
             'Category',
-            'Ingredient'
+            'Ingredient',
+            'Foody'
         ];
         
         foreach ($models as $model) {
