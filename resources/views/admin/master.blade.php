@@ -7,42 +7,22 @@
     <meta name="description" content="Admin - Framgia Culinary">
     <meta name="author" content="">
     <title>Admin - Framgia Culinary</title>
-
-    <!-- Bootstrap Core CSS -->
-
-    <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- MetisMenu CSS -->
-    <link href="{{ asset('bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{{ asset('bower_components/sb-admin-2/css/sb-admin-2.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('bower_components/morrisjs/morris.css') }}" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="{{ asset('bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
-
-    <!-- DataTables CSS -->
-    <link href="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}"
-          rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet">
-    <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css"
-          href="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.css') }}"/>
-
-    <script src="{{ asset('bower_components/bootstrap-sweetalert/dist/sweetalert.js') }}"></script>
-
-    <script src="{{ url('/bower_components/ckeditor/ckeditor.js')}}"></script>
-    <script src="{{ url('/bower_components/ckfinder/ckfinder.js')}}"></script>
-
-    <script type="text/javascript">
-        var baseURL = "{!! route('home') !!}";
-    </script>
-
-    <script src="{{ url('/bower_components/ckeditor/config.js')}}"></script>
+    {{ Html::style('bower_components/datatables-responsive/css/dataTables.responsive.css') }}
+    {{ Html::style('bower_components/font-awesome/css/font-awesome.min.css') }}
+    {{ Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
+    {{ Html::style('bower_components/metisMenu/dist/metisMenu.min.css') }}
+    {{ Html::style('bower_components/sb-admin-2/css/sb-admin-2.css') }}
+    {{ Html::style('bower_components/morrisjs/morris.css') }}
+    {{ Html::style('bower_components/alertify-js/build/css/themes/default.css') }}
+    {{ Html::style('bower_components/alertify-js/build/css/alertify.css') }}
+    {{ Html::style('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css') }}
+    {{ Html::style('admin/css/style.css') }}
+    {{ Html::style('bower_components/bootstrap-sweetalert/dist/sweetalert.css') }}
+    {{ Html::script('bower_components/bootstrap-sweetalert/dist/sweetalert.js') }}
+    {{ Html::script('bower_components/ckeditor/ckeditor.js') }}
+    {{ Html::script('bower_components/ckfinder/ckfinder.js') }}
+    {{ Html::script('admin/js/configCkfinder.js') }}
+    {{ Html::script('bower_components/ckeditor/config.js') }}
     @yield("style")
 </head>
 
@@ -182,24 +162,15 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-
-<script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="{{ asset('bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="{{ asset('bower_components/sb-admin-2/js/sb-admin-2.js') }}"></script>
-
-<!-- Chart -->
-<script src="{{ asset('bower_components/raphael/raphael.min.js') }}"></script>
-<!-- DataTables JavaScript -->
-<script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
-<script src="{{ asset('admin/js/main.js') }}"></script>
+{{ Html::script('bower_components/jquery/dist/jquery.min.js') }}
+{{ Html::script('bower_components/alertify-js/build/alertify.js') }}
+{{ Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
+{{ Html::script('bower_components/metisMenu/dist/metisMenu.min.js') }}
+{{ Html::script('bower_components/sb-admin-2/js/sb-admin-2.js') }}
+{{ Html::script('bower_components/raphael/raphael.min.js') }}
+{{ Html::script('bower_components/DataTables/media/js/jquery.dataTables.min.js') }}
+{{ Html::script('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}
+{{ Html::script('admin/js/main.js') }}
 @yield("script")
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 </body>

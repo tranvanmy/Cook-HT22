@@ -4,48 +4,46 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Models\Category;
-use DB;
 
 class CateController extends Controller
 {
+    private $categoryRepository;
 
-    public function getList()
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository
+    )
     {
-        $cate = Category::all();
+        $this->categoryRepository = $categoryRepository;
+    }
+    public function getList()
+    {      
+        $cate = $this->categoryRepository->all();
         return view("admin.cate.cate_list", compact("cate"));
     }
 
     public function postAdd(Request $request)
     {
         if ($request->ajax()) {
-
-            return response(Category::create($request->all()));
+            return response($this->categoryRepository->create($request->all()));
         }
     }
 
     public function postEdit(Request $request)
     {
         if ($request->ajax()) {
-            $cate = Category::GetID($request->input("id"));
-            if ($cate) {
-                $cate->name = $request->input("name_cate");
-                $cate->parent_id = $request->input("sltCategory");
-                $cate->status = $request->input("sltStatus");
-            }
-            $cate->save();
-
+            $cate = $this->categoryRepository->updateCategory($request->all());
             return response($cate);
         }
     }
 
     public function getDelete($id)
     {
-        $parent = Category::ParentID($id)->count();
+        $parent = $this->categoryRepository->countCategory($id);
         if ($parent == 0) {
-            $cate = Category::GetID($id);
-            $ingredient = $cate->ingredients();
-            $ingredient->delete();
+            $cate = $this->categoryRepository->find($id);
+            $cate->ingredients()->delete();
             $cate->delete();
             return redirect()->route('getListCate')
             ->with([
