@@ -11,8 +11,8 @@
                         <div class="col-md-3">
                             <input type="checkbox" class="nameBox"
                                    name="nameBox[]" value="{{ $item2['id'] }}"
-                                   @if(!empty($recFoody))
-                                       @foreach ($recFoody as $value)
+                                   @if(!empty($receipt->receiptFoodies))
+                                       @foreach ($receipt->receiptFoodies as $value)
                                            @if($value->foody_id == $item2["id"])
                                                 checked="checked"
                                            @endif

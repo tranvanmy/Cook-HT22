@@ -4,6 +4,7 @@ return [
     'unActive' => 0,
 
     'roleAdmin' => 1,
-    'roleUser' => 2
+    'roleUser' => 2,
 
+    'notYet' => 2 
 ];

@@ -28,8 +28,8 @@
                 <i class="fa fa-list"></i> {{ trans("sites.list") }} {{ trans("sites.ingredient") }}
             </h3>
             <hr>
-            @if(!empty($rec_ingre))
-                @foreach($rec_ingre as $key => $item)
+            @if(!empty($receipt->receiptIngredients))
+                @foreach($receipt->receiptIngredients as $key => $item)
                     <div class="col-md-4 ingre{{$item->ingredient->id}}{{$item->id}}">
                         <button type="button" class="btn btn-default editIngre"
                                 data-idIngre="{{ $item->ingredient_id }}" data-idRecIngre="{{ $item->id }}"
@@ -42,7 +42,7 @@
                                 id="name">{{ $item->ingredient->name }}</label><br>
                         <label>{{ trans("sites.qty") }}:</label><label id="qty">{{ $item->quantity }}</label><br>
                         <label>{{ trans("sites.unit") }}:</label><label
-                                id="unit">{{ $item->ingredient->unit }}</label><br>
+                                id="unit">{{ $item->ingredient->unit_id }}</label><br>
                         <label>{{ trans("sites.note") }}:</label><label id="note">{{ $item->note }}</label>
                     </div>
                     @if(++$key % 3 == 0)

@@ -10,7 +10,9 @@ class ReceiptStep extends Model
     
     protected $fillable = [
         'receipt_id',
-        'detail'
+        'content',
+        'image',
+        'step'
         ];
     public $timestamps = false;
 

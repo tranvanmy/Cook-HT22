@@ -34,12 +34,17 @@ $(document).ready(function () {
                 contentType: false,
                 data: form_data,
                 success: function (data) {
+                    alertify.notify('Tạo bước 1 thành công', 'success', 5, function() {});
                     $("#addIngredient").attr("data-id", data.id);
-                    $("#addStep").attr("data-id", data.id);
-                    $(".next-step").attr("data-id", data.id);
-                    $(".avatarReceipt img").attr("src", "upload/images/" + data.image);
+                    $("#addStep").attr('data-id', data.id);
+                    $(".next-step").attr('data-id', data.id);
+                    $(".avatarReceipt img").attr('src', 'upload/images/' + data.image);
                     $("#create").attr("data-id", data.id);
                     $("#cancel").attr("data-id", data.id);
+                },
+
+                error: function(data) {
+                    alertify.notify('Tạo bước 1 thất bại', 'error', 5, function() {});
                 }
             });
             var $active = $('.wizard .nav-tabs li.active');
@@ -47,7 +52,7 @@ $(document).ready(function () {
             nextTab($active);
         }
         else {
-            swal("Không tốt rồi!", "Bạn hãy nhập đầy đủ thông tin nha", "warning")
+            swal('Không tốt rồi!', 'Bạn hãy nhập đầy đủ thông tin nha', 'warning')
         }
     });
     //--------------endAddReceipt
@@ -81,6 +86,7 @@ $(document).ready(function () {
             'unit': unit,
             'note': note
         }, function (data) {
+            alertify.notify('Tạo nguyên liệu thành công', 'success', 5, function() {});
             $(".resultIngre").append('<div class="col-md-4 ingre' + data.idIngre + data.idRecIngre + '"><button type="button" class="btn btn-default editIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '" data-idReceipt="' + data.receipt_id + '">Sửa</button><button type="button" class="btn btn-primary delIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '">Xóa</button><br><label>Tên:</label><label id="name">' + data.name + '</label><br><label>Số lượng:</label><label id="qty">' + data.qty + '</label><br><label>Đơn vị:</label><label id="unit">' + data.unit + '</label><br><label>Ghi chú:</label><label id="note">' + data.note + '</label></div>');
             console.log(data);
         });
@@ -88,7 +94,6 @@ $(document).ready(function () {
         $("#qtyIngredient").val("");
         $("#unitIngredient").val("0");
         $("#noteIngredient").val("");
-
     });
 
     $(".resultIngre").on("click", '.editIngre', function () {
@@ -125,6 +130,7 @@ $(document).ready(function () {
             'idIngre': idIngre,
             'idRecIngre': idRecIngre
         }, function (data) {
+            alertify.notify('Sửa nguyên liệu thành công', 'success', 5, function() {});
             $(".resultIngre").append('<div class="col-md-4 ingre' + data.idIngre + data.idRecIngre + '"><button type="button" class="btn btn-default editIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '" data-idReceipt="' + data.receipt_id + '">Sửa</button><button type="button" class="btn btn-primary delIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '">Xóa</button><br><label>Tên:</label><label id="name">' + data.name + '</label><br><label>Số lượng:</label><label id="qty">' + data.qty + '</label><br><label>Đơn vị:</label><label id="unit">' + data.unit + '</label><br><label>Ghi chú:</label><label id="note">' + data.note + '</label></div>');
         });
         $("#nameIngredient").val("");
@@ -145,6 +151,7 @@ $(document).ready(function () {
             'idIngre': idIngre,
             'idRecIngre': idRecIngre
         }, function (data) {
+            alertify.notify('Xóa nguyên liệu thành công', 'success', 5, function() {});
             $(".ingre" + data.idIngre + data.idRecIngre).hide();
             swal("Xóa thành công");
         });
@@ -180,9 +187,16 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             data: form_data,
-            success: function (data) {
+            success: function (data) 
+            {
+                alertify.notify('thêm bước nấu ăn thành công', 'success', 5, function() {});
                 $(".resultStep").append('<div class="col-md-6 step' + data.id + '"><button type="button" class="btn btn-default editStep" data-idStep="' + data.id + '">Sửa</button><button type="button" class="btn btn-primary delStep" data-id="' + data.id + '">Xóa</button><br><label>' + data.step + '.</label><label>Nội dung:</label><label id="content">' + data.content + '</label><br><img style="width:100%;" src="/upload/images/' + data.image + '"/></div>');
                 console.log(data);
+            },
+
+            error: function(data)
+            {
+                alertify.notify('thêm bước nấu ăn thất bại', 'error', 5, function() {});
             }
         });
         $("#contentStep").val("");
@@ -195,7 +209,6 @@ $(document).ready(function () {
         $(".step" + idRecStep).hide();
         $("#informStep").append("<button type='button' class='btn btn-default btn-ms' data-idStep=" + idRecStep + " id='updateStep'><i class='fa fa-refresh'></i></button>");
         $("#addStep").hide();
-
     });
 
     $("#informStep").on("click", "#updateStep", function () {
@@ -216,8 +229,13 @@ $(document).ready(function () {
             contentType: false,
             data: form_data,
             success: function (data) {
+                alertify.notify('Sửa bước nấu ăn thành công', 'success', 5, function() {});
                 $(".resultStep").append('<div class="col-md-6 step' + data.id + '"><button type="button" class="btn btn-default editStep" data-idStep="' + data.id + '">Sửa</button><button type="button" class="btn btn-primary delStep" data-id="' + data.id + '">Xóa</button><br><label>' + data.step + '.</label><label>Nội dung:</label><label id="name">' + data.content + '</label><br><img style="width:100%;" src="upload/images/' + data.image + '"/></div>');
                 console.log(data);
+            },
+            
+            error: function(data) {
+                alertify.notify('Sửa bước nấu ăn thất bại', 'error', 5, function() {});
             }
         });
         $("#contentStep").val("");
@@ -250,11 +268,12 @@ $(document).ready(function () {
             }
             else url = "/addReceiptCate";
             $.post(url, {'data': data, 'idReceipt': idReceipt}, function (data) {
-                console.log(data);
             });
+            alertify.notify('Chọn danh mục thành công', 'success', 5, function() {});
             swal("Thành công");
         }
         else {
+            alertify.notify('Chọn danh mục thất bại', 'error', 5, function() {});
             swal("Không tốt rồi!", "Bạn hãy nhập đầy đủ thông tin nha", "warning")
         }
     });
@@ -297,12 +316,15 @@ $(document).ready(function () {
         }
         else url = "/cancelReceipt";
         $.post(url, {'id': id}, function (data) {
-            if (data == "Xóa công thức thành công") {
+            if (data == "Xóa thành công") {
                 window.location.href="/create-receipt";
+                alertify.notify(data, 'success', 5, function() {});
                 swal(data);
             }
-            else if (data == "Chưa có công thức nào khởi tạo")
+            else if (data == "Chưa có công thức nào khởi tạo"){
+                alertify.notify(data, 'error', 5, function() {});
                 swal(data);
+            }
         });
     })
 
@@ -315,9 +337,11 @@ $(document).ready(function () {
 function nextTab(elem) {
     $(elem).next().find('a[data-toggle="tab"]').click();
 }
+
 function prevTab(elem) {
     $(elem).prev().find('a[data-toggle="tab"]').click();
 }
+
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
