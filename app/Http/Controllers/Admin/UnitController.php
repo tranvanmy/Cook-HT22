@@ -4,40 +4,40 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Unit;
+use App\Repositories\Contracts\UnitRepositoryInterface;
 
 class UnitController extends Controller
 {
-    protected $unit;
+    private $unitRepository;
 
-    public function __construct(Unit $unit)
+    public function __construct(UnitRepositoryInterface $unitRepository)
     {
-        $this->unit = $unit;
+        $this->unitRepository = $unitRepository;
     }
 
     public function getList()
     {
-        $unit = Unit::select("*")->get();
-        return view("admin.unit.unit", compact("unit"));
+        $unit = $this->unitRepository->all();
+        return view('admin.unit.unit', compact('unit'));
     }
 
     public function postAdd(Request $request)
     {
-        if ($request->ajax()) {
-            $response = $this->unit->create($request->all());
-            return response($response);
+        if (!$request->ajax()) {
+            return false;
         }
+        $response = $this->unitRepository->create($request->all());
+        return response($response);
     }
 
     public function getDelete($id)
     {
 
-        $unit = Unit::find($id);
-        $unit->delete();
+        $this->unitRepository->delete($id);
 
         return redirect()->route('getListUnit')
             ->with([
-                'flash_message' => trans("sites.deleteSuccess"),
+                'flash_message' => trans('sites.deleteSuccess'),
                 'flash_level' => 'success'
             ]);
 

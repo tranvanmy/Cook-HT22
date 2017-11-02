@@ -22,4 +22,24 @@ class IngredientRepository extends Repository implements IngredientRepositoryInt
         $ingredient->image = $data['image'];
         $ingredient->save();
     }
+
+    public function createIngredient($request)
+    {
+        $ingredient = $this->model->create([
+            'name' => $request->name,
+            'unit_id' => $request->unit,
+            'status' => 0
+        ]);
+        return $ingredient;
+    }
+
+    public function updateIngreUser($request)
+    {
+        $ingredient = $this->model->find($request->idIngredient);
+        $ingredient->name = $request->name;
+        $ingredient->unit_id = $request->unit;
+        $ingredient->status = 0;
+        $ingredient->save();
+        return true;
+    }
 }
