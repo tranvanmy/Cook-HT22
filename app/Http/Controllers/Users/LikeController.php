@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Like;
+use App\Repositories\Contracts\LikeRepositoryInterface;
 
 class LikeController extends Controller
 {
-    protected $like;
+    private $likeRepository;
+
     public function __construct(
-        Like $like
+        LikeRepositoryInterface $likeRepository
     )
     {
-        $this->like = $like;
+        $this->likeRepository = $likeRepository;
     }
 
     public function like(Request $request)
@@ -21,13 +22,9 @@ class LikeController extends Controller
         if (!$request->ajax()) {
             return false;
         }
-        $like = $this->like->findLike($request->receipt_id, $request->user_id);
+        $like = $this->likeRepository->findLike($request->receipt_id, $request->user_id);
         if (!isset($like->id)) {
-            $response = $this->like->create([
-                'receipt_id' => $request->receipt_id,
-                'user_id' => $request->user_id,
-                'status' => 1
-            ]);
+            $response = $this->likeRepository->createLike($request);
             return $response;
         }
         $like->delete();

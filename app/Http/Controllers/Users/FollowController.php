@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Follow;
+use App\Repositories\Contracts\FollowRepositoryInterface;
 
 class FollowController extends Controller
 {
-    protected $follow;
+    private $followRepository;
     public function __construct(
-        Follow $follow
+        FollowRepositoryInterface $followRepository
     )
     {
-        $this->follow = $follow;
+        $this->followRepository = $followRepository;
     }
 
     public function follow(Request $request)
@@ -21,13 +21,9 @@ class FollowController extends Controller
         if (!$request->ajax()) {
             return false;
         } 
-        $follow = $this->follow->FindFollow($request->id_following, $request->id_follower);
+        $follow = $this->followRepository->findFollow($request->id_following, $request->id_follower);
         if (!isset($follow->id)) {
-            $response = $this->follow->create([
-                'follower_id' => $request->id_follower,
-                'following_id' => $request->id_following,
-                'status' => "1"
-            ]);
+            $response = $this->followRepository->createFollow($request);
             return response($response);
         }
         $follow->delete();
