@@ -25,6 +25,10 @@ use App\Repositories\Contracts\LikeRepositoryInterface;
 use App\Repositories\Eloquent\LikeRepository;
 use App\Repositories\Contracts\FollowRepositoryInterface;
 use App\Repositories\Eloquent\FollowRepository;
+use App\Repositories\Contracts\RateRepositoryInterface;
+use App\Repositories\Eloquent\RateRepository;
+use App\Repositories\Contracts\CommentRepositoryInterface;
+use App\Repositories\Eloquent\CommentRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -56,7 +60,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'ReceiptFoody',
             'ReceiptIngredient',
             'Like',
-            'Follow'
+            'Follow',
+            'Rate',
+            'Comment'
         ];
         
         foreach ($models as $model) {
