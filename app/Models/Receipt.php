@@ -99,31 +99,6 @@ class Receipt extends Model
         return $this->belongsTo(Level::class);
     }
 
-    public function scopeUserId($query, $id)
-    {
-        return $query->where("user_id", $id);
-    }
-
-    public function scopeStatus($query, $status)
-    {
-        return $query->where("status", $status);
-    }
-
-    public function scopeGetId($query, $id)
-    {
-        return $query->where("id", $id);
-    }
-
-    public function scopeOrderByDESC($query, $prop)
-    {
-        return $query->orderBy($prop, 'DESC');
-    }
-
-    public function scopeOrderByASC($query, $prop)
-    {
-        return $query->orderBy($prop, 'ASC');
-    }
-
     public function scopeGetBigger($query, $prop, $value)
     {
         return $query->where($prop, ">=", $value);

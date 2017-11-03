@@ -24,9 +24,4 @@ class Comment extends Model
     {
         return $this->belongsTo(Rate::class);
     }
-    
-    public function scopeRateId($query, $id)
-    {
-        return $query->where("rate_id",$id);
-    }
 }

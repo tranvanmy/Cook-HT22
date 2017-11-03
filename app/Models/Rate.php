@@ -31,14 +31,4 @@ class Rate extends Model
     {
         return $this->hasMany(Comment::class);
     }
-    
-    public function scopeReceiptId($query, $id)
-    {
-        return $query->where("receipt_id",$id);
-    }
-
-    public function scopeFindRateByUser($query, $receipt_id, $user_id)
-    {
-        return $query->where("receipt_id", $receipt_id)->where("user_id", $user_id)->first();
-    }
 }

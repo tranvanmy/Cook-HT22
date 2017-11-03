@@ -4,92 +4,90 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Receipt;
-use App\Models\ReceiptFoody;
-use App\Models\ReceiptIngredient;
-use App\Models\ReceiptStep;
-use App\Models\Foody;
-use App\Models\Ingredient;
-use App\Models\Unit;
-use App\Models\Rate;
-use App\Models\Comment;
-use App\Models\Follow;
-use App\Models\Like;
+use App\Repositories\Contracts\ReceiptRepositoryInterface;
+use App\Repositories\Contracts\ReceiptFoodyRepositoryInterface;
+use App\Repositories\Contracts\ReceiptIngredientRepositoryInterface;
+use App\Repositories\Contracts\ReceiptStepRepositoryInterface;
+use App\Repositories\Contracts\FoodyRepositoryInterface;
+use App\Repositories\Contracts\IngredientRepositoryInterface;
+use App\Repositories\Contracts\UnitRepositoryInterface;
+use App\Repositories\Contracts\RateRepositoryInterface;
+use App\Repositories\Contracts\CommentRepositoryInterface;
+use App\Repositories\Contracts\FollowRepositoryInterface;
+use App\Repositories\Contracts\LikeRepositoryInterface;
 use Auth, DB;
 
 class DetailReceiptController extends Controller
 {
-    protected $receipt;
-    protected $recIngre;
-    protected $recFoody;
-    protected $recStep;
-    protected $ingredient;
-    protected $foody;
-    protected $unit;
-    protected $comment;
-    protected $follow;
-    protected $like;
+    private $receiptRepository;
+    private $followRepository;
+    private $receiptIngredientRepository;
+    private $foodyRepository;
+    private $receiptFoodyRepository;
+    private $receiptStepRepository;
+    private $ingredientRepository;
+    private $unitRepository;
+    private $rateRepository;
+    private $commentRepository;
+    private $likeRepository;
 
     public function __construct(
-        Foody $foody,
-        ReceiptIngredient $recIngre,
-        Receipt $receipt,
-        ReceiptStep $recStep,
-        Ingredient $ingredient,
-        ReceiptFoody $recFoody,
-        Unit $unit,
-        Rate $rate,
-        Comment $comment,
-        Follow $follow,
-        Like $like
+        ReceiptRepositoryInterface $receiptRepository,
+        FollowRepositoryInterface $followRepository,
+        ReceiptIngredientRepositoryInterface $receiptIngredientRepository,
+        FoodyRepositoryInterface $foodyRepository,
+        ReceiptFoodyRepositoryInterface $receiptFoodyRepository,
+        LikeRepositoryInterface $likeRepository,
+        CommentRepositoryInterface $commentRepository,
+        RateRepositoryInterface $rateRepository,
+        UnitRepositoryInterface $unitRepository,
+        FoodyRepositoryInterface $foodyRepository,
+        ReceiptStepRepositoryInterface $receiptStepRepository
 
     )
     {
-        $this->foody = $foody;
-        $this->recIngre = $recIngre;
-        $this->receipt = $receipt;
-        $this->recStep = $recStep;
-        $this->ingrediet = $ingredient;
-        $this->recFoody = $recFoody;
-        $this->unit = $unit;
-        $this->rate = $rate;
-        $this->comment = $comment;
-        $this->follow = $follow;
-        $this->like = $like;
+        $this->receiptIngredientRepository = $receiptIngredientRepository;
+        $this->receiptRepository = $receiptRepository;
+        $this->followRepository = $followRepository;
+        $this->foodyRepository = $foodyRepository;
+        $this->receiptStepRepository = $receiptStepRepository;
+        $this->unitRepository = $unitRepository;
+        $this->rateRepository = $rateRepository;
+        $this->commentRepository = $commentRepository;
+        $this->likeRepository = $likeRepository;
+        $this->followRepository = $followRepository;
+        $this->receiptFoodyRepository = $receiptFoodyRepository;
+
     }
 
     public function show($id)
     {
-        $receipt = $this->receipt->getId($id)->first();
-        $recIngre = $this->recIngre->receiptId($id)->get();
-        $countRecIngre = $this->recIngre->receiptId($id)->count();
-        $recStep = $this->recStep->receiptId($id)->get();
-        $recFoody = $this->recFoody->receiptId($id)->first();
-        $units = $this->unit->all();
-        $rates = $this->rate->receiptId($id)->select("*")->orderBy('id', 'desc')->get();
-        $following = $this->follow->getAllFollowing($receipt->user_id)->get()->count();
-        $countReceipt = $this->receipt->userId($receipt->user_id)->get()->count();
+        $receipt = $this->receiptRepository->getId($id)->first();
+        $recIngre = $this->receiptIngredientRepository->getReceiptId($id)->get();
+        $countRecIngre = $recIngre->count();
+        $recStep = $this->receiptStepRepository->getReceiptId($id)->get();
+        $recFoody = $this->receiptFoodyRepository->getReceiptId($id)->first();
+        $units = $this->unitRepository->all();
+        $rates = $this->rateRepository->getReceiptId($id)->select("*")->orderBy('id', 'desc')->get();
+        $following = $this->followRepository->getAllFollowing($receipt->user_id)->get()->count();
+        $countReceipt = $this->receiptRepository->getUserId($receipt->user_id)->get()->count();
         if (Auth::check()) {
-            $follower = $this->follow->getIdFollower(Auth::user()->id)->first();
-            $likeByUser = $this->like->getUser(Auth::user()->id, $id)->first();
+            $follower = $this->followRepository->getIdFollower(Auth::user()->id)->first();
+            $likeByUser = $this->likeRepository->getUser(Auth::user()->id, $id)->first();
         }
-        $_top5Receipt = $this->receipt->getBigger("rate_point", 0)->OrderByDESC('rate_point')->take(5)->get();
-        $_top5Member = $this->follow->select('following_id', DB::raw('COUNT(following_id) as count'))
-            ->groupBy('following_id')
-            ->OrderByDESC('count')
-            ->take(5)
-            ->get();
+        $_top5Receipt = $this->receiptRepository->top5Receipt(0,5);
+        $_top5Member = $this->followRepository->topLove(5);
         $countLike = $receipt->likes->count();
-        return view("users.pages.detail", compact(
-            "receipt",
-            "recIngre",
-            "recStep",
-            "recFoody",
-            "units",
-            "rates",
-            "follower",
+        return view('users.pages.detail', compact(
+            'receipt',
+            'recIngre',
+            'recStep',
+            'recFoody',
+            'units',
+            'rates',
+            'follower',
             'following',
-            "countReceipt",
+            'countReceipt',
             'likeByUser',
             'countRecIngre',
             'countLike',
@@ -117,23 +115,11 @@ class DetailReceiptController extends Controller
         if (!$request->ajax()) {
             return false;
         }
-        $rate = $this->rate->findRateByUser($request->receipt_id, $request->user_id);
-        if (!isset($rate->id)) {
-            $this->rate->create([
-                'point' => $request->point[0],
-                'user_id' => $request->user_id,
-                'receipt_id' => $request->receipt_id,
-                'content' => $request->content
-            ]);
-        } else {
-            $rate->point = $request->point[0];
-            $rate->content = $request->content;
-            $rate->save();
-        }
+        $rate = $this->rateRepository->createRateByUser($request);
 
 
-        $receipt = $this->receipt->find($request->receipt_id);
-        $rates = $this->rate->receiptId($receipt->id)->get();
+        $receipt = $this->receiptRepository->find($request->receipt_id);
+        $rates = $this->rateRepository->getReceiptId($receipt->id)->get();
 
         $s = 0;
         for ($i = 0; $i < count($rates); $i++) {
@@ -142,7 +128,6 @@ class DetailReceiptController extends Controller
         $receipt->rate_point = (float)$s / count($rates);
         $receipt->save();
 
-        // return response($response);
         return response($request->all());
     }
 
@@ -152,11 +137,7 @@ class DetailReceiptController extends Controller
             return false;
         }
 
-        $response = $this->comment->create([
-            'rate_id' => $request->idRate,
-            'content' => $request->replyContent,
-            'user_id' => $request->idUser
-        ]);
+        $response = $this->commentRepository->createComment($request);
         return response($response);
     }
 }
