@@ -21,6 +21,10 @@ use App\Repositories\Contracts\ReceiptFoodyRepositoryInterface;
 use App\Repositories\Eloquent\ReceiptFoodyRepository;
 use App\Repositories\Contracts\ReceiptIngredientRepositoryInterface;
 use App\Repositories\Eloquent\ReceiptIngredientRepository;
+use App\Repositories\Contracts\LikeRepositoryInterface;
+use App\Repositories\Eloquent\LikeRepository;
+use App\Repositories\Contracts\FollowRepositoryInterface;
+use App\Repositories\Eloquent\FollowRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -50,7 +54,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'Unit',
             'User',
             'ReceiptFoody',
-            'ReceiptIngredient'
+            'ReceiptIngredient',
+            'Like',
+            'Follow'
         ];
         
         foreach ($models as $model) {
