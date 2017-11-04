@@ -104,9 +104,4 @@ class User extends Authenticatable
     {
         return $query->where("email", $email);
     }
-
-    public function scopeGetBigger($query, $prop, $value)
-    {
-        return $query->where($prop, ">=", $value);
-    }
 }

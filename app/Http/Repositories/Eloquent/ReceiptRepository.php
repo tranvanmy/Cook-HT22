@@ -64,8 +64,8 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
 
     public function editStatus($request)
     {
-        $receipt = $this->model->find($request->id);
-        $receipt->status = $request->status;
+        $receipt = $this->model->find($request['id']);
+        $receipt->status = $request['status'];
         $receipt->save();
 
         return $receipt;
@@ -74,7 +74,7 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
     public function getAllReceipt($with = [], $select = ['*'],$status = [], $paginate = 16)
     {
         $receipt = $this->model->select($select)
-            ->with($with)->whereIn('status', $status)->paginate($paginate);
+            ->with($with)->whereIn('status', $status)->orderBy('id','DESC')->paginate($paginate);
 
         return $receipt;
     }

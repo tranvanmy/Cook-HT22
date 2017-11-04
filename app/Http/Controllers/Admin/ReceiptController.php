@@ -4,25 +4,27 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Receipt;
-use App\Models\ReceiptFoody;
+use App\Repositories\Contracts\ReceiptRepositoryInterface;
 class ReceiptController extends Controller
 {
-	public function getList()
-	{
-		$receipt = Receipt::select("*")->orderBy("id","DESC")->get();
-		return view("admin.receipt.manageReceipt",compact("receipt","recFoody"));
-	}
-	public function postEdit(Request $request)
-	{
-		if($request->ajax())
-		{
-			$id = $request->id;
-			$status = $request->status;
-			$newReceipt = Receipt::find($id);
-			$newReceipt->status = $status;
-			$newReceipt->save();
-		}
-		return response($request->all());
-	}
+    private $receiptRepository;
+
+    public function __construct(ReceiptRepositoryInterface $receiptRepository){
+        $this->receiptRepository = $receiptRepository;
+    }
+
+    public function getList()
+    {
+        $receipt = $this->receiptRepository->getAllReceipt([], '*', [1,2,0], '');
+        return view("admin.receipt.manageReceipt",compact("receipt"));
+    }
+
+    public function postEdit(Request $request)
+    {
+        if(!$request->ajax()){
+            return false;
+        }
+        $this->receiptRepository->editStatus($request);
+        return response($request->all());
+    }
 }

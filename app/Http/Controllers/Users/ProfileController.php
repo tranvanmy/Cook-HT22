@@ -6,26 +6,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Follow;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\FollowRepositoryInterface;
+
 use Auth;
 
 class ProfileController extends Controller
 {
-    protected $user;
-    protected $follow;
+    private $userRepository;
+    private $followRepository;
+
     public function __construct(
-        User $user,
-        Follow $follow
+        UserRepositoryInterface $userRepository,
+        FollowRepositoryInterface $followRepository
     )
     {
-        $this->user = $user;
-        $this->follow = $follow;
+        $this->userRepository = $userRepository;
+        $this->followRepository = $followRepository;
     }
 
     public function index($id)
     {
-        $user = $this->user->find($id);
+        $user = $this->userRepository->find($id);
         if (Auth::check()) {
-            $follower = $this->follow->FindFollow($user->id, Auth::user()->id)->first();
+            $follower = $this->followRepository->findFollow($user->id, Auth::user()->id);
         }
         return view("users.pages.profile", compact("user", "follower"));
     }
@@ -36,22 +40,7 @@ class ProfileController extends Controller
             return false;
         }
         if (isset($request->id)) {
-            $user = $this->user->find($request->id);
-            if ($request->file("avatar") == null) {
-                $user->name = $request->name;
-                $user->phone = $request->phone;
-                $user->address = $request->address;
-                $user->save();
-                return $user;
-            }
-            $file_name = $request->file('avatar')->getClientOriginalName();
-            $request->file('avatar')->move('upload/images/', $file_name);
-            $user->name = $request->name;
-            $user->phone = $request->phone;
-            $user->address = $request->address;
-            $user->avatar = $file_name;
-            $user->save();
-            return $user;
+            $user = $this->userRepository->editProfile($request);
         }
         return response($user);
     }
@@ -61,13 +50,9 @@ class ProfileController extends Controller
         if (!$request->ajax()) {
             return false;
         }
-        $follow = $this->follow->FindFollow($request->id_following, $request->id_follower);
+        $follow = $this->followRepository->findFollow($request->id_following, $request->id_follower);
         if (!isset($follow->id)) {
-            $response = $this->follow->create([
-                'follower_id' => $request->id_follower,
-                'following_id' => $request->id_following,
-                'status' => "1"
-            ]);
+            $response = $this->followRepository->createFollow($request);
             return response($response);
         }
         $follow->delete();
