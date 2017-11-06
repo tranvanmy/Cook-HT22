@@ -45,14 +45,4 @@ class Ingredient extends Model
     {
         return $this->hasOne(UserReceiptIngredient::class);
     }
-
-    public function scopeGetID($query, $id)
-    {
-        return $query->find($id);
-    }
-
-    public function scopeOrderByASC($query, $prop)
-    {
-        return $query->orderBy($prop, "ASC");
-    }
 }

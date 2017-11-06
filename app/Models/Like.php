@@ -24,14 +24,4 @@ class Like extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    public function scopeGetUser($query, $user_id, $receipt_id)
-    {
-        return $query->where("user_id", $user_id)->where("receipt_id", $receipt_id);
-    }
-
-    public function scopeFindLike($query, $receipt_id, $user_id)
-    {
-        return $query->where('receipt_id', $receipt_id)->where('user_id', $user_id)->first();
-    }
 }

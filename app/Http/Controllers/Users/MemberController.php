@@ -4,41 +4,32 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Follow;
-use App\Models\Receipt;
-use DB;
+use App\Repositories\Contracts\FollowRepositoryInterface;
+use App\Repositories\Contracts\ReceiptRepositoryInterface;
 
 class MemberController extends Controller
 {
-    protected $follow;
-    protected $receipt;
+    private $followRepository;
+    private $receiptRepository;
+    
     public function __construct(
-        Follow $follow,
-        Receipt $receipt
+        FollowRepositoryInterface $followRepository,
+        ReceiptRepositoryInterface $receiptRepository
     )
     {
-        $this->follow = $follow;
-        $this->receipt = $receipt;
+        $this->followRepository = $followRepository;
+        $this->receiptRepository = $receiptRepository;
     }
 
     public function topLove()
     {
-        $_top10 = $this->follow->select('following_id', DB::raw('COUNT(following_id) as count'))
-            ->groupBy('following_id')
-            ->OrderByDESC('count')
-            ->take(10)
-            ->get();
+        $_top10 = $this->followRepository->topLove(10);
         return view("users.pages.topLove", compact("_top10"));
     }
 
     public function topChef()
     {
-        $_top10Chef = $this->receipt->select('user_id', DB::raw('COUNT(id) as count'))
-            ->groupBy('user_id')
-            ->OrderByDESC('count')
-            ->getStatus(1)
-            ->take(8)
-            ->get();
+        $_top10Chef = $this->receiptRepository->topChef(10);
         return view("users.pages.topChef", compact("_top10Chef"));
     }
 }

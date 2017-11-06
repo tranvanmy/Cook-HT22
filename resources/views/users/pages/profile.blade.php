@@ -43,16 +43,12 @@
                 <!-- SIDEBAR BUTTONS -->
                 @if(Auth::check() && $user->id != Auth::user()->id)
                     <div class="profile-userbuttons">
-                        @if($follower['status'] == 1)
-                            <button type="button" class="btn btn-success btn-sm">
-                                {{ trans("sites.noCare") }}</button>
-                        @else
-                            <button type="button" data-idFollower="{{ Auth::user()->id }}"
-                                    data-idFollowing="{{ $user->id }}" class="btn btn-success btn-sm follow">
-                                {{ trans("sites.care") }}</button>
-                        @endif
+                        <button type="button" data-idFollower="{{ Auth::user()->id }}"
+                            data-idFollowing="{{ $user->id }}" class="btn btn-success btn-sm follow">
+                            {{ ($follower['status'] == 1)  ? trans("sites.noCare") : trans("sites.care") }}
+                        </button>
                     </div>
-            @endif
+                @endif
             <!-- END SIDEBAR BUTTONS -->
             </div>
         </div>
