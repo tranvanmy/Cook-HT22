@@ -10,11 +10,10 @@ class UserReceiptStep extends Model
     
     protected $fillable = [
         'id',
-        'user_id',
         'user_receipt_id',
-        'ingredient_id',
-        'quantity',
-        'note'
+        'image',
+        'content',
+        'step'
     ];
 
     public function userReceipt()

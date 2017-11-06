@@ -16,7 +16,6 @@ $(document).ready(function(){
                 alertify.notify('Hoạt động', 'error', 5, function() {});
             }
         });
-
         $('#myModal').modal('hide');
     });
 });

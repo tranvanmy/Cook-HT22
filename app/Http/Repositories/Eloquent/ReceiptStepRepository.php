@@ -26,7 +26,7 @@ class ReceiptStepRepository extends Repository implements ReceiptStepRepositoryI
             'receipt_id' => $request->idReceipt,
             'step' => $request->step
         ]);
-        $request->file('image')->move('upload/images/',$file_name);
+        $request->file('image')->move(config('custom.image.url'),$file_name);
         return $response;
     }
 
@@ -42,7 +42,7 @@ class ReceiptStepRepository extends Repository implements ReceiptStepRepositoryI
         $recStep->content = $request->content;
         $recStep->image = $file_name;
         $recStep->step = $request->step;
-        $request->file('image')->move('upload/images/', $file_name);
+        $request->file('image')->move(config('custom.image.url'), $file_name);
         $recStep->save();
     }
 }

@@ -10,7 +10,7 @@ $(document).ready(function () {
             if (data.status == 1) {
                 $('.follow span:eq(0)').text('Đã quan tâm');
                 alertify.notify('Đã theo dõi', 'success', 5, function() {});
-                swal("Theo dõi");
+                swal('Theo dõi');
             }
             else {
                 $('.follow a > span').text('Quan tâm');

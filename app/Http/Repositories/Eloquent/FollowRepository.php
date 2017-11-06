@@ -8,6 +8,7 @@ use DB;
 
 class FollowRepository extends Repository implements FollowRepositoryInterface
 {
+
     public function model()
     {
         return Follow::class;
@@ -15,17 +16,17 @@ class FollowRepository extends Repository implements FollowRepositoryInterface
 
     public function findFollow($id_following, $id_follower)
     {
-    	return $this->model->where('following_id', $id_following)->where('follower_id', $id_follower)->first();
+        return $this->model->where('following_id', $id_following)->where('follower_id', $id_follower)->first();
     }
 
     public function getIdFollower($id_follower)
     {
-    	return $this->model->where('follower_id', $id_follower);
+        return $this->model->where('follower_id', $id_follower);
     }
 
     public function getAllFollowing($id_following)
     {
-    	return $this->model->where('following_id', $id_following);
+        return $this->model->where('following_id', $id_following);
     }
 
     public function getBigger($prop, $value)
@@ -40,7 +41,7 @@ class FollowRepository extends Repository implements FollowRepositoryInterface
 
     public function createFollow($request)
     {
-    	return $this->model->create([
+        return $this->model->create([
             'follower_id' => $request->id_follower,
             'following_id' => $request->id_following,
             'status' => config('const.Active')

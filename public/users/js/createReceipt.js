@@ -1,6 +1,7 @@
 $(document).ready(function () {
     var url = window.location.pathname;
     var idEditReceipt = url.substring(url.lastIndexOf('/') + 1);
+    var forkReceiptId = url.substring(url.indexOf("/"), url.indexOf("/edit-fork/")).slice(16);
     //get id edit
     $('.nav-tabs > li a[title]').tooltip();
 
@@ -11,6 +12,16 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    if(idEditReceipt != '' && forkReceiptId != ''){
+        $("#nameReceipt").attr('disabled',true);
+        $("#timeReceipt").attr('disabled',true);
+        $("#rationReceipt").attr('disabled',true);
+        $("#sltComplexReceipt").attr('disabled',true);
+        $("#descReceipt").attr('disabled',true);
+        $("#imageReceipt").attr('disabled',true);
+    }
+
 
     //AddReceipt
     $(".next-step1").on("click", function () {
@@ -23,9 +34,13 @@ $(document).ready(function () {
             form_data.append("description", $("#descReceipt").val());
             form_data.append("image", $('#imageReceipt')[0].files[0]);
             form_data.append("id", $(this).attr("data-id"));
-            if (idEditReceipt != '') {
+            if(idEditReceipt != '' && forkReceiptId != ''){
+                url = "/addReceipt/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+            }
+            else if (idEditReceipt != '') {
                 url = "/addReceipt/" + idEditReceipt;
             }
+
             else url = "/addReceipt";
             $.ajax({
                 url: url,
@@ -34,13 +49,23 @@ $(document).ready(function () {
                 contentType: false,
                 data: form_data,
                 success: function (data) {
-                    alertify.notify('Tạo bước 1 thành công', 'success', 5, function() {});
-                    $("#addIngredient").attr("data-id", data.id);
-                    $("#addStep").attr('data-id', data.id);
-                    $(".next-step").attr('data-id', data.id);
-                    $(".avatarReceipt img").attr('src', 'upload/images/' + data.image);
-                    $("#create").attr("data-id", data.id);
-                    $("#cancel").attr("data-id", data.id);
+                    if(data == '') {
+                        alertify.notify('thành công', 'success', 5, function() {});
+                        $("#addIngredient").attr("data-id", idEditReceipt);
+                        $("#addStep").attr('data-id', idEditReceipt);
+                        $(".next-step").attr('data-id', idEditReceipt);
+                        $("#create").attr("data-id", idEditReceipt);
+                        $("#cancel").attr("data-id", idEditReceipt);
+                    }
+                    else {
+                        alertify.notify('Tạo bước 1 thành công', 'success', 5, function() {});
+                        $("#addIngredient").attr("data-id", data.id);
+                        $("#addStep").attr('data-id', data.id);
+                        $(".next-step").attr('data-id', data.id);
+                        $(".avatarReceipt img").attr('src', 'upload/images/' + data.image);
+                        $("#create").attr("data-id", data.id);
+                        $("#cancel").attr("data-id", data.id);
+                    }
                 },
 
                 error: function(data) {
@@ -75,9 +100,13 @@ $(document).ready(function () {
         unit = $("#unitIngredient").val();
         note = $("#noteIngredient").val();
         idReceipt = $(this).attr("data-id")
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+                url = "/addIngredient/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+        else if (idEditReceipt != '') {
             url = "/addIngredient/" + idEditReceipt;
         }
+
         else url = "/addIngredient";
         $.post(url, {
             'idReceipt': idReceipt,
@@ -86,9 +115,14 @@ $(document).ready(function () {
             'unit': unit,
             'note': note
         }, function (data) {
-            alertify.notify('Tạo nguyên liệu thành công', 'success', 5, function() {});
+            if(data.fork == 'fork'){
+                alertify.notify('thêm thành công nguyên liệu fork', 'success', 5, function() {});
+            }
+            else{
+                alertify.notify('Tạo nguyên liệu thành công', 'success', 5, function() {});
+            }
             $(".resultIngre").append('<div class="col-md-4 ingre' + data.idIngre + data.idRecIngre + '"><button type="button" class="btn btn-default editIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '" data-idReceipt="' + data.receipt_id + '">Sửa</button><button type="button" class="btn btn-primary delIngre" data-idIngre="' + data.idIngre + '" data-idRecIngre ="' + data.idRecIngre + '">Xóa</button><br><label>Tên:</label><label id="name">' + data.name + '</label><br><label>Số lượng:</label><label id="qty">' + data.qty + '</label><br><label>Đơn vị:</label><label id="unit">' + data.unit + '</label><br><label>Ghi chú:</label><label id="note">' + data.note + '</label></div>');
-            console.log(data);
+            
         });
         $("#nameIngredient").val("");
         $("#qtyIngredient").val("");
@@ -117,7 +151,10 @@ $(document).ready(function () {
         qty = $("#qtyIngredient").val();
         unit = $("#unitIngredient").val();
         note = $("#noteIngredient").val();
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/editIngredient/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+        else if (idEditReceipt != '') {
             url = "/editIngredient/" + idEditReceipt;
         }
         else url = "/editIngredient";
@@ -143,7 +180,11 @@ $(document).ready(function () {
         idIngre = $(this).parent().find(".delIngre").attr("data-idIngre");
         idRecIngre = $(this).parent().find(".delIngre").attr("data-idRecIngre");
 
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/delIngredient/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+
+        else if (idEditReceipt != '') {
             url = "/delIngredient/" + idEditReceipt;
         }
         else url = "/delIngredient";
@@ -177,7 +218,10 @@ $(document).ready(function () {
         var count = $(".resultStep div.col-md-6").length;
         form_data.append("step", ++count);
         form_data.append("idReceipt", $(this).attr("data-id"));
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+                url = "/addStep/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+        else if (idEditReceipt != '') {
             url = "/addStep/" + idEditReceipt;
         }
         else url = "/addStep";
@@ -189,9 +233,16 @@ $(document).ready(function () {
             data: form_data,
             success: function (data) 
             {
-                alertify.notify('thêm bước nấu ăn thành công', 'success', 5, function() {});
+                if(data.fork == 'fork')
+                {
+                    alertify.notify('thêm bước nấu ăn fork thành công', 'success', 5, function() {});
+
+                }
+                else {
+                    alertify.notify('thêm bước nấu ăn thành công', 'success', 5, function() {});
+                }
                 $(".resultStep").append('<div class="col-md-6 step' + data.id + '"><button type="button" class="btn btn-default editStep" data-idStep="' + data.id + '">Sửa</button><button type="button" class="btn btn-primary delStep" data-id="' + data.id + '">Xóa</button><br><label>' + data.step + '.</label><label>Nội dung:</label><label id="content">' + data.content + '</label><br><img style="width:100%;" src="/upload/images/' + data.image + '"/></div>');
-                console.log(data);
+                
             },
 
             error: function(data)
@@ -218,7 +269,12 @@ $(document).ready(function () {
         var count = $(".resultStep div.col-md-6").length;
         form_data.append("step", ++count);
         form_data.append("idRecStep", $(this).attr("data-idStep"));
-        if (idEditReceipt != '') {
+
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/editStep/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+
+        else if (idEditReceipt != '') {
             url = "/editStep/" + idEditReceipt;
         }
         else url = "/editStep";
@@ -247,7 +303,11 @@ $(document).ready(function () {
     $(".resultStep").on("click", '.delStep', function () {
         idRecStep = $(this).parent().find(".editStep").attr("data-idStep");
 
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/delStep/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+
+        else if (idEditReceipt != '') {
             url = "/delStep/" + idEditReceipt;
         }
         else url = "/delStep";
@@ -263,11 +323,15 @@ $(document).ready(function () {
         if ($('input[type="checkbox"]:checked').length > 0) {
             var data = $('.nameBox:checked').serialize();
             idReceipt = $(this).attr("data-id");
-            if (idEditReceipt != '') {
+            if(idEditReceipt != '' && forkReceiptId != ''){
+                url = "/addReceiptCate/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+            }
+            else if (idEditReceipt != '') {
                 url = "/addReceiptCate/" + idEditReceipt;
             }
             else url = "/addReceiptCate";
             $.post(url, {'data': data, 'idReceipt': idReceipt}, function (data) {
+                console.log(data);
             });
             alertify.notify('Chọn danh mục thành công', 'success', 5, function() {});
             swal("Thành công");
@@ -294,11 +358,18 @@ $(document).ready(function () {
     $("#create").on("click", function (e) {
 
         id = $(this).attr("data-id");
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/createReceipt/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+        else if (idEditReceipt != '') {
             url = "/createReceipt/" + idEditReceipt;
         }
         else url = "/createReceipt";
         $.post(url, {'id': id}, function (data) {
+            if(data == ''){
+                swal('Cập thành công thức fork thành công', '', 'sccuess')
+                window.location.href = document.location.origin + '/detail/' + forkReceiptId + '/fork/' + idEditReceipt;
+            }
             if (data == "Tạo công thức thành công") {
                 swal(data);
                 window.location.href = document.location.origin + '/detail/' + id;
@@ -310,12 +381,18 @@ $(document).ready(function () {
 
     $("#cancel").on("click", function (e) {
         id = $(this).attr("data-id");
-
-        if (idEditReceipt != '') {
+        if(idEditReceipt != '' && forkReceiptId != ''){
+            url = "/cancelReceipt/" + forkReceiptId + '/edit-fork/' +  idEditReceipt;
+        }
+        else if (idEditReceipt != '') {
             url = "/cancelReceipt/" + idEditReceipt;
         }
         else url = "/cancelReceipt";
         $.post(url, {'id': id}, function (data) {
+            if(data == 'Xóa fork thành công'){
+                window.location.href="/create-receipt";
+                swal('Xóa fork thành công');
+            }
             if (data == "Xóa thành công") {
                 window.location.href="/create-receipt";
                 alertify.notify(data, 'success', 5, function() {});

@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Receipt;
 use App\Models\UserReceiptIngredient;
-use App\Models\UserReceiptStep
+use App\Models\UserReceiptStep;
+use App\Models\UserReceiptFoody;
 
 class UserReceipt extends Model
 {
     
     protected $fillable = [
-        'assign_id',
+        'user_id',
         'receipt_id'
     ];
 
@@ -34,6 +35,11 @@ class UserReceipt extends Model
     public function userReceiptIngredients()
     {
     	return $this->hasMany(UserReceiptIngredient::class);
+    }
+
+    public function userReceiptFoodies()
+    {
+        return $this->hasMany(UserReceiptFoody::class);
     }
     
 }

@@ -49,7 +49,7 @@ $(document).ready(function () {
     });
 
     rate = [];
-    $('#demo1 .stars').on("click", function () {
+    $('#demo1 .stars').on('click', function () {
         rate.push($(this).val());
         $('.rating-value #resultRate').text($(this).val() + '.0');
     });
@@ -106,14 +106,12 @@ $(document).ready(function () {
     });
 
     $('.reset').on('click', function () {
-        id = $(this).attr('data-rateid');
+       id = $(this).attr('data-rateid');
         $('.reply-content' + id).val('');
-    });
 
     $('.replyForm').on('click', function () {
         id = $(this).attr('data-id');
         $('.review-comment-container' + id).slideToggle();
-    });
 });
 
 function openCity(evt, cityName) {

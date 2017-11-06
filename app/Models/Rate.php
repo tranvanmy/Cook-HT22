@@ -31,4 +31,5 @@ class Rate extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    
 }

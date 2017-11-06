@@ -5,6 +5,7 @@ use App\Models\Receipt;
 use App\Repositories\Eloquent\Repository;
 use App\Repositories\Contracts\ReceiptRepositoryInterface;
 use Auth,DB;
+
 class ReceiptRepository extends Repository implements ReceiptRepositoryInterface{
 
     public function model()
@@ -19,14 +20,13 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
         $receipt = $this->model->create([
             'name' => $request->name,
             'time' => $request->time,
-	        'ration' => $request->ration,
+            'ration' => $request->ration,
             'complex' => $request->complex,
             'description' => $request->description,
             'image' => $file_name,
             'status' => config('const.notYet'),
             'user_id' => Auth::user()->id
         ]);
-
         return $receipt;
     }
 
@@ -59,13 +59,13 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
 
     public function getId($id)
     {
-    return $this->model->where('id', $id);
+        return $this->model->where('id', $id);
     }
 
     public function editStatus($request)
     {
-        $receipt = $this->model->find($request['id']);
-        $receipt->status = $request['status'];
+        $receipt = $this->model->find($request->id);
+        $receipt->status = $request->status;
         $receipt->save();
 
         return $receipt;
@@ -74,9 +74,9 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
     public function getAllReceipt($with = [], $select = ['*'],$status = [], $paginate = 16)
     {
         $receipt = $this->model->select($select)
-            ->with($with)->whereIn('status', $status)->orderBy('id','DESC')->paginate($paginate);
+            ->with($with)->whereIn('status', $status)->paginate($paginate);
 
-        return $receipt;
+              return $receipt;
     }
 
     public function searchNormal($keyword)

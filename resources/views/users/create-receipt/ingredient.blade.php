@@ -28,7 +28,29 @@
                 <i class="fa fa-list"></i> {{ trans("sites.list") }} {{ trans("sites.ingredient") }}
             </h3>
             <hr>
-            @if(!empty($receipt->receiptIngredients))
+            @if(isset($ur_ingredients))
+                @foreach($ur_ingredients as $key => $item)
+                    <div class="col-md-4 ingre{{$item->ingredient->id}}{{$item->id}}">
+                        <button type="button" class="btn btn-default editIngre"
+                                data-idIngre="{{ $item->ingredient_id }}" data-idRecIngre="{{ $item->id }}"
+                                data-idReceipt="{{ $item->userReceipt->id }}">{{ trans("sites.edit") }}</button>
+                        <button type="button" class="btn btn-primary delIngre"
+                                data-idIngre="{{ $item->ingredient->id }}"
+                                data-idRecIngre="{{ $item->id }}">{{ trans("sites.delete") }}</button>
+                        <br>
+                        <label>{{ trans("sites.name") }}:</label><label
+                                id="name">{{ $item->ingredient->name }}</label><br>
+                        <label>{{ trans("sites.qty") }}:</label><label id="qty">{{ $item->quantity }}</label><br>
+                        <label>{{ trans("sites.unit") }}:</label><label
+                                id="unit">{{ $item->ingredient->unit_id }}</label><br>
+                        <label>{{ trans("sites.note") }}:</label><label id="note">{{ $item->note }}</label>
+                    </div>
+                    @if(++$key % 3 == 0)
+                        <div class="clearfix"></div>
+                        <br>
+                    @endif
+                @endforeach
+            @elseif(!empty($receipt->receiptIngredients))
                 @foreach($receipt->receiptIngredients as $key => $item)
                     <div class="col-md-4 ingre{{$item->ingredient->id}}{{$item->id}}">
                         <button type="button" class="btn btn-default editIngre"
@@ -51,6 +73,7 @@
                     @endif
                 @endforeach
             @endif
+            
         </div>
         <div class="clearfix"></div>
         <ul class="list-inline pull-right">

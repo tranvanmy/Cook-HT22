@@ -44,7 +44,7 @@
                 @if(Auth::check() && $user->id != Auth::user()->id)
                     <div class="profile-userbuttons">
                         <button type="button" data-idFollower="{{ Auth::user()->id }}"
-                            data-idFollowing="{{ $user->id }}" class="btn btn-success btn-sm follow">
+                                data-idFollowing="{{ $user->id }}" class="btn btn-success btn-sm follow">
                             {{ ($follower['status'] == 1)  ? trans("sites.noCare") : trans("sites.care") }}
                         </button>
                     </div>
@@ -121,8 +121,9 @@
                       <div class="row">
                           <div class="tabs-left">
                             <ul class="nav nav-tabs">
-                              <li class="active"><a href="#a" data-toggle="tab"><span class="fa fa-check">Đã duyệt</span></a></li>
-                              <li><a href="#b" data-toggle="tab"><span class="fa fa-cog">Chưa duyệt</span></a></li>
+                              <li class="active"><a href="#a" data-toggle="tab"><span class="fa fa-check">{{ trans('sites.approved') }}</span></a></li>
+                              <li><a href="#b" data-toggle="tab"><span class="fa fa-cog">{{ trans('sites.unApproved') }}</span></a></li>
+                              <li><a href="#c" data-toggle="tab"><span class="fa fa-cog">{{ trans('sites.forked') }}</span></a></li>
                             </ul>
                             <div class="tab-content">
                               <div class="tab-pane active" id="a">
@@ -202,6 +203,42 @@
                                                     Bạn không thể xem phần này.
                                                 </div>
                                             @endif
+                                        </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div class="tab-pane" id="c">
+                                <h3>Forkec</h3>
+                                <ul class="list-group pull-left">
+                                  <li class="list-group-item">
+                                    <div class="row recipes-list row10">
+                                        <div class="top-recipes-user">
+                                            @foreach($assigns as $item)
+                                                <div class="today-recipe-user">
+                                                    <div class="item-block recipe-block">
+                                                        <div class="item-content">
+                                                            <div class="featured-recipe-item">
+                                                                <div class="recipe-photo">
+                                                                    <a href="{{ route('showFork', [$item->receipt_id, $item->id]) }}">
+                                                                        <div class="overlay-box"></div>
+                                                                        <img src="{{ asset('upload/images/'. $item->receipt->image) }}">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="item-info-box">
+                                                                    <h3 class="title"><a
+                                                                                href="{{ route('showFork', [$item->receipt_id, $item->id]) }}">{{ $item->receipt->name }}</a>
+                                                                    </h3>
+                                                                    <div class="desc">
+                                                                        {{ $item->receipt->description }}
+                                                                    </div>
+                                                                </div>
+                                                                <span style="font-size:12px;color:#0366d6;">from <a href="{{route('myProfile',$item->receipt->user->id)}}">{{ $item->receipt->user->name }}</a></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                   </li>
@@ -295,17 +332,16 @@
                                             <div class="item-content">
                                                 <div class="featured-recipe-item">
                                                     <div class="recipe-photo">
-                                                        <a href="{{ route('detail',$item->receipt->id) }}">
+                                                        <a href="{{ route('detail', $item->receipt['id']) }}">
                                                             <div class="overlay-box"></div>
-                                                            <img alt="Cà phê trứng ngon chuẩn"
-                                                                 src="{{ asset('upload/images/'.$item->receipt->image) }}">
+                                                            <img src="{{ asset('upload/images/'. $item->receipt['image']) }}"/>
                                                         </a>
                                                     </div>
                                                     <div class="item-info-box">
                                                         <h3 class="title"><a
-                                                                    href="{{ route('detail',$item->receipt->id) }}">{{ $item->receipt->name }}</a>
+                                                                    href="{{ route('detail',$item->receipt['id']) }}">{{ $item->receipt['name'] }}</a>
                                                         </h3>
-                                                        <div class="desc">{{ $item->receipt->description }}
+                                                        <div class="desc">{{ $item->receipt['description'] }}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -313,15 +349,15 @@
                                             <div class="item-header">
                                                 <div class="hprofile">
                                                     <div class="avt"><a
-                                                                href="{{ route('myProfile',$item->receipt->user_id) }}">
+                                                                href="{{ route('myProfile', $item->receipt['user_id']) }}">
                                                             <img
-                                                                    src="{{ asset('upload/images/'.$item->receipt->user->avatar) }}"
+                                                                    src="{{ asset('upload/images/'. $item->receipt['user']['avatar']) }}"
                                                                     class="img-responsive"> </a></div>
                                                     <div class="profile">
                                                         <div class="postedby-text">{{ trans("sites.receipt") }} {{ trans("sites.createby") }}
                                                             :
                                                         </div>
-                                                        <a href="{{ route('myProfile',$item->receipt->user_id) }}"> {{ $item->receipt->user->name }} </a>
+                                                        <a href="{{ route('myProfile', $item->receipt['user_id']) }}"> {{ $item->receipt['user']['name'] }} </a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -35,11 +35,10 @@ class IngredientRepository extends Repository implements IngredientRepositoryInt
 
     public function updateIngreUser($request)
     {
-        $ingredient = $this->model->find($request->idIngredient);
+        $ingredient = $this->model->find($request->idIngre);
         $ingredient->name = $request->name;
         $ingredient->unit_id = $request->unit;
         $ingredient->status = 0;
         $ingredient->save();
-        return true;
     }
 }

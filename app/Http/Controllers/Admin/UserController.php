@@ -19,6 +19,7 @@ class UserController extends Controller
     public function getList()
     {
         $users = $this->userRepository->all();
+
         return view('admin.user.user',compact('users'));
     }
 
@@ -27,6 +28,7 @@ class UserController extends Controller
             return false;
         }
         $user = $this->userRepository->editStatus($request);
+
         return response($user);
     }
 }
