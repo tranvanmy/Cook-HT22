@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\ReceiptRepositoryInterface;
+
 class ReceiptController extends Controller
 {
     private $receiptRepository;
@@ -25,6 +26,7 @@ class ReceiptController extends Controller
             return false;
         }
         $this->receiptRepository->editStatus($request);
+		
         return response($request->all());
     }
 }

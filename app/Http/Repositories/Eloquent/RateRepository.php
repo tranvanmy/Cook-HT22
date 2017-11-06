@@ -19,7 +19,7 @@ class RateRepository extends Repository implements RateRepositoryInterface
 
     public function createRateByUser($request)
     {
-    	$rate = $this->model->where('receipt_id', $request->receipt_id)->where('user_id', $request->user_id)->first();
+        $rate = $this->model->where('receipt_id', $request->receipt_id)->where('user_id', $request->user_id)->first();
         if (!isset($rate->id)) {
             $this->model->create([
                 'point' => $request->point[0],

@@ -13,10 +13,8 @@ $(document).ready(function () {
                 alertify.notify('Chưa duyệt', 'error', 5, function() {});
             }
             else {
-                $('#dataTables-example tbody .rows' + data.id + " td:eq(5)").html('<i class="fa fa-cog" aria-hidden="true" title="Đã duyệt"></i>');            
+                $('#dataTables-example tbody .rows' + data.id + " td:eq(5)").html('<i class="fa fa-cog" aria-hidden="true" title="Đã duyệt"></i>');            }
                 alertify.notify('Đã duyệt', 'success', 5, function() {});
-            }
-                
         });
         $('#myModal').modal('hide');
     });

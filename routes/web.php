@@ -60,19 +60,27 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
         Route::get("list", ["uses" => 'Admin\UserController@getList'])->name("getListUser");
         Route::post("edit", ["uses" => "Admin\UserController@postEdit"])->name("postEditUser");
     });
-    Route::group(["prefix" => "rate"], function () {
-        Route::get("list", ["uses" => 'Admin\RateController@getList'])->name("getListRate");
-    });
 });
 
 //Users
 
+Route::get("create-receipt/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@getEdit'])->name("EditFork");//sửa
+Route::post("addReceipt/{id}/edit-fork/{idUserReceipt}", ['uses' => 'Users\UserReceiptController@postReceipt']);
+Route::post("addIngredient/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postAddIngredient']);
+Route::post("editIngredient/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postEditIngredient']);
+Route::post("delIngredient/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postDelIngredient']);
+Route::post("addStep/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postAddStep']);
+Route::post("editStep/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postEditStep']);
+Route::post("delStep/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postDelStep']);
+Route::post("addReceiptCate/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postReceiptCate'])->name("addReceiptCate");
+Route::post("createReceipt/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@createReceipt'])->name("createReceipt");
+Route::post("cancelReceipt/{id}/edit-fork/{idUserReceipt}", ['uses' => 'Users\UserReceiptController@cancelReceipt'])->name("cancelReceipt");
 //Edit Receipt
 Route::get("create-receipt/{id}", ["uses" => 'Users\SubmitReceiptController@getEdit'])->name("EditReceipt");//sửa
 Route::post("addReceipt/{id}", ['uses' => 'Users\SubmitReceiptController@postReceipt']);
-Route::post("addIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postAddIngredient']);
-Route::post("editIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postAddIngredient']);
-Route::post("delIngredient/{id}", ["uses" => 'Users\SubmitReceiptController@postDelIngredient']);
+Route::post("addIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postAddIngredient']);
+Route::post("editIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postEditIngredient']);
+Route::post("delIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postDelIngredient']);
 Route::post("addStep/{id}", ["uses" => 'Users\SubmitReceiptController@postAddStep']);
 Route::post("editStep/{id}", ["uses" => 'Users\SubmitReceiptController@postEditStep']);
 Route::post("delStep/{id}", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
@@ -101,6 +109,8 @@ Route::group(["prefix" => "detail/{id}"], function () {
     Route::post("/comment", ["uses" => 'Users\DetailReceiptController@comment'])->name("comment");
     Route::post("/follow", ['uses' => 'Users\FollowController@follow'])->name("follow");
     Route::post("/like", ['uses' => 'Users\LikeController@like'])->name("like");
+    Route::post('/fork',['uses' => 'Users\UserReceiptController@fork'])->name('fork');
+    Route::get("/fork/{assign_id}",['uses' => 'Users\UserReceiptController@show'])->name('showFork');
 });
 
 Route::group(["prefix" => "cart"], function () {
@@ -136,7 +146,6 @@ Route::group(["prefix" => "myprofile/{id}"], function () {
     Route::post("/follow", ['uses' => 'Users\ProfileController@follow']);
 });
 // ----------------------------------
-
 Route::get('user/{value}', function($value) {
     dd(App\Models\User::where('name', $value)->first());
 });

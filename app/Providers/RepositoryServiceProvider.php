@@ -29,6 +29,14 @@ use App\Repositories\Contracts\RateRepositoryInterface;
 use App\Repositories\Eloquent\RateRepository;
 use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Eloquent\CommentRepository;
+use App\Repositories\Contracts\UserReceiptRepositoryInterface;
+use App\Repositories\Eloquent\UserReceiptRepository;
+use App\Repositories\Contracts\UserReceiptIngredientRepositoryInterface;
+use App\Repositories\Eloquent\UserReceiptIngredientRepository;
+use App\Repositories\Contracts\UserReceiptFoodyRepositoryInterface;
+use App\Repositories\Eloquent\UserReceiptFoodyRepository;
+use App\Repositories\Contracts\UserReceiptStepRepositoryInterface;
+use App\Repositories\Eloquent\UserReceiptStepRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -62,7 +70,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'Like',
             'Follow',
             'Rate',
-            'Comment'
+            'Comment',
+            'UserReceipt',
+            'UserReceiptIngredient',
+            'UserReceiptStep',
+            'UserReceiptFoody'
         ];
         
         foreach ($models as $model) {

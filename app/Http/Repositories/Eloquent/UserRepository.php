@@ -17,8 +17,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         $receipt = $this->model->find($request['id']);
         $receipt->status = $request['status'];
         $receipt->save();
-
-        return $receipt;
+        return $user;
     }
 
     public function editProfile($request)
@@ -33,6 +32,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         $user->phone = $request->phone;
         $user->address = $request->address;
         $user->save();
+        
         return $user;
     }
 }

@@ -5,15 +5,19 @@ namespace App\Http\Controllers\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\ReceiptRepositoryInterface;
+use App\Models\Receipt;
 
 class IndexController extends Controller
 {
+    protected $receipt;
     private $receiptRepository;
 
     public function __construct(
+        Receipt $receipt,
         ReceiptRepositoryInterface $receiptRepository
     )
     {
+        $this->receipt = $receipt;
         $this->receiptRepository = $receiptRepository;
     }
 

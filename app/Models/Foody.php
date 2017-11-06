@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Foody;
+use App\Models\UserReceiptFoody;
+use App\Models\ReceiptFoody;
 
 class Foody extends Model
 {
@@ -18,6 +20,11 @@ class Foody extends Model
     public function receiptFoodies()
     {
         return $this->hasMany(ReceiptFoody::class);
+    }
+
+    public function userReceiptFoodies()
+    {
+        return $this->hasMany(UserReceiptFoody::class);
     }
 
     public function scopeParentID($query, $parent_id)

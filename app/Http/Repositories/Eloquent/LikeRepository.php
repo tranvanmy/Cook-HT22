@@ -14,12 +14,12 @@ class LikeRepository extends Repository implements LikeRepositoryInterface
 
     public function getUser($user_id, $receipt_id)
     {
-    	return $this->model->where('user_id', $user_id)->where('receipt_id', $receipt_id);
+        return $this->model->where('user_id', $user_id)->where('receipt_id', $receipt_id);
     }
 
     public function findLike($receipt_id, $user_id)
     {
-    	return $this->model->getUser($user_id, $receipt_id)->first();
+        return $this->model->where('receipt_id', $receipt_id)->where('user_id', $user_id)->first();
     }
 
     public function createLike($request)

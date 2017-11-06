@@ -103,11 +103,6 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                         <a href="{{ route('getListRate') }}"><i class="fa fa-th-list fa-fw"></i> 
-                         {{ trans("sites.evaluate") }}</a>
-                        <!-- /.nav-second-level -->
-                    </li>
-                    <li>
                         <a href="{{ route('getListUser') }}"><i class="fa fa-users fa-fw"></i> 
                         {{ trans("sites.user") }}</a>
                         <!-- /.nav-second-level -->

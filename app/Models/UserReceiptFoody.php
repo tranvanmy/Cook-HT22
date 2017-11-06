@@ -4,17 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\UserReceipt;
-use App\Models\Ingredient;
+use App\Models\Foody;
 
-class UserReceiptIngredient extends Model
+class UserReceiptFoody extends Model
 {
-    
     protected $fillable = [
-        'id',
+        'foody_id',
         'user_receipt_id',
-        'ingredient_id',
-        'note',
-        'quantity'
     ];
 
     public function userReceipt()
@@ -22,9 +18,8 @@ class UserReceiptIngredient extends Model
     	return $this->belongsTo(UserReceipt::class);
     }
 
-    public function ingredient()
+    public function foody()
     {
-    	return $this->belongsTo(Ingredient::class);
+    	return $this->belongsTo(Foody::class);
     }
-    
 }

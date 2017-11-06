@@ -20,10 +20,12 @@ interface ReceiptRepositoryInterface extends RepositoryInterface
     public function searchByAjax($keyword);
 
     public function slider();
-
+	
     public function _6newReceipt();
 
     public function topChef($count);
+
+    public function getId($id);
 
     public function top5Receipt($value, $count);
 }

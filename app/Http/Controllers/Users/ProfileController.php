@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Follow;
 use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\FollowRepositoryInterface;
-
+use App\Repositories\Contracts\UserReceiptRepositoryInterface;
 use Auth;
 
 class ProfileController extends Controller
@@ -18,11 +18,13 @@ class ProfileController extends Controller
 
     public function __construct(
         UserRepositoryInterface $userRepository,
-        FollowRepositoryInterface $followRepository
+        FollowRepositoryInterface $followRepository,
+        UserReceiptRepositoryInterface $userReceiptRepository
     )
     {
         $this->userRepository = $userRepository;
         $this->followRepository = $followRepository;
+        $this->userReceiptRepository = $userReceiptRepository;
     }
 
     public function index($id)
@@ -31,7 +33,9 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $follower = $this->followRepository->findFollow($user->id, Auth::user()->id);
         }
-        return view("users.pages.profile", compact("user", "follower"));
+        $assigns = $this->userReceiptRepository->getByAssignId($id)->get();
+
+        return view('users.pages.profile', compact('user', 'follower','assigns'));
     }
 
     public function updateProfile(Request $request)

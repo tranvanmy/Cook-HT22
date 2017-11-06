@@ -11,7 +11,13 @@
                         <div class="col-md-3">
                             <input type="checkbox" class="nameBox"
                                    name="nameBox[]" value="{{ $item2['id'] }}"
-                                   @if(!empty($receipt->receiptFoodies))
+                                   @if(isset($ur_foodies))
+                                        @foreach ($ur_foodies as $value)
+                                           @if($value->foody_id == $item2["id"])
+                                                checked="checked"
+                                           @endif
+                                        @endforeach 
+                                   @elseif(!empty($receipt->receiptFoodies))
                                        @foreach ($receipt->receiptFoodies as $value)
                                            @if($value->foody_id == $item2["id"])
                                                 checked="checked"
