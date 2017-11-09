@@ -15,7 +15,7 @@ use App\Repositories\Contracts\RateRepositoryInterface;
 use App\Repositories\Contracts\CommentRepositoryInterface;
 use App\Repositories\Contracts\FollowRepositoryInterface;
 use App\Repositories\Contracts\LikeRepositoryInterface;
-use Auth, DB;
+use Auth, DB, Cart;
 
 class DetailReceiptController extends Controller
 {
@@ -42,7 +42,8 @@ class DetailReceiptController extends Controller
         RateRepositoryInterface $rateRepository,
         UnitRepositoryInterface $unitRepository,
         FoodyRepositoryInterface $foodyRepository,
-        ReceiptStepRepositoryInterface $receiptStepRepository
+        ReceiptStepRepositoryInterface $receiptStepRepository,
+        IngredientRepositoryInterface $ingredientRepository
 
     )
     {
@@ -57,6 +58,7 @@ class DetailReceiptController extends Controller
         $this->likeRepository = $likeRepository;
         $this->followRepository = $followRepository;
         $this->receiptFoodyRepository = $receiptFoodyRepository;
+        $this->ingredientRepository = $ingredientRepository;
 
     }
 
@@ -78,6 +80,7 @@ class DetailReceiptController extends Controller
         $_top5Receipt = $this->receiptRepository->top5Receipt(0,5);
         $_top5Member = $this->followRepository->topLove(5);
         $countLike = $receipt->likes->count();
+        $ingredients = Cart::content();
         return view('users.pages.detail', compact(
             'receipt',
             'recIngre',
@@ -92,7 +95,8 @@ class DetailReceiptController extends Controller
             'countRecIngre',
             'countLike',
             '_top5Receipt',
-            '_top5Member'
+            '_top5Member',
+            'ingredients'
         ));
     }
 
@@ -139,5 +143,30 @@ class DetailReceiptController extends Controller
 
         $response = $this->commentRepository->createComment($request);
         return response($response);
+    }
+
+    public function getIngredient(Request $request)
+    {
+        if(!$request->ajax()){
+            return false;
+        }
+        $ingredient = $this->ingredientRepository->find($request->ingredient_id);
+        $ingredient_cart = Cart::add(array(
+            'id' => $ingredient->id,
+            'name' => $ingredient->name,
+            'price' => config('const.unActive'),
+            'qty' => config('const.Active')
+            )
+        );
+        return $ingredient_cart;
+    }
+
+    public function removeIngredient(Request $request)
+    {
+        if(!$request->ajax()){
+            return false;
+        }
+        Cart::remove($request->id);
+        return 'ok';
     }
 }

@@ -5,9 +5,21 @@
             <h3>2. {{ trans("sites.submit") }} {{ trans("sites.ingredient") }}</h3>
             <hr>
             <label>{{ trans("sites.name") }} {{ trans("sites.ingredient") }} </label>
-            <input type="text" class="form-control" id="nameIngredient" name="nameIngredient" value=""/>
-            <br>
 
+            @if(count($ingredients) > 0)
+                <button type="button" id="showCartButton" class="btn btn-default btn-xs" style="border:none;">
+                    <i class="fa fa-shopping-cart"></i>
+                </button>
+            @endif
+            <input type="text" class="form-control" id="nameIngredient" name="nameIngredient" value=""/>
+            
+            <br>
+            <div id="showCartResult">
+                @foreach($ingredients as $key => $item)
+                    <span class="item">{{ $item->name }}</span>
+                    <br>
+                @endforeach
+            </div>
             <label>{{ trans("sites.qty") }}</label>
             <input type="number" class="form-control" id="qtyIngredient" name="qtyIngredient" value=""/>
             <br>
@@ -63,8 +75,14 @@
                         <label>{{ trans("sites.name") }}:</label><label
                                 id="name">{{ $item->ingredient->name }}</label><br>
                         <label>{{ trans("sites.qty") }}:</label><label id="qty">{{ $item->quantity }}</label><br>
-                        <label>{{ trans("sites.unit") }}:</label><label
-                                id="unit">{{ $item->ingredient->unit_id }}</label><br>
+                        <label>{{ trans("sites.unit") }}:</label>
+                        <label id="unit">
+                            @foreach($units as $unit)
+                                @if($item->ingredient->unit_id == $unit->id)
+                                    {{ $unit->name }}
+                                @endif
+                            @endforeach
+                            </label><br>
                         <label>{{ trans("sites.note") }}:</label><label id="note">{{ $item->note }}</label>
                     </div>
                     @if(++$key % 3 == 0)

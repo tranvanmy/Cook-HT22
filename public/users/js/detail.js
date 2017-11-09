@@ -108,12 +108,41 @@ $(document).ready(function () {
     $('.reset').on('click', function () {
        id = $(this).attr('data-rateid');
         $('.reply-content' + id).val('');
+    });
 
     $('.replyForm').on('click', function () {
         id = $(this).attr('data-id');
         $('.review-comment-container' + id).slideToggle();
-});
+    });
 
+    $(".add-to-cart").on('click',function(){
+        ingredient_id = $(this).attr('data-idIngredient');
+        receipt_id = $(this).attr('data-idReceipt');
+        $.ajax({
+            url: '/detail/' + receipt_id + '/add-to-cart',
+            type:'post',
+            data:{'ingredient_id':ingredient_id},
+            success: function(data){
+                alertify.notify('Thêm nguyên liệu <span style="color:yellow;">'+data.name+'</span> vào giỏ hàng đi chợ', 'success', 5, function() {});
+            }
+        });
+
+    });
+    $(".remove-cart").on('click',function(){
+        id = $(this).attr('data-id');
+        receipt_id = $(this).attr('data-idReceipt');
+        $.ajax({
+            url: '/detail/' + receipt_id + '/remove-cart',
+            type:'post',
+            data:{'id':id},
+            success: function(data){
+                if(data == 'ok'){
+                    alertify.notify('xóa nguyên liệu khỏi giỏ hàng đi chợ', 'error', 5, function() {});
+                }
+            }
+        });
+    });
+});
 function openCity(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName('tabcontent');
