@@ -15,11 +15,11 @@ class UserReceiptFoody extends Model
 
     public function userReceipt()
     {
-    	return $this->belongsTo(UserReceipt::class);
+        return $this->belongsTo(UserReceipt::class);
     }
 
     public function foody()
     {
-    	return $this->belongsTo(Foody::class);
+        return $this->belongsTo(Foody::class);
     }
 }

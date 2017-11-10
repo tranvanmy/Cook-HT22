@@ -160,3 +160,17 @@ textarea {
 .resultStep img{
     width: 100%;
 }
+#showCartResult{
+    overflow: scroll;
+    overflow-x:hidden;
+    height: 10em;
+    display:none;
+    background: #E9EBEE;
+    padding:0.5em;
+}
+.item{
+    cursor: pointer;
+}
+.item:hover{
+    background: #B7B2BB;
+}

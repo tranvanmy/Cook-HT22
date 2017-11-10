@@ -283,8 +283,12 @@
                                         @foreach($recIngre as $item)
                                             <li class="recipe-ingredient">
                                                 <ul class="list-inline">
-
-                                                    <li><span class="fa fa-plus-circle text-blue"> </span></li>
+                                                        <li id="button">
+                                                            <span style="cursor: pointer;" class="fa fa-plus-circle text-blue add-to-cart"
+                                                             data-idIngredient ="{{ $item->ingredient_id }}"
+                                                             data-idReceipt = "{{ $item->receipt->id }}">
+                                                            </span>
+                                                         </li>
                                                     <li class="ingredient">
                                                         <span class="name">{{ $item->ingredient->name }}</span>
 

@@ -13,6 +13,7 @@ use App\Repositories\Contracts\FoodyRepositoryInterface;
 use App\Repositories\Contracts\ReceiptRepositoryInterface;
 use App\Repositories\Contracts\IngredientRepositoryInterface;
 use App\Repositories\Contracts\ReceiptStepRepositoryInterface;
+use Cart;
 
 class UserReceiptController extends Controller
 {
@@ -76,7 +77,6 @@ class UserReceiptController extends Controller
         $ur_foodies = $this->userReceiptFoodyRepository->getReceiptForkId($fork->id)->first();
         $ur_steps = $this->userReceiptStepRepository->getReceiptForkId($fork->id)->get();
         $countReceiptByAssign = $fork->user->receipts->count();
-
         return view('users.pages.fork',compact(
             'my_fork',
             'fork',
@@ -97,7 +97,7 @@ class UserReceiptController extends Controller
         $ur_ingredients = $fork->userReceiptIngredients;
         $step = $this->userReceiptStepRepository->getReceiptForkId($fork->id)->get();
         $ur_foodies = $fork->userReceiptFoodies;
-
+        $ingredients = Cart::content();
         return view('users.pages.createReceipt', compact(
             'fork',
             'receipt',
@@ -105,7 +105,8 @@ class UserReceiptController extends Controller
             'ur_ingredients',
             'ur_foodies',
             'foodies',
-            'units'
+            'units',
+            'ingredients'
         ));
     }
 

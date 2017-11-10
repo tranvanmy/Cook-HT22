@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use Auth,Cart;
 
 use App\Repositories\Contracts\ReceiptIngredientRepositoryInterface;
 use App\Repositories\Contracts\ReceiptStepRepositoryInterface;
@@ -53,6 +53,7 @@ class SubmitReceiptController extends Controller
         $foodies = $this->foodyRepository->findAllBy('id', 0);
         $units = $this->unitRepository->all();
         $receipt = $this->receiptRepository->getUserId(Auth::user()->id)->getStatus(2)->first();
+        $ingredients = Cart::content();
         if (isset($receipt)) {
             $step = $this->receiptStepRepository->getReceiptId($receipt->id)->get();
 
@@ -60,10 +61,11 @@ class SubmitReceiptController extends Controller
                 'foodies',
                 'receipt',
                 'step',
-                'units'
+                'units',
+                'ingredients'
             ));
         } 
-        return view('users.pages.createReceipt', compact('foodies', 'units'));
+        return view('users.pages.createReceipt', compact('foodies', 'units','ingredients'));
         
     }
 
@@ -234,13 +236,14 @@ class SubmitReceiptController extends Controller
         $receipt = $this->receiptRepository->find($id);
         $step = $this->receiptStepRepository->getReceiptId($receipt->id)->get();
         $recFoody = $this->receiptFoodyRepository->getReceiptId($receipt->id)->get();
-
+        $ingredients = Cart::content();
         return view('users.pages.createReceipt', compact(
             'receipt',
             'step',
             'recFoody',
             'foodies',
-            'units'
+            'units',
+            'ingredients'
         ));
     }
 }

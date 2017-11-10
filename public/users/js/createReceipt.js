@@ -94,6 +94,10 @@ $(document).ready(function () {
         }
     });
 
+    $("#nameIngredient").on("keyup",function(){
+        value = $(this).val();
+    });
+
     $("#addIngredient").on("click", function () {
         name = $("#nameIngredient").val();
         qty = $("#qtyIngredient").val();
@@ -408,6 +412,27 @@ $(document).ready(function () {
     $(".prev-step").on("click", function (e) {
         var $active = $('.wizard .nav-tabs li.active');
         prevTab($active);
+    });
+
+    $("#showCartButton").click(function() {
+      $("#showCartResult").slideToggle("slow");
+    });
+
+    $(".item").on("click",function(){
+        valueInCart =  $(this).text();
+        $("#nameIngredient").val(valueInCart);
+        $("#showCartResult").hide(1000);
+    });
+    
+    $("#nameIngredient").keyup(function(){
+        var val = $(this).val().toLowerCase();
+        $('#showCartResult .item').hide();
+        $('#showCartResult .item').each(function(){
+            var text = $(this).text().toLowerCase();
+            if(text.indexOf(val) != -1){
+                $(this).show();
+            }
+        });
     });
 });
 

@@ -111,6 +111,8 @@ Route::group(["prefix" => "detail/{id}"], function () {
     Route::post("/like", ['uses' => 'Users\LikeController@like'])->name("like");
     Route::post('/fork',['uses' => 'Users\UserReceiptController@fork'])->name('fork');
     Route::get("/fork/{assign_id}",['uses' => 'Users\UserReceiptController@show'])->name('showFork');
+    Route::post('/add-to-cart',['uses'=> 'Users\DetailReceiptController@getIngredient'])->name('addToCart');
+    Route::post('/remove-cart',['uses'=> 'Users\DetailReceiptController@removeIngredient'])->name('addToCart');
 });
 
 Route::group(["prefix" => "cart"], function () {
