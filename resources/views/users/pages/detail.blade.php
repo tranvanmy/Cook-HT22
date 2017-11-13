@@ -217,6 +217,19 @@
                                     </a>
                                 @endif
                             </li>
+                            <li class="tool-item">
+                                @if(Auth::check())
+                                    <a id="clone" data-receipt_id="{{ $receipt->id }}" @if($receipt->user_id != Auth::user()->id) data-user_id="{{ Auth::user()->id }}" @endif href="javascript:void(0)">
+                                        <i class="fa fa-clone"></i>
+                                        <p id="totalFork">Clone</p>
+                                    </a>
+                                @else
+                                    <a href="{{ route('login') }}">
+                                        <i class="fa fa-clone"></i>
+                                        <p id="totalLike">clone</p>
+                                    </a>
+                                @endif
+                            </li>
                         </ul>
                         <div class="clearfix"></div>
                     </div>
@@ -467,6 +480,8 @@
 @endif
 @endsection
 @section("script")
+
+    {{ Html::script("users/js/clone.js") }}
     {{ Html::script("users/js/fork.js") }}
     {{ Html::script("users/js/like.js") }}
     {{ Html::script("users/js/follow.js") }}

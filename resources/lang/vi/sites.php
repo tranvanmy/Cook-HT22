@@ -140,7 +140,7 @@ return [
     "createFail" => 'Tạo công thức thất bại',
     'deleteFail' => 'Chưa có công thức nào khởi tạo',
     'content' => 'Nội dung',
-    'createReceipt' => 'Tạo công thức',
+    'createReceipt' => 'Đăng công thức',
     'cancel' => "Hủy",
     'nameIngre' => 'Tên nguyên liệu',
     'step1' => 'Bước 1',

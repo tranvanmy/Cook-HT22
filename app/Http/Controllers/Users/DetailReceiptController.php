@@ -169,4 +169,52 @@ class DetailReceiptController extends Controller
         Cart::remove($request->id);
         return 'ok';
     }
+
+    public function cloneReceipt(Request $request)
+    {
+        if(!$request->ajax()){
+            return false;
+        }
+        $receipt_id = $request->receipt_id;
+        $user_id = $request->user_id;
+        $oldReceipt = $this->receiptRepository->find($receipt_id);
+        $newReceipt = $this->receiptRepository->create([
+            'name' => $oldReceipt->name,
+            'time' => $oldReceipt->time,
+            'ration' => $oldReceipt->ration,
+            'complex' => $oldReceipt->complex,
+            'description' => $oldReceipt->description,
+            'image' => $oldReceipt->image,
+            'status' => config('const.notYet'),
+            'user_id' => $user_id
+        ]);
+
+        foreach($oldReceipt->receiptIngredients as $item){
+            $newIngredient = $this->ingredientRepository->createIngredient($item->ingredient);
+            $this->receiptIngredientRepository->create([
+                'receipt_id' => $newReceipt->id,
+                'ingredient_id' => $newIngredient->id,
+                'quantity' => $item->quantity,
+                'note' => $item->note
+            ]);
+        }
+
+        foreach ($oldReceipt->receiptSteps as $value) {
+            $this->receiptStepRepository->create([
+                'content' => $value->content,
+                'image' => $value->image,
+                'receipt_id' => $newReceipt->id,
+                'step' => $value->step
+            ]);
+        }
+
+        foreach ($oldReceipt->receiptFoodies as $value) {
+            $this->receiptFoodyRepository->create([
+                'receipt_id' => $newReceipt->id,
+                'foody_id' => $value->foody_id
+            ]);
+        }
+
+        return response($newReceipt);
+    }
 }

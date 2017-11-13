@@ -371,7 +371,7 @@ $(document).ready(function () {
         else url = "/createReceipt";
         $.post(url, {'id': id}, function (data) {
             if(data == ''){
-                swal('Cập thành công thức fork thành công', '', 'sccuess')
+                swal('Cập thành công thức fork thành công');
                 window.location.href = document.location.origin + '/detail/' + forkReceiptId + '/fork/' + idEditReceipt;
             }
             if (data == "Tạo công thức thành công") {
