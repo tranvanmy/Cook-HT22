@@ -173,7 +173,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
@@ -236,7 +236,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
-        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,
+        'Charts' => ConsoleTVs\Charts\Facades\Charts::class,           
+        'Pusher' => Pusher\Pusher::class,
     ],
 
 ];
