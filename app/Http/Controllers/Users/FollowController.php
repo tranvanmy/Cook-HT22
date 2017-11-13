@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Contracts\FollowRepositoryInterface;
+use App\Events\Followed;
 
 class FollowController extends Controller
 {
@@ -20,10 +21,12 @@ class FollowController extends Controller
     {
         if (!$request->ajax()) {
             return false;
-        } 
+        }
         $follow = $this->followRepository->findFollow($request->id_following, $request->id_follower);
+
         if (!isset($follow->id)) {
             $response = $this->followRepository->createFollow($request);
+            event(new Followed($response->userFollow->name));
             return response($response);
         }
         $follow->delete();

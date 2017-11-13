@@ -33,6 +33,8 @@
     {{ Html::script('users/bundles/corea56c.js') }}
     {{ Html::script('bower_components/alertify-js/build/alertify.js') }}
     {{ Html::script('users/bundles/base98f1.js') }}
+    {{ Html::script('users/js/follow.js') }}
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
         $(document).ready(function () {
             $.ajaxSetup({

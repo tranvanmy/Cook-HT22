@@ -171,81 +171,80 @@
                         </a>
                     </li>
                     @if(!Auth::check())
-
-                            <!-- <li class="dropdown">
-                                <a href="#" id="myTabDrop1" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
-                                    {{ trans("sites.login") }} <b class="caret"></b>
-                                </a>
-                                <div class="dropdown-menu login-widget" role="menu">
-                                    <form class="form-horizontal">
-                                        <div class="login-social">
-                                            <div class="social-icon">
-                                                <ul class="list-unstyled">
-                                                    <li class="fb wide">
-                                                        <a class="social-login"
-                                                        href="{{ url('social/redirect') }}">
-                                                        <span class="child"></span>
-                                                        <span>{{ trans("sites.login") }} Facebook</span>
-                                                    </a>
-                                                </li>
-                                                <li class="clearfix separator"></li>
-                                            </ul>
-                                        </div>
+                        <!-- <li class="dropdown">
+                            <a href="#" id="myTabDrop1" class="dropdown-toggle btn btn-default" data-toggle="dropdown">
+                                {{ trans("sites.login") }} <b class="caret"></b>
+                            </a>
+                            <div class="dropdown-menu login-widget" role="menu">
+                                <form class="form-horizontal">
+                                    <div class="login-social">
+                                        <div class="social-icon">
+                                            <ul class="list-unstyled">
+                                                <li class="fb wide">
+                                                    <a class="social-login"
+                                                    href="{{ url('social/redirect') }}">
+                                                    <span class="child"></span>
+                                                    <span>{{ trans("sites.login") }} Facebook</span>
+                                                </a>
+                                            </li>
+                                            <li class="clearfix separator"></li>
+                                        </ul>
                                     </div>
+                                </div>
 
-                                    <fieldset>
-                                        <form method="post">
-                                            <legend>{{ trans("sites.or") }} {{ trans("sites.loginWithFramgia") }}</legend>
-                                            <div id="header-login-form">
-                                                <div class="form-group">
-                                                    <input class="form-control" id="email" type="text"
-                                                    name="email" placeholder="Email"/>
+                                <fieldset>
+                                    <form method="post">
+                                        <legend>{{ trans("sites.or") }} {{ trans("sites.loginWithFramgia") }}</legend>
+                                        <div id="header-login-form">
+                                            <div class="form-group">
+                                                <input class="form-control" id="email" type="text"
+                                                name="email" placeholder="Email"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" id="password" type="password"
+                                                name="password" placeholder="Password"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="pull-left">
+                                                    <button type="button"
+                                                    class="btn btn-sm btn-danger" id="btnLoginPopup">
+                                                    <span>{{ trans("sites.login") }}</span></button>
                                                 </div>
-                                                <div class="form-group">
-                                                    <input class="form-control" id="password" type="password"
-                                                    name="password" placeholder="Password"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="pull-left">
-                                                        <button type="button"
-                                                        class="btn btn-sm btn-danger" id="btnLoginPopup">
-                                                        <span>{{ trans("sites.login") }}</span></button>
-                                                    </div>
-                                                    <div class="pull-right">
-                                                        <label>
-                                                            <input type="checkbox" name="RememberMe" checked/>
-                                                            <span>{{ trans("sites.remember") }}</span>
-                                                        </label>
-                                                    </div>
+                                                <div class="pull-right">
+                                                    <label>
+                                                        <input type="checkbox" name="RememberMe" checked/>
+                                                        <span>{{ trans("sites.remember") }}</span>
+                                                    </label>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <div class="form-group">
-                                            <ul class="list-unstyled">
-                                                <li>
-                                                    <a href="{{ url('register') }}" class="text-underline">{{ trans("sites.register")
-                                                    }}</a>
-                                                </li>
-                                                <li>
-                                                    <a href="quen-mat-khau.html" class="text-underline">{{
-                                                    trans("sites.forget_pass") }}</a>
-                                                </li>
-                                            </ul>
                                         </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        </li> -->
+                                    </form>
+                                    <div class="form-group">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a href="{{ url('register') }}" class="text-underline">{{ trans("sites.register")
+                                                }}</a>
+                                            </li>
+                                            <li>
+                                                <a href="quen-mat-khau.html" class="text-underline">{{
+                                                trans("sites.forget_pass") }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </li> -->
                         @else
                         <li class="dropdown">
-                            <!-- <a href="#" id="myTabDrop1" title="{{ trans('sites.notify') }}"
+                            <a href="#" id="myTabDrop1" title="{{ trans('sites.notify') }}"
                             class="dropdown-toggle btn btn-quickmenu" data-toggle="dropdown">
                                 <span class="fa fa-bell text-highlight"></span>
                                 <span class="sr-only">{{ trans('sites.notify') }}</span>
                             </a>
-                            <div class="dropdown-menu login-widget" role="menu">
+                            <div class="dropdown-menu notify-widget" role="menu">
                                 {{ trans('sites.notify') }} {{ trans('sites.here') }}
-                            </div> -->
+                            </div>
                         </li>
                         <li class="dropdown" style="width:40px;">
                             <a href="{{ route('myProfile',Auth::user()->id) }}" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">
