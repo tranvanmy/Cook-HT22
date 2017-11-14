@@ -27,6 +27,7 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
             'status' => config('const.notYet'),
             'user_id' => Auth::user()->id
         ]);
+        
         return $receipt;
     }
 
@@ -44,6 +45,7 @@ class ReceiptRepository extends Repository implements ReceiptRepositoryInterface
         $receipt->complex = $request->complex;
         $receipt->description = $request->description;
         $receipt->save();
+
         return $receipt;
     }
 

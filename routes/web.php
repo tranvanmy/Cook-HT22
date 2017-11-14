@@ -64,6 +64,22 @@ Route::group(["prefix" => "admin", "middleware" => 'auth'], function () {
 
 //Users
 
+//Clone
+
+Route::get("create-receipt/{id}/clone", ["uses" => 'Users\SubmitReceiptController@getEdit'])->name("EditReceipt");
+Route::post("addReceipt/{id}", ['uses' => 'Users\SubmitReceiptController@postReceipt']);
+Route::post("addIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postAddIngredient']);
+Route::post("editIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postEditIngredient']);
+Route::post("delIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postDelIngredient']);
+Route::post("addStep/{id}", ["uses" => 'Users\SubmitReceiptController@postAddStep']);
+Route::post("editStep/{id}", ["uses" => 'Users\SubmitReceiptController@postEditStep']);
+Route::post("delStep/{id}", ["uses" => 'Users\SubmitReceiptController@postDelStep']);
+Route::post("addReceiptCate/{id}", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
+Route::post("createReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
+Route::post("cancelReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
+
+
+//Fork
 Route::get("create-receipt/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@getEdit'])->name("EditFork");//sửa
 Route::post("addReceipt/{id}/edit-fork/{idUserReceipt}", ['uses' => 'Users\UserReceiptController@postReceipt']);
 Route::post("addIngredient/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postAddIngredient']);
@@ -75,8 +91,9 @@ Route::post("delStep/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserRece
 Route::post("addReceiptCate/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@postReceiptCate'])->name("addReceiptCate");
 Route::post("createReceipt/{id}/edit-fork/{idUserReceipt}", ["uses" => 'Users\UserReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt/{id}/edit-fork/{idUserReceipt}", ['uses' => 'Users\UserReceiptController@cancelReceipt'])->name("cancelReceipt");
+
 //Edit Receipt
-Route::get("create-receipt/{id}", ["uses" => 'Users\SubmitReceiptController@getEdit'])->name("EditReceipt");//sửa
+Route::get("create-receipt/{id}", ["uses" => 'Users\SubmitReceiptController@getEdit'])->name("EditReceipt");
 Route::post("addReceipt/{id}", ['uses' => 'Users\SubmitReceiptController@postReceipt']);
 Route::post("addIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postAddIngredient']);
 Route::post("editIngredient/{id}", ['uses' => 'Users\SubmitReceiptController@postEditIngredient']);
@@ -87,6 +104,7 @@ Route::post("delStep/{id}", ["uses" => 'Users\SubmitReceiptController@postDelSte
 Route::post("addReceiptCate/{id}", ["uses" => 'Users\SubmitReceiptController@postReceiptCate'])->name("addReceiptCate");
 Route::post("createReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@createReceipt'])->name("createReceipt");
 Route::post("cancelReceipt/{id}", ["uses" => 'Users\SubmitReceiptController@cancelReceipt'])->name("cancelReceipt");
+
 
 //Create Receipt
 Route::get("create-receipt", ["uses" => 'Users\SubmitReceiptController@index'])->name("receipt")->middleware("auth");
@@ -111,6 +129,7 @@ Route::group(["prefix" => "detail/{id}"], function () {
     Route::post("/like", ['uses' => 'Users\LikeController@like'])->name("like");
     Route::post('/fork',['uses' => 'Users\UserReceiptController@fork'])->name('fork');
     Route::get("/fork/{assign_id}",['uses' => 'Users\UserReceiptController@show'])->name('showFork');
+    Route::post("/clone",['uses' => 'Users\DetailReceiptController@cloneReceipt'])->name('clone');
     Route::post('/add-to-cart',['uses'=> 'Users\DetailReceiptController@getIngredient'])->name('addToCart');
     Route::post('/remove-cart',['uses'=> 'Users\DetailReceiptController@removeIngredient'])->name('addToCart');
 });

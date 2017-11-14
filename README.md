@@ -1,2 +1,1 @@
-# framgia_culinary
-framgia_culinary (Training)
+# TRANVANMY_DOAN_TOTNGHIEP_DAIHOC
